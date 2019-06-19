@@ -15,8 +15,9 @@ class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
-
+    const {props} = this as any
+    const {Component, pageProps} = props;
+    
     return (
       <Container>
         <Layout>
