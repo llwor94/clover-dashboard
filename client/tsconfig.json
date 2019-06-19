@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+      // allow `import React from 'react'` style (as opposed to `import * as React from 'react'`) for modules with no default export
+      "allowSyntheticDefaultImports": true,
+  
+      // enable for .. of iterator-style looping for ES2015 Collections
+      "downlevelIteration": true,
+  
+      // works locally, breaks CI build. this causes the rule to be enforced locally.
+      "forceConsistentCasingInFileNames": true,
+  
+      // eliminate helper function redundancy in tsc output (reduces overall output size by ~3KB. for free.)
+      "importHelpers": true,
+  
+      "inlineSourceMap": true,
+  
+      "jsx": "react",
+      "lib": ["dom", "es2015.iterable", "es6", "es7", "es2017", "esnext.asynciterable"],
+  
+      // (`module: esnext` and `moduleResolution: node` are required to enable dynamic imports (code splitting))
+      "module": "esnext",
+      "moduleResolution": "node",
+  
+      "noImplicitAny": false,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+  
+     
+      // Skip type checking of all declaration files (*.d.ts)
+      "skipLibCheck": true,
+      "skipDefaultLibCheck": true,
+  
+      "sourceMap": false,
+  
+      // enable all strict type checking options
+      "strict": true,
+  
+      // compile to es5 syntax / feature-set
+      "target": "esnext",
+  
+      
+    },
+  
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+  
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  
