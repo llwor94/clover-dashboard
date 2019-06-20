@@ -1,0 +1,28 @@
+{
+  "name": "clover-devrel-dashboard",
+  "private": true,
+  "workspaces": [
+    "dashboard/*"
+  ],
+  "scripts": {
+    "dev": "lerna run dev --parallel",
+    "build": "lerna run build --parallel",
+    "start": "lerna run start --parallel",
+    "test": "lerna run test --parallel",
+    "lint": "tslint --project tsconfig.json",
+    "pretty": "prettier --write \"dashboard/**/{*.js,*.ts,*.tsx}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint && yarn pretty"
+    }
+  },
+  "devDependencies": {
+    "lerna": "^3.15.0",
+    "husky": "^2.4.1",
+    "prettier": "^1.18.2",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.0.0"
+  }
+}

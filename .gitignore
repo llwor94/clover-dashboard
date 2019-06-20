@@ -2,3 +2,5 @@ lib/
 *.pyc
 node_modules/
 .next/
+lerna-debug.log
+.DS_Store
