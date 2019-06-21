@@ -7,10 +7,14 @@ module.exports = async () => {
     uri: process.env.GRAPHQL_ENDPOINT,
     fetch
   })
-  const remoteSchema = await introspectSchema(link)
-  const executableRemoteSchema = makeExecutableSchema({
-    schema: remoteSchema,
-    link
-  })
-  return executableRemoteSchema
+  try {
+    const remoteSchema = await introspectSchema(link)
+    const executableRemoteSchema = makeExecutableSchema({
+      schema: remoteSchema,
+      link
+    })
+    return executableRemoteSchema
+  } catch (e) {
+    return e
+  }
 }

@@ -19,26 +19,35 @@ const extendSchema = async () => {
     to do -->
   */
   }
-  const remoteSchema = await getSchema()
-  const newSchema = mergeSchemas({
-    schemas: [remoteSchema, typeExtensions],
-    resolvers: schemaExtensionResolvers
-  })
-  return newSchema
+  try {
+    const remoteSchema = await getSchema()
+    const newSchema = mergeSchemas({
+      schemas: [remoteSchema, typeExtensions],
+      resolvers: schemaExtensionResolvers
+    })
+    return newSchema
+  } catch (e) {
+    console.error('👮‍', e)
+    return e
+  }
 }
 
 const startServer = async () => {
-  const schema = await extendSchema()
-  const server = new ApolloServer({
-    schema
-  })
-  server.listen().then(({ url }) => {
-    console.log(`Server running at ${url}`)
-  })
+  try {
+    const schema = await extendSchema()
+    const server = new ApolloServer({
+      schema
+    })
+
+    const { url } = await server.listen()
+    console.log(`🐒 Server running at ${url}`)
+  } catch (e) {
+    console.error('🙈', e)
+  }
 }
 
 try {
   startServer()
 } catch (e) {
-  console.error(e)
+  console.error('🧛‍♂️', e)
 }
