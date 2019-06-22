@@ -4,7 +4,8 @@
   "description": "Dashboard for Clover Developer Relations",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js"
   },
   "keywords": [],
   "author": "Lauren Worthington & Frank Faustino",
@@ -17,5 +18,8 @@
     "graphql": "^14.3.1",
     "graphql-tools": "^4.0.4",
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
   }
 }

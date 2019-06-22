@@ -5,7 +5,11 @@ const { ApolloServer } = require('apollo-server')
 const getSchema = require('./schema')
 
 const extendSchema = async () => {
-  const typeExtensions = ``
+  const typeExtensions = `
+    extend type Ticket {
+        
+    }
+  `
   /* 
      to do --> 
         extend admin, tickets w/ answerhub data
@@ -17,12 +21,13 @@ const extendSchema = async () => {
   const schemaExtensionResolvers = {
     /*
     to do -->
-  */
+    */
   }
   try {
     const remoteSchema = await getSchema()
     const newSchema = mergeSchemas({
-      schemas: [remoteSchema, typeExtensions],
+      //schemas: [remoteSchema, typeExtensions],
+      schemas: remoteSchema,
       resolvers: schemaExtensionResolvers
     })
     return newSchema
