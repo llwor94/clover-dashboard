@@ -12,10 +12,7 @@ module.exports = async () => {
     },
     fetch
   })
-  const testlink = new HttpLink({
-    uri: 'https://api.graphql.jobs/',
-    fetch
-  })
+  
   try {
     const remoteSchema = await introspectSchema(link)
     const executableRemoteSchema = makeRemoteExecutableSchema({

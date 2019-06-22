@@ -7,35 +7,34 @@ const communityServer = require('./communityAPI')
 
 const extendSchema = async () => {
   const typeExtensions = `
-    extend type tickets {
-        createdAt: Int
-        title: String
-        body: String
+    type ticket {
+      title: String
+      body: String
+    }
+
+    extend type Query {
+      tickets: [ticket]
     }
    `
-  /* 
-     to do --> 
-        extend admin, tickets w/ answerhub data
-        create types-
-            ◦ spaces
-            ◦ user
-    */
 
   const schemaExtensionResolvers = {
-    //hi: async (parent, args, context, info) => context
-    tickets: async (parent, args, context, info) => {
-      
-      console.log(context)
+    Query: {
+      tickets: async (parent, args, context, info) => {
+        try {
+          const { list } = await communityServer.getTickets()
+          return list.map(item => ({ title: item.title, body: item.body }))
+        } catch (e) {
+          console.log(e)
+        }
+      }
     }
-    /*
-    to do -->
-    */
+    
   }
+
   try {
     const remoteSchema = await getSchema()
     const newSchema = mergeSchemas({
       schemas: [remoteSchema, typeExtensions],
-      //schemas: [getSchema, typeExtensions],
       resolvers: schemaExtensionResolvers
     })
     return newSchema
@@ -46,13 +45,8 @@ const extendSchema = async () => {
 }
 
 const startServer = async () => {
-    
-
   try {
-    const response = await communityServer.getTickets();
-    //console.log(response)
     const schema = await extendSchema()
-    //const schema = await getSchema()
     const server = new ApolloServer({
       schema
     })
