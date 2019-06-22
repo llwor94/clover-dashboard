@@ -26,8 +26,6 @@ const extendSchema = async () => {
   const schemaExtensionResolvers = {
     Query: {
       tickets: async (parent, args, context, info) => {
-        //console.log(JSON.stringify(info, null, 4))
-        //console.log(JSON.stringify(parent, null, 4))
         try {
           const { list } = await communityServer.query.tickets()
           return list.map(item => ({ title: item.title, body: item.body }))

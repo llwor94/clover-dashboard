@@ -1,36 +1,43 @@
 import { NextStatelessComponent } from 'next'
 import React from 'react'
 
+import Ticket from '../components/tickets'
+
+import axios from 'axios'
 import Layout from '../components/layout'
-import server from '../server'
+
+import { getSpaces, getTickets } from '../gql/query'
 
 interface IProps {
   spaces: any[]
+  tickets: any[]
 }
 
 const HomePage: NextStatelessComponent<IProps> = props => {
-  return <Layout spaces={props.spaces}>Welcome to Next.js!</Layout>
+  return (
+    <Layout spaces={props.spaces}>
+      {props.tickets.map(x => (
+        <Ticket key={x.title} ticket={x} />
+      ))}
+    </Layout>
+  )
 }
 
 export default HomePage
 
 HomePage.getInitialProps = async () => {
   try {
-    const { data } = await server({
-      data: {
-        query: `{
-          spaces {
-            id 
-            name
-          }
-        }`
+    const [
+      {
+        data: { spaces }
+      },
+      {
+        data: { tickets }
       }
-    })
+    ] = await axios.all([getSpaces(), getTickets()])
 
-    return data
+    return { spaces, tickets }
   } catch (e) {
     throw new Error(e)
   }
-
-  return {}
 }
