@@ -5,8 +5,8 @@ const server = axios.create({
   headers: { Authorization: `Basic ${process.env.TEST_AUTH}` }
 })
 
-module.exports = {
-  getTickets: async spaceId => {
+const query = {
+  tickets: async spaceId => {
     try {
       let { data } = await server({
         method: 'get',
@@ -18,12 +18,14 @@ module.exports = {
       console.log(e)
     }
   },
-  getSpaces: async () => {
+  spaces: async () => {
     try {
-      let {data} = await server({method: 'get', url: '/space.json'})
+      let { data } = await server({ method: 'get', url: '/space.json' })
       return data
     } catch (e) {
       console.log(e)
     }
   }
 }
+
+module.exports = { query }

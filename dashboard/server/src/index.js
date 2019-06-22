@@ -26,8 +26,10 @@ const extendSchema = async () => {
   const schemaExtensionResolvers = {
     Query: {
       tickets: async (parent, args, context, info) => {
+        //console.log(JSON.stringify(info, null, 4))
+        //console.log(JSON.stringify(parent, null, 4))
         try {
-          const { list } = await communityServer.getTickets()
+          const { list } = await communityServer.query.tickets()
           return list.map(item => ({ title: item.title, body: item.body }))
         } catch (e) {
           console.log(e)
@@ -35,13 +37,12 @@ const extendSchema = async () => {
       },
       spaces: async (parent, args, context, info) => {
         try {
-          const {list} = await communityServer.getSpaces()
-          return list.map(item => ({id: item.id, name: item.name}))
+          const { list } = await communityServer.query.spaces()
+          return list.map(item => ({ id: item.id, name: item.name }))
         } catch (e) {
           console.log(e)
         }
       }
-
     }
   }
 
