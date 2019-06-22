@@ -12,7 +12,7 @@ module.exports = async () => {
     },
     fetch
   })
-  
+
   try {
     const remoteSchema = await introspectSchema(link)
     const executableRemoteSchema = makeRemoteExecutableSchema({

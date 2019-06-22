@@ -12,8 +12,14 @@ const extendSchema = async () => {
       body: String
     }
 
+    type space {
+      id: Int
+      name: String
+    }
+
     extend type Query {
       tickets: [ticket]
+      spaces: [space]
     }
    `
 
@@ -26,9 +32,17 @@ const extendSchema = async () => {
         } catch (e) {
           console.log(e)
         }
+      },
+      spaces: async (parent, args, context, info) => {
+        try {
+          const {list} = await communityServer.getSpaces()
+          return list.map(item => ({id: item.id, name: item.name}))
+        } catch (e) {
+          console.log(e)
+        }
       }
+
     }
-    
   }
 
   try {
