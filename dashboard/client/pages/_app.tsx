@@ -13,7 +13,7 @@ class MyApp extends App {
 
       return { pageProps }
     } catch (e) {
-      throw new Error(e)
+      console.error(e)
     }
   }
 

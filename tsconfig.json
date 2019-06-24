@@ -24,8 +24,7 @@
       "noImplicitAny": false,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
-  
-    
+
       // Skip type checking of all declaration files (*.d.ts)
       "skipLibCheck": true,
       "skipDefaultLibCheck": true,

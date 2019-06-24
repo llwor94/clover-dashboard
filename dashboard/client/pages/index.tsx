@@ -16,14 +16,17 @@ interface IProps {
 const HomePage: NextStatelessComponent<IProps> = props => {
   return (
     <Layout spaces={props.spaces}>
-      {props.tickets.map(x => (
-        <Ticket key={x.title} ticket={x} />
-      ))}
+      {props.tickets.map(x => <Ticket key={x.title} ticket={x} />)}
     </Layout>
   )
 }
 
 export default HomePage
+
+HomePage.defaultProps = {
+  spaces: [],
+  tickets: []
+}
 
 HomePage.getInitialProps = async () => {
   try {
@@ -38,6 +41,6 @@ HomePage.getInitialProps = async () => {
 
     return { spaces, tickets }
   } catch (e) {
-    throw new Error(e)
+    console.error(e)
   }
 }
