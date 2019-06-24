@@ -1,0 +1,32 @@
+type Admin {
+    _id: Int! #hasura
+    id: uuid!  #hasura
+    name: String! #hasura
+    image_url: String #hasura
+    tickets: [Ticket]! #hasura
+}
+
+type Ticket {
+    _id: Int! #hasura
+    id: uuid! #hasura
+    external_id: Int! #hasura
+    assignedTo: Admin #hasura 
+    tags: [Tag]! #hasura
+}
+
+type InternalNote {
+    _id: Int! #hasura
+    id: uuid! #hasura
+    ticket: Ticket! #hasura
+    text: String! #hasura
+    author: Admin! #hasura 
+    parentNote: InternalNote #hasura
+}
+
+type Tag {
+    _id: Int! #hasura
+    id: uuid! #hasura
+    label: String! #hasura
+    tickets: [Ticket]! #hasura 
+}
+
