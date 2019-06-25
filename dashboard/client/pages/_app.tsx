@@ -1,6 +1,7 @@
 import App, { Container } from 'next/app'
 import React from 'react'
 
+import '../styles/global.scss'
 import '../styles/reset.scss'
 
 class MyApp extends App {
@@ -19,7 +20,6 @@ class MyApp extends App {
 
   render() {
     const { props } = this as any
-
     const { Component, pageProps } = props
 
     return (

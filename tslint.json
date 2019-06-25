@@ -4,7 +4,8 @@
     "jsRules": {},
     "rules": {
         "member-access": [true, "no-public"],
-        "no-console": [true, "log"]
+        "no-console": [true, "log"],
+        "jsx-no-multiline-js": false
     },
     "rulesDirectory": [],
     "linterOptions": {

@@ -1,0 +1,11 @@
+@import '../../styles/variables.scss';
+
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+.main {
+  flex-grow: 1;
+  background: $bg-primary;
+}
