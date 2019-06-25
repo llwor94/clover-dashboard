@@ -2,6 +2,6 @@ import React from 'react'
 
 import './styles.scss'
 
-const Header = () => <header>Header</header>
+const Header = () => <header></header>
 
 export default Header

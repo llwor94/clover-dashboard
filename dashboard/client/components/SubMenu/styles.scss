@@ -1,29 +1,52 @@
 .sub-menu {
-  width: 460px;
+  width: 315px;
   background-color: #EFEFEE;
 }
 
 .sub-menu__header {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 60px;
-  width: 100%;
+  width: 315px;
   border-bottom: 1px solid #D8D8D8;
   color: #44B02A;
   font-size: 14px;
   font-weight: 600;
 }
 
-.sub-menu__items {
-  height: 100%;
+.sub-menu__wrapper {
   width: 100%;
+  margin-top: 60px;
+  padding: 32px 60px 0 60px;
+  color: #828C96;
 }
 
 .sub-menu__background {
+  z-index: 0;
   position: absolute;
+  top: 0;
+  left: 60px;
   height: 100%;
-  width: 100%;
+  width: 315px;
   border-left: 20px solid #ECECEC;
   border-right: 20px solid #F1F1F1;
+}
+
+.sub-menu__title {
+  display: flex;
+  justify-content: space-between;
+  color: #828C96;
+  font-size: 16px;
+}
+
+.sub-menu__items {
+  font-size: 12px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: #D8D8D8;
 }
