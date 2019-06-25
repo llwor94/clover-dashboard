@@ -17,7 +17,11 @@ const SubMenu = ({ spaces }) => {
         </div>
         {spaces &&
           spaces.map(({ id, name }) => (
-            <div onClick={x(name)} className={"sub-menu__items" + (state === name ? "-selected" : "")} key={id}>
+            <div
+              onClick={x(name)}
+              className={'sub-menu__items' + (state === name ? '-selected' : '')}
+              key={id}
+            >
               {name}
             </div>
           ))}

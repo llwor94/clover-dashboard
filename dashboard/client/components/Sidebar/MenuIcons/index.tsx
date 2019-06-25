@@ -7,16 +7,16 @@ import ProfileIcon from './ProfileIcon'
 
 const icons = ['analytics', 'assigned', 'main', 'profile']
 
-const selector = (item, selected) => {
+const selector = item => {
   switch (item) {
     case icons[0]:
-      return <AnalyticsIcon selected={selected} />
+      return <AnalyticsIcon />
     case icons[1]:
-      return <AssignedIcon selected={selected} />
+      return <AssignedIcon />
     case icons[2]:
-      return <MainIcon selected={selected} />
+      return <MainIcon />
     case icons[3]:
-      return <ProfileIcon selected={selected} />
+      return <ProfileIcon />
     default:
       return null
   }
@@ -30,7 +30,7 @@ const MenuIcons = ({ selected, toggleSelected }) => (
         onClick={toggleSelected(icon)}
         className={selected === icon ? 'selected' : ''}
       >
-        {selector(icon, selected === icon)}
+        {selector(icon)}
       </div>
     ))}
   </>
