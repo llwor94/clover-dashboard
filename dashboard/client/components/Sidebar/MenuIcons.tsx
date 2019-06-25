@@ -24,7 +24,15 @@ const selector = (item, selected) => {
 
 const MenuIcons = ({ selected, toggleSelected }) => (
   <>
-    {icons.map(icon => <div key={icon} onClick={toggleSelected(icon)} className={selected === icon ? "selected" : ""}>{selector(icon, selected === icon)}</div>)}
+    {icons.map(icon => (
+      <div
+        key={icon}
+        onClick={toggleSelected(icon)}
+        className={selected === icon ? 'selected' : ''}
+      >
+        {selector(icon, selected === icon)}
+      </div>
+    ))}
   </>
 )
 

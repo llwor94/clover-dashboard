@@ -1,10 +1,9 @@
+import axios from 'axios'
 import { NextStatelessComponent } from 'next'
 import React from 'react'
 
-import Ticket from '../components/tickets'
-
-import axios from 'axios'
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
+import Ticket from '../components/Ticket'
 
 import { getSpaces, getTickets } from '../gql/query'
 
@@ -13,15 +12,13 @@ interface IProps {
   tickets: any[]
 }
 
-const HomePage: NextStatelessComponent<IProps> = props => {
-  return (
-    <Layout spaces={props.spaces}>
-      {props.tickets.map(x => <Ticket key={x.title} ticket={x} />)}
-    </Layout>
-  )
-}
-
-export default HomePage
+const HomePage: NextStatelessComponent<IProps> = ({ spaces, tickets }) => (
+  <Layout spaces={spaces}>
+    {tickets.map(t => (
+      <Ticket key={t.title} ticket={t} />
+    ))}
+  </Layout>
+)
 
 HomePage.defaultProps = {
   spaces: [],
@@ -44,3 +41,5 @@ HomePage.getInitialProps = async () => {
     console.error(e)
   }
 }
+
+export default HomePage

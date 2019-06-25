@@ -9,7 +9,7 @@
     "build": "lerna run build --parallel",
     "start": "lerna run start --parallel",
     "test": "lerna run test --parallel",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "tslint --project tsconfig.json --fix",
     "pretty": "prettier --write \"dashboard/**/{*.js,*.ts,*.tsx}\""
   },
   "husky": {
