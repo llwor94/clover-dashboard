@@ -1,15 +1,16 @@
 import React from 'react'
 
-import SideNav from '../Sidebar'
+import RightPanel from '../RightPanel'
+import Sidebar from '../Sidebar'
 import SubMenu from '../SubMenu'
 
 import './styles.scss'
 
 const Layout = ({ children, spaces }) => (
   <div className="layout">
-    <SideNav />
+    <Sidebar />
     <SubMenu spaces={spaces} />
-    <main className="main">{children}</main>
+    <RightPanel>{children}</RightPanel>
   </div>
 )
 
