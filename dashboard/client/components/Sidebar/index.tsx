@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import MenuIcons from './MenuIcons'
+import MenuIcons from './MenuIcons/'
 
 import './styles.scss'
 
