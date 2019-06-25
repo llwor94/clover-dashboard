@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import './styles.scss'
 
 const SubMenu = ({ spaces }) => {
-  const [state, setState] = useState()
+  const [selected, setSelected] = useState()
 
-  const x = t => _ => setState(t)
+  const x = t => _ => setSelected(t)
 
   return (
     <div className="sub-menu">
@@ -17,13 +17,17 @@ const SubMenu = ({ spaces }) => {
         </div>
         {spaces &&
           spaces.map(({ id, name }) => (
-            <div
-              onClick={x(name)}
-              className={'sub-menu__items' + (state === name ? '-selected' : '')}
-              key={id}
-            >
-              {name}
-            </div>
+            <>
+              <div
+                onClick={x(name)}
+                className={'sub-menu__items' + (selected === name ? '-selected' : '')}
+                key={id}
+              >
+                <div>{name}</div>
+                <div>{Math.round(Math.random() * 100)}</div>
+              </div>
+              <div className="test" />
+            </>
           ))}
       </div>
       <div className="sub-menu__background" />
