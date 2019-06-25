@@ -1,17 +1,16 @@
 import React from 'react'
 
-import css from '../../styles/layout.scss'
-import SideNav from './sidebar'
-import SpacesNav from './spacesnav'
+import SideNav from '../Sidebar'
+import SubMenu from '../SubMenu'
 
-const Layout = ({ children, spaces }) => {
-  return (
-    <div className={css.layout}>
-      <SideNav />
-      <SpacesNav spaces={spaces} />
-      <div className={css.main}>{children}</div>
-    </div>
-  )
-}
+import './styles.scss'
+
+const Layout = ({ children, spaces }) => (
+  <div className="layout">
+    <SideNav />
+    <SubMenu spaces={spaces} />
+    <main className="main">{children}</main>
+  </div>
+)
 
 export default Layout
