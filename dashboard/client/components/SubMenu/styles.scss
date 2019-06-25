@@ -27,6 +27,7 @@
 }
 
 .sub-menu__background {
+  pointer-events: none;
   z-index: 0;
   position: absolute;
   top: 0;
@@ -49,4 +50,10 @@
   margin-top: 50px;
   margin-bottom: 50px;
   border: #D8D8D8;
+
+  &-selected {
+    @extend .sub-menu__items;
+    color: #2E3F52;
+    font-weight: 700;
+  }
 }

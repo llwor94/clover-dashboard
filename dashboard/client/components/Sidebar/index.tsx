@@ -5,9 +5,9 @@ import MenuIcons from './MenuIcons/'
 import './styles.scss'
 
 const SideBar = () => {
-  const [selected, setState] = useState('analytics')
+  const [selected, setSelected] = useState('analytics')
 
-  const toggleSelected = t => _ => setState(t)
+  const toggleSelected = t => _ => setSelected(t)
 
   return (
     <div className="sidebar">
