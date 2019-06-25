@@ -5,32 +5,22 @@ import AssignedIcon from './AssignedIcon'
 import MainIcon from './MainIcon'
 import ProfileIcon from './ProfileIcon'
 
-const icons = ['analytics', 'assigned', 'main', 'profile']
-
-const selector = item => {
-  switch (item) {
-    case icons[0]:
-      return <AnalyticsIcon />
-    case icons[1]:
-      return <AssignedIcon />
-    case icons[2]:
-      return <MainIcon />
-    case icons[3]:
-      return <ProfileIcon />
-    default:
-      return null
-  }
-}
+const icons = [
+  { name: 'analytics', Component: AnalyticsIcon },
+  { name: 'assigned', Component: AssignedIcon },
+  { name: 'main', Component: MainIcon },
+  { name: 'profile', Component: ProfileIcon }
+]
 
 const MenuIcons = ({ selected, toggleSelected }) => (
   <>
-    {icons.map(icon => (
+    {icons.map(({ Component, name }) => (
       <div
-        key={icon}
-        onClick={toggleSelected(icon)}
-        className={selected === icon ? 'selected' : ''}
+        key={name}
+        onClick={toggleSelected(name)}
+        className={selected === name ? 'selected' : ''}
       >
-        {selector(icon)}
+        {<Component />}
       </div>
     ))}
   </>
