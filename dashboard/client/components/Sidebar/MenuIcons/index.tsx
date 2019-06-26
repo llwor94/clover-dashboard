@@ -3,13 +3,13 @@ import React from 'react'
 
 import AnalyticsIcon from './AnalyticsIcon'
 import AssignedIcon from './AssignedIcon'
-import MainIcon from './MainIcon'
 import ProfileIcon from './ProfileIcon'
+import TicketsIcon from './TicketsIcon'
 
 const icons = [
-  { name: '/', Icon: MainIcon },
+  { name: '/', Icon: AnalyticsIcon },
+  { name: 'tickets?space=12', Icon: TicketsIcon },
   { name: 'assigned', Icon: AssignedIcon },
-  { name: 'tickets', Icon: AnalyticsIcon },
   { name: 'profile', Icon: ProfileIcon }
 ]
 

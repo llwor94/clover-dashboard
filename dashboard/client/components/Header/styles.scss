@@ -1,6 +1,11 @@
 @import '../../styles/variables.scss';
 
 header {
+  z-index: 99;
+  position: absolute;
   height: 60px;
+  width: 100vw;
+  left: 0;
+  right: 0;
   border-bottom: 1px solid $bg-tertiary;
 }
