@@ -3,9 +3,19 @@
 .layout {
   display: flex;
   height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-.main {
+main {
   flex-grow: 1;
+  overflow: hidden;
   background: $bg-primary;
+  border-left: 20px solid $bg-secondary;
+  border-right: 20px solid $bg-highlight-secondary;
+}
+
+.content {
+  margin-top: 60px;
+  padding-top: 40px;
 }

@@ -37,7 +37,8 @@ const resolvers = {
           title: item.title,
           body: item.body,
           createdAt: item.creationDateFormatted,
-          id: item.id
+          id: item.id,
+          totalCount: item.totalCount
         }))
       } catch (e) {
         console.log(e)

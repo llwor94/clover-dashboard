@@ -1,5 +1,7 @@
 import * as React from 'react'
 
-const Assigned = () => <>🥰</>
+import Layout from '../components/Layout'
+
+const Assigned = () => <Layout>🥰</Layout>
 
 export default Assigned
