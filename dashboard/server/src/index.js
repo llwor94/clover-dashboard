@@ -52,9 +52,9 @@ const extendSchema = async () => {
   const schemaExtensionResolvers = {
     ticket: {
       ref: {
-        resolve(parent, args, context, info) {
+        async resolve(parent, args, context, info) {
           return info.mergeInfo.delegateToSchema({
-            schema: getSchema,
+            schema: await getSchema(),
             operation: 'query',
             fieldName: 'ticket_ref',
             args: {
@@ -68,7 +68,6 @@ const extendSchema = async () => {
     }
   }
 
-  // extend author to have city_weather data
   const linkHasuraTypeDefs = `
     extend type ticket {
       ref: ticket_ref
