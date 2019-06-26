@@ -1,5 +1,6 @@
 import Router from 'next/router'
-import React from 'react'
+
+import React, { Fragment } from 'react'
 
 import './styles.scss'
 
@@ -16,7 +17,7 @@ const SubMenu = ({ spaces, space }) => {
         </div>
         {spaces &&
           spaces.map(({ id, name }) => (
-            <>
+            <Fragment key={id}>
               <div
                 onClick={x(id, name)}
                 className={'sub-menu__items' + (space === id ? '-selected' : '')}
@@ -26,7 +27,7 @@ const SubMenu = ({ spaces, space }) => {
                 <div>{Math.round(Math.random() * 100)}</div>
               </div>
               <div className="test" />
-            </>
+            </Fragment>
           ))}
       </div>
       <div className="sub-menu__background" />
