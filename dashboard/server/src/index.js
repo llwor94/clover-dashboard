@@ -1,91 +1,78 @@
-// require('dotenv').config()
-// const { mergeSchemas } = require('graphql-tools')
-// const { ApolloServer } = require('apollo-server')
+require('dotenv').config()
+const express = require('express');
+const graphqlHTTP = require('express-graphql');
+const { buildSchema } = require('graphql');
+const playground = require('graphql-playground-middleware-express').default
 
-// const getSchema = require('./schema')
-// //const communityServer = require('./communityAPI')
+const community = require('./communityAPI')
+const db = require('../db/helpers')
 
-// const extendSchema = async () => {
-  
+const schema = buildSchema(`
+    type Admin {
+        id: Int!
+        name: String!
+        image_url: String
+        tickets: [Ticket]
+    }
+    type Ticket {
+        id: Int!
+        title: String!
+        body: String!
+        assignedTo: Admin
+    }
+    type Space {
+        id: Int!
+        name: String
+    }
+    type Query {
+        hello: String
+        tickets: [Ticket]
+        spaces: [Space]
+    }
+    type Mutation {
+        createAdmin(name: String!, image_url: String): Admin
+        assignAdmin(adminId: Int!, ticketId: Int!): String
+    }
+`)
 
-//   // const schemaExtensionResolvers = {
-//   //   Query: {
-//   //     tickets: {
-//   //       info: {
-//   //       resolve(parent, args, context, info) {
-//   //       try {
-//   //         const { list } = await communityServer.query.tickets(12)
-//   //         return list.map(item => ({ title: item.title, body: item.body, createdAt: item.creationDateFormatted }))
-//   //       } catch (e) {
-//   //         console.log(e)
-//   //       }
-//   //     },
-//   //   },
-//   //   },
-//   //     spaces: async (parent, args, context, info) => {
-//   //       try {
-//   //         const { list } = await communityServer.query.spaces()
-//   //         return list.map(item => ({ id: item.id, name: item.name }))
-//   //       } catch (e) {
-//   //         console.log(e)
-//   //       }
-//   //     }
-//   //   }
-//   // }
+const root = {
+    tickets: async (spaceId) => {
+        let data = await community.getTickets(spaceId);
+        let internalTickets = await db.getTickets();
 
-//   const schemaExtensionResolvers = {
-//     Query: {
-//       ticket:  async (parent, args, context, info) => {
-//       console.log(info)
-//           const schema = await getSchema()
-//           return info.mergeInfo.delegateToSchema({
-//             schema,
-//             operation: 'query',
-//             fieldName: 'ticket',
-//             //args: {where: {external_id: parent.id}},
-//             context,
-//             info
-//           })
-        
-//     }
-//     }
-//   }
+        return data.reduce((arr, curr) => {
+           let internal_ticket = internalTickets.find(t => t.external_id === curr.id)
+           
+            let ticket = {id: curr.id, title: curr.title, body: curr.body}
+            if (internal_ticket) {
+                ticket.assignedTo = {id: internal_ticket.assigned_to_id, name: internal_ticket.name, image_url: internal_ticket.image_url}
+            }
+          arr = [...arr, ticket]
+           return arr;
+        }, [])  
+    },
+    spaces: async () => {
+        let data = await community.getSpaces();
+        return data.map(({id, name}) => ({id, name}))
+    },
+    createAdmin: async ({name, image_url}) => {
+        let [admin] = await db.createAdmin(name, image_url)
 
-//   // const linkHasuraTypeDefs = `
-//   //   extend type ticket {
-//   //     ref: ticket
-//   //   }
-//   // `
+        return {...admin, tickets: []}
+    },
+    assignAdmin: async ({adminId, ticketId}) => {
+        let [ticket] = await db.assignAdmin(adminId, ticketId)
+        console.log(ticket)
+        return 'yay'
+    }
+}
 
-//   try {
-//     const remoteSchema = await getSchema()
-//     const newSchema = mergeSchemas({
-//       schemas: [remoteSchema],
-//       resolvers: schemaExtensionResolvers
-//     })
-//     return newSchema
-//   } catch (e) {
-//     console.error('👮‍', e)
-//     return e
-//   }
-// }
-
-// const startServer = async () => {
-//   try {
-//     const schema = await extendSchema()
-//     const server = new ApolloServer({
-//       schema
-//     })
-
-//     const { url } = await server.listen()
-//     console.log(`🐒 Server running at ${url}`)
-//   } catch (e) {
-//     console.error('🙈', e)
-//   }
-// }
-
-// try {
-//   startServer()
-// } catch (e) {
-//   console.error('🧛‍♂️', e)
-// }
+const app = express()
+app.use('/graphql', graphqlHTTP({
+    schema,
+    rootValue: root,
+    graphiql: true
+}))
+app.get('/playground', playground({ endpoint: '/graphql' }))
+app.listen(4000)
+console.log('Running at 4000 mon')

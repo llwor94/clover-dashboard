@@ -19,6 +19,7 @@
     "express": "^4.17.1",
     "express-graphql": "^0.8.0",
     "graphql": "^14.3.1",
+    "graphql-playground-middleware-express": "^1.7.12",
     "graphql-tools": "^4.0.4",
     "knex": "^0.17.6",
     "node-fetch": "^2.6.0",
