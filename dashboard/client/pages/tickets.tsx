@@ -29,15 +29,16 @@ const Tickets: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTicket
   }, [query])
 
   return (
-    <Layout >
+    <Layout>
       {spaces && <SubMenu spaces={spaces} space={query && query.space} />}
-    <main className="main">
-      <Header />
-      <div className="content">{tickets.map(t => (
-        <Ticket key={t.id} ticket={t} />
-      ))}</div>
-    </main>
-      
+      <main className="main">
+        <Header />
+        <div className="content">
+          {tickets.map(t => (
+            <Ticket key={t.id} ticket={t} />
+          ))}
+        </div>
+      </main>
     </Layout>
   )
 }
@@ -49,7 +50,6 @@ Tickets.defaultProps = {
 
 Tickets.getInitialProps = async ({ query }) => {
   try {
-    
     const [
       {
         data: { spaces }
@@ -60,7 +60,7 @@ Tickets.getInitialProps = async ({ query }) => {
     ] = await axios.all([getSpaces(), getTickets(query.space)])
 
     return { spaces, tickets, query }
-    //return { spaces, query }
+    // return { spaces, query }
   } catch (e) {
     console.error(e.message)
   }
