@@ -78,7 +78,7 @@ const extendSchema = async () => {
   try {
     const remoteSchema = await getSchema()
     const newSchema = mergeSchemas({
-      schemas: [remoteSchema, communityServer],
+      schemas: [remoteSchema, communityServer]
       //resolvers: schemaExtensionResolvers
     })
     return newSchema

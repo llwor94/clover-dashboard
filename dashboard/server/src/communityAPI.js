@@ -27,19 +27,18 @@ const resolvers = {
   Query: {
     tickets: async (_, { spaceId }) => {
       try {
-        let {data} = await server({
+        let { data } = await server({
           method: 'get',
           url: '/question.json',
           params: { answered: false, spaceId, sort: 'newest' }
         })
-       
+
         return data.list.map(item => ({
           title: item.title,
           body: item.body,
           createdAt: item.creationDateFormatted,
           id: item.id
         }))
-       
       } catch (e) {
         console.log(e)
       }

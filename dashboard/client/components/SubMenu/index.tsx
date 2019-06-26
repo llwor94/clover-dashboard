@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
 import Router from 'next/router'
+import React from 'react'
+
+
 import './styles.scss'
 
 const SubMenu = ({ spaces, space }) => {
-  const x = (id, name) => _ => { console.log(id, name); Router.push({pathname: '/home', query: {space: id}})}
+  const x = (id, name) => _ => Router.push({ pathname: '/home', query: { space: id } })
 
   return (
     <div className="sub-menu">
       <div className="sub-menu__header">Developer Relations Dashboard</div>
       <div className="sub-menu__wrapper">
-        <div className="sub-menu__title">
+        <div className={"sub-menu__title" + (!space ? '-selected' : '')}>
           <div>All Spaces</div>
           <div>378</div>
         </div>

@@ -1,4 +1,3 @@
 import Home from '.'
 
-
-export default Home;
+export default Home
