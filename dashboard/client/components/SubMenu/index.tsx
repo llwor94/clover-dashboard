@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
-
+import Router from 'next/router'
 import './styles.scss'
 
-const SubMenu = ({ spaces }) => {
-  const [selected, setSelected] = useState()
-
-  const x = t => _ => setSelected(t)
+const SubMenu = ({ spaces, space }) => {
+  const x = (id, name) => _ => { console.log(id, name); Router.push({pathname: '/home', query: {space: id}})}
 
   return (
     <div className="sub-menu">
@@ -19,8 +17,8 @@ const SubMenu = ({ spaces }) => {
           spaces.map(({ id, name }) => (
             <>
               <div
-                onClick={x(name)}
-                className={'sub-menu__items' + (selected === name ? '-selected' : '')}
+                onClick={x(id, name)}
+                className={'sub-menu__items' + (space === id ? '-selected' : '')}
                 key={id}
               >
                 <div>{name}</div>

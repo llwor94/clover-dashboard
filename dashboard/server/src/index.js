@@ -49,37 +49,37 @@ const extendSchema = async () => {
   //   }
   // }
 
-  const schemaExtensionResolvers = {
-    ticket: {
-      ref: {
-        resolve(parent, args, context, info) {
-          return info.mergeInfo.delegateToSchema({
-            schema: getSchema,
-            operation: 'query',
-            fieldName: 'ticket_ref',
-            args: {
-              external_id: parent.id
-            },
-            context,
-            info
-          })
-        }
-      }
-    }
-  }
+  // const schemaExtensionResolvers = {
+  //   ticket: {
+  //     ref: {
+  //       resolve(parent, args, context, info) {
+  //         return info.mergeInfo.delegateToSchema({
+  //           schema: getSchema,
+  //           operation: 'query',
+  //           fieldName: 'ticket_ref',
+  //           args: {
+  //             external_id: parent.id
+  //           },
+  //           context,
+  //           info
+  //         })
+  //       }
+  //     }
+  //   }
+  // }
 
-  // extend author to have city_weather data
-  const linkHasuraTypeDefs = `
-    extend type ticket {
-      ref: ticket_ref
-    }
-  `
+  // // extend author to have city_weather data
+  // const linkHasuraTypeDefs = `
+  //   extend type ticket {
+  //     ref: ticket_ref
+  //   }
+  // `
 
   try {
     const remoteSchema = await getSchema()
     const newSchema = mergeSchemas({
-      schemas: [remoteSchema, communityServer, linkHasuraTypeDefs],
-      resolvers: schemaExtensionResolvers
+      schemas: [remoteSchema, communityServer],
+      //resolvers: schemaExtensionResolvers
     })
     return newSchema
   } catch (e) {
