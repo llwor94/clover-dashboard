@@ -1,6 +1,8 @@
 import App, { Container } from 'next/app'
 import React from 'react'
 
+import Sidebar from '../components/Sidebar'
+
 import '../styles/global.scss'
 import '../styles/reset.scss'
 
@@ -24,6 +26,7 @@ class MyApp extends App {
 
     return (
       <Container>
+        <Sidebar />
         <Component {...pageProps} />
       </Container>
     )
