@@ -18,6 +18,7 @@ const schema = buildSchema(`
         id: Int!
         title: String!
         body: String!
+        createdAt: String
         assignedTo: Admin
     }
     type Space {
@@ -26,7 +27,7 @@ const schema = buildSchema(`
     }
     type Query {
         hello: String
-        tickets: [Ticket]
+        tickets(spaceId: Int): [Ticket]
         spaces: [Space]
     }
     type Mutation {
@@ -37,13 +38,15 @@ const schema = buildSchema(`
 
 const root = {
   tickets: async spaceId => {
+      console.log(spaceId)
+      try {
     let data = await community.getTickets(spaceId)
     let internalTickets = await db.getTickets()
 
     return data.reduce((arr, curr) => {
       let internal_ticket = internalTickets.find(t => t.external_id === curr.id)
 
-      let ticket = { id: curr.id, title: curr.title, body: curr.body }
+      let ticket = { id: curr.id, title: curr.title, body: curr.body, createdAt: curr.creationDateFormatted }
       if (internal_ticket) {
         ticket.assignedTo = {
           id: internal_ticket.assigned_to_id,
@@ -54,10 +57,17 @@ const root = {
       arr = [...arr, ticket]
       return arr
     }, [])
+} catch(e) {
+    console.error(e)
+}
   },
   spaces: async () => {
+      try {
     let data = await community.getSpaces()
     return data.map(({ id, name }) => ({ id, name }))
+      } catch(e) {
+          console.error(e)
+      }
   },
   createAdmin: async ({ name, image_url }) => {
     let [admin] = await db.createAdmin(name, image_url)

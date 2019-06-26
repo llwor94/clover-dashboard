@@ -13,7 +13,7 @@ export function getSpaces() {
   })
 }
 
-export function getTickets(spaceId = 12) {
+export function getTickets(spaceId?) {
   return server({
     data: {
       query: `{
