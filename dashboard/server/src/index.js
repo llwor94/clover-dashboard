@@ -24,8 +24,6 @@ const extendSchema = async () => {
     }
    `
 
-  
-
   // const schemaExtensionResolvers = {
   //   Query: {
   //     tickets: {
@@ -53,7 +51,7 @@ const extendSchema = async () => {
 
   const schemaExtensionResolvers = {
     ticket: {
-       ref: {
+      ref: {
         resolve(parent, args, context, info) {
           return info.mergeInfo.delegateToSchema({
             schema: getSchema,
@@ -63,20 +61,19 @@ const extendSchema = async () => {
               external_id: parent.id
             },
             context,
-            info,
-          });
-        },
-      },
-    },
-  };
+            info
+          })
+        }
+      }
+    }
+  }
 
-// extend author to have city_weather data
+  // extend author to have city_weather data
   const linkHasuraTypeDefs = `
     extend type ticket {
       ref: ticket_ref
     }
-  `;
-
+  `
 
   try {
     const remoteSchema = await getSchema()

@@ -1,6 +1,6 @@
 const axios = require('axios')
-const { ApolloServer, gql } = require('apollo-server');
-const { makeExecutableSchema } = require('graphql-tools');
+const { ApolloServer, gql } = require('apollo-server')
+const { makeExecutableSchema } = require('graphql-tools')
 
 const typeDefs = gql`
   type ticket {
@@ -10,7 +10,7 @@ const typeDefs = gql`
     createdAt: String
   }
   type space {
-    id: String 
+    id: String
     name: String
   }
   type Query {
@@ -24,14 +24,19 @@ const server = axios.create({
 })
 const resolvers = {
   Query: {
-    tickets: async (_, {spaceId}) => {
+    tickets: async (_, { spaceId }) => {
       try {
         let { data } = await server({
           method: 'get',
           url: '/question.json',
-          query: { answered: false, spaceId, sort: "newest" }
+          query: { answered: false, spaceId, sort: 'newest' }
         })
-        return data.list.map(item => ({ title: item.title, body: item.body, createdAt: item.creationDateFormatted, id: item.id }))
+        return data.list.map(item => ({
+          title: item.title,
+          body: item.body,
+          createdAt: item.creationDateFormatted,
+          id: item.id
+        }))
       } catch (e) {
         console.log(e)
       }
@@ -47,7 +52,7 @@ const resolvers = {
   }
 }
 
-module.exports = makeExecutableSchema({typeDefs, resolvers})
+module.exports = makeExecutableSchema({ typeDefs, resolvers })
 
 // const query = {
 //   tickets: async spaceId => {

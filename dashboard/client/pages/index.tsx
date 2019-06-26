@@ -35,7 +35,7 @@ HomePage.getInitialProps = async () => {
         data: { tickets }
       }
     ] = await axios.all([getSpaces(), getTickets()])
-   
+
     return { spaces, tickets }
   } catch (e) {
     console.error(e)
