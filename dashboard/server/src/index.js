@@ -38,7 +38,7 @@ const schema = buildSchema(`
 `)
 
 const root = {
-  tickets: async ({spaceId}) => {
+  tickets: async ({ spaceId }) => {
     try {
       let data = await community.getTickets(spaceId)
 

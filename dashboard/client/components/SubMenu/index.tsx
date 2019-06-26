@@ -5,6 +5,7 @@ import React, { Fragment } from 'react'
 import './styles.scss'
 
 const SubMenu = ({ spaces, space }) => {
+  
   const x = (id, name) => _ => Router.push({ pathname: '/tickets', query: { space: id } })
 
   return (
@@ -17,6 +18,7 @@ const SubMenu = ({ spaces, space }) => {
         </div>
         {spaces &&
           spaces.map(({ id, name, totalCount }) => {
+          
             if (name === 'Default' || name === 'Help') {
               return null
             }
@@ -24,7 +26,7 @@ const SubMenu = ({ spaces, space }) => {
               <Fragment key={id}>
                 <div
                   onClick={x(id, name)}
-                  className={'sub-menu__items' + (space === id ? '-selected' : '')}
+                  className={'sub-menu__items' + (parseInt(space, 10) === id ? '-selected' : '')}
                   key={id}
                 >
                   <div>{name}</div>

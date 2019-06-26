@@ -19,9 +19,7 @@ const Tickets: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTicket
   const [tickets, setTickets] = useState(initalTickets)
 
   useEffect(() => {
-   
     const fetchTickets = async () => {
-      
       if (query && query.space) {
         const { data } = await getTickets(query.space)
         setTickets(data.tickets)
