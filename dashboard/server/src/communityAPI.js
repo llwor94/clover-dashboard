@@ -14,8 +14,8 @@ const typeDefs = gql`
     name: String
   }
   type Query {
-    tickets(spaceId: Int): [ticket]
-    spaces: [space]
+    tickets(spaceId: Int): [Ticket]
+    spaces: [Space]
   }
 `
 const server = axios.create({
