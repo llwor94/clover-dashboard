@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
+const cors = require('cors')
 const playground = require('graphql-playground-middleware-express').default
 
 const community = require('./communityAPI')
@@ -95,6 +96,7 @@ app.use(
     graphiql: true
   })
 )
+app.use(cors())
 app.get('/playground', playground({ endpoint: '/graphql' }))
 app.listen(4000)
 console.log('Running at 4000 mon')
