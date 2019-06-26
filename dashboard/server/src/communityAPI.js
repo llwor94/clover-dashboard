@@ -62,7 +62,7 @@ module.exports = {
       let { data } = await server({
         method: 'get',
         url: '/question.json',
-        query: { answered: false, spaceId, sort: "newest" }
+        query: { answered: false, spaceId, sort: 'newest' }
       })
       return data.list
     } catch (e) {
@@ -78,4 +78,3 @@ module.exports = {
     }
   }
 }
-
