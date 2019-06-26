@@ -38,10 +38,10 @@ const schema = buildSchema(`
 `)
 
 const root = {
-  tickets: async spaceId => {
-    console.log(spaceId)
+  tickets: async ({spaceId}) => {
     try {
       let data = await community.getTickets(spaceId)
+
       let internalTickets = await db.getTickets()
 
       return data.reduce((arr, curr) => {
@@ -88,6 +88,7 @@ const root = {
 }
 
 const app = express()
+app.use(cors())
 app.use(
   '/graphql',
   graphqlHTTP({
@@ -96,7 +97,7 @@ app.use(
     graphiql: true
   })
 )
-app.use(cors())
+
 app.get('/playground', playground({ endpoint: '/graphql' }))
 app.listen(4000)
 console.log('Running at 4000 mon')

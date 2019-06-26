@@ -57,12 +57,13 @@ const server = axios.create({
 // module.exports = makeExecutableSchema({ typeDefs, resolvers })
 
 module.exports = {
-  getTickets: async spaceId => {
+  getTickets: async (spaceId) => {
+   
     try {
       let { data } = await server({
         method: 'get',
         url: '/question.json',
-        query: { answered: false, spaceId, sort: 'newest' }
+        params: { answered: false, spaceId, sort: 'newest' }
       })
       return data.list
     } catch (e) {
