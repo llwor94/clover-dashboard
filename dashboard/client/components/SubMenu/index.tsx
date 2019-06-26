@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 
 import './styles.scss'
 
@@ -17,17 +17,16 @@ const SubMenu = ({ spaces }) => {
         </div>
         {spaces &&
           spaces.map(({ id, name }) => (
-            <>
+            <Fragment key={id}>
               <div
                 onClick={x(name)}
                 className={'sub-menu__items' + (selected === name ? '-selected' : '')}
-                key={id}
               >
                 <div>{name}</div>
                 <div>{Math.round(Math.random() * 100)}</div>
               </div>
               <div className="test" />
-            </>
+            </Fragment>
           ))}
       </div>
       <div className="sub-menu__background" />
