@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { NextStatelessComponent } from 'next'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Layout from '../components/Layout'
 import Ticket from '../components/Ticket'
@@ -12,20 +12,32 @@ interface IProps {
   tickets: any[]
 }
 
-const HomePage: NextStatelessComponent<IProps> = ({ spaces, tickets }) => (
-  <Layout spaces={spaces}>
-    {tickets.map(t => (
-      <Ticket key={t.title} ticket={t} />
-    ))}
-  </Layout>
-)
+const HomePage: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTickets, query }) => {
+  const [tickets, setTickets] = useState(initalTickets)
+ 
+  useEffect(() => {
+    const fetchTickets = async () => {
+      const { data } = await getTickets(query.space)
+      setTickets(data.tickets)
+    }
+    fetchTickets()
+  }, [query])
+
+  return (
+    <Layout spaces={spaces} query={query}>
+      {tickets.map(t => (
+        <Ticket key={t.id} ticket={t} />
+      ))}
+    </Layout>
+  )
+}
 
 HomePage.defaultProps = {
   spaces: [],
   tickets: []
 }
 
-HomePage.getInitialProps = async () => {
+HomePage.getInitialProps = async ({ query }) => {
   try {
     const [
       {
@@ -36,7 +48,7 @@ HomePage.getInitialProps = async () => {
       }
     ] = await axios.all([getSpaces(), getTickets()])
 
-    return { spaces, tickets }
+    return { spaces, tickets, query }
   } catch (e) {
     console.error(e)
   }

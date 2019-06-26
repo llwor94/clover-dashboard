@@ -13,11 +13,12 @@ export function getSpaces() {
   })
 }
 
-export function getTickets() {
+export function getTickets(spaceId = 12) {
   return server({
     data: {
       query: `{
-            tickets {
+            tickets(spaceId: ${spaceId}) {
+              id
               title
               body
               createdAt

@@ -22,6 +22,7 @@ const server = axios.create({
   baseURL: `https://community.clover.com/services/v2/`,
   headers: { Authorization: `Basic ${process.env.TEST_AUTH}` }
 })
+
 const resolvers = {
   Query: {
     tickets: async (_, { spaceId }) => {
@@ -29,8 +30,9 @@ const resolvers = {
         let { data } = await server({
           method: 'get',
           url: '/question.json',
-          query: { answered: false, spaceId, sort: 'newest' }
+          params: { answered: false, spaceId, sort: 'newest' }
         })
+
         return data.list.map(item => ({
           title: item.title,
           body: item.body,
@@ -44,7 +46,7 @@ const resolvers = {
     spaces: async () => {
       try {
         let { data } = await server({ method: 'get', url: '/space.json' })
-        return data
+        return data.list.map(({id, name}) => ({ id, name}))
       } catch (e) {
         console.log(e)
       }
