@@ -14,7 +14,7 @@ interface IProps {
 
 const HomePage: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTickets, query }) => {
   const [tickets, setTickets] = useState(initalTickets)
-
+ 
   useEffect(() => {
     const fetchTickets = async () => {
       const { data } = await getTickets(query.space)

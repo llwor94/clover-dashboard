@@ -46,7 +46,7 @@ const resolvers = {
     spaces: async () => {
       try {
         let { data } = await server({ method: 'get', url: '/space.json' })
-        return data.list.map(item => ({ id: item.id, name: item.name }))
+        return data.list.map(({id, name}) => ({ id, name}))
       } catch (e) {
         console.log(e)
       }
