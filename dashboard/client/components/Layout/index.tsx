@@ -1,14 +1,17 @@
 import React from 'react'
 
-import RightPanel from '../RightPanel'
+import Header from '../Header'
 import SubMenu from '../SubMenu'
 
 import './styles.scss'
 
 const Layout = ({ children, spaces, query }) => (
   <div className="layout">
-    <SubMenu spaces={spaces} space={query.space} />
-    <RightPanel>{children}</RightPanel>
+    {spaces && <SubMenu spaces={spaces} space={query && query.space} />}
+    <main className="main">
+      <Header />
+      <div className="content">{children}</div>
+    </main>
   </div>
 )
 
