@@ -20,6 +20,7 @@ export function getTickets() {
             tickets {
               title
               body
+              createdAt
             }
           }`
     }
