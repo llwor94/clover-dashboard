@@ -1,7 +1,6 @@
 import Router from 'next/router'
 import React from 'react'
 
-
 import './styles.scss'
 
 const SubMenu = ({ spaces, space }) => {
@@ -11,7 +10,7 @@ const SubMenu = ({ spaces, space }) => {
     <div className="sub-menu">
       <div className="sub-menu__header">Developer Relations Dashboard</div>
       <div className="sub-menu__wrapper">
-        <div className={"sub-menu__title" + (!space ? '-selected' : '')}>
+        <div className={'sub-menu__title' + (!space ? '-selected' : '')}>
           <div>All Spaces</div>
           <div>378</div>
         </div>
