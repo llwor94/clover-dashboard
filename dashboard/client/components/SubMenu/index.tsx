@@ -5,7 +5,7 @@ import './styles.scss'
 const SubMenu = ({ spaces }) => {
   const [selected, setSelected] = useState()
 
-  const x = t => _ => setSelected(t)
+  const toggleSelected = t => _ => setSelected(t)
 
   return (
     <div className="sub-menu">
@@ -19,7 +19,7 @@ const SubMenu = ({ spaces }) => {
           spaces.map(({ id, name }) => (
             <Fragment key={id}>
               <div
-                onClick={x(name)}
+                onClick={toggleSelected(name)}
                 className={'sub-menu__items' + (selected === name ? '-selected' : '')}
               >
                 <div>{name}</div>

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 import AnalyticsIcon from './AnalyticsIcon'
@@ -6,22 +7,22 @@ import MainIcon from './MainIcon'
 import ProfileIcon from './ProfileIcon'
 
 const icons = [
-  { name: 'analytics', Component: AnalyticsIcon },
-  { name: 'assigned', Component: AssignedIcon },
-  { name: 'main', Component: MainIcon },
-  { name: 'profile', Component: ProfileIcon }
+  { name: '/', Icon: MainIcon },
+  { name: 'assigned', Icon: AssignedIcon },
+  { name: 'tickets', Icon: AnalyticsIcon },
+  { name: 'profile', Icon: ProfileIcon }
 ]
 
 const MenuIcons = ({ selected, toggleSelected }) => (
   <>
-    {icons.map(({ Component, name }) => (
-      <div
-        key={name}
-        onClick={toggleSelected(name)}
-        className={selected === name ? 'selected' : ''}
-      >
-        {<Component />}
-      </div>
+    {icons.map(({ Icon, name }) => (
+      <Link key={name} href={name}>
+        {
+          <div className={selected === name ? 'selected' : ''} onClick={toggleSelected(name)}>
+            <Icon />
+          </div>
+        }
+      </Link>
     ))}
   </>
 )
