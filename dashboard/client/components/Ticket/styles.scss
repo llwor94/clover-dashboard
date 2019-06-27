@@ -40,3 +40,32 @@
 .text {
     width: 80%;
 }
+
+.info {
+    margin: 5px 0;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.questionBy {
+    margin: 0 4px;
+}
+
+.username {
+    color: #44B02A
+}
+
+.topics {
+    display: flex;
+    justify-content: space-around;
+}
+.topic {
+    margin: 0 4px;
+    background-color: #FFDCDC;
+    padding: 2px 4px;
+}
+
+.largeMargin {
+    margin: 0 15px;
+}

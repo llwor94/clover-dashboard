@@ -5,7 +5,6 @@ const server = axios.create({
   headers: { Authorization: `Basic ${process.env.TEST_AUTH}` }
 })
 
-
 module.exports = {
   getTickets: async spaceId => {
     try {

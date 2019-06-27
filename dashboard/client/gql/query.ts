@@ -27,6 +27,14 @@ export function getTickets(spaceId?) {
                 name
                 image_url
               }
+              author {
+                id
+                username
+              }
+              topics {
+                id
+                name
+              }
             }
           }`
     }

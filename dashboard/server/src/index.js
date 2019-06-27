@@ -21,9 +21,20 @@ const schema = buildSchema(`
         body: String!
         createdAt: String
         assignedTo: Admin
+        author: User
+        topics: [Topic]
+    }
+    type User {
+        id: Int
+        username: String
+        reputation: Int
     }
     type Space {
         id: Int!
+        name: String
+    }
+    type Topic {
+        id: Int
         name: String
     }
     type Query {
@@ -51,7 +62,10 @@ const root = {
           id: curr.id,
           title: curr.title,
           body: curr.body,
-          createdAt: curr.creationDateFormatted
+          createdAt: curr.creationDateFormatted,
+          author: curr.author,
+          topics: curr.topics.map(({id, name}) => ({id, name}))
+
         }
         if (internal_ticket) {
           ticket.assignedTo = {
