@@ -22,6 +22,11 @@ export function getTickets(spaceId?) {
               title
               body
               createdAt
+              assignedTo {
+                id
+                name
+                image_url
+              }
             }
           }`
     }

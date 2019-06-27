@@ -4,4 +4,39 @@
     border-radius: 12px;
     margin: 3px 60px 0 60px;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    
+}
+.checkbox {
+   width: 15px;
+   height: 15px;
+   border: 1px solid #999999;
+    border-radius: 2px;
+    margin: 5px;
+}
+
+.image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 10px;
+    
+}
+
+.addButton {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 10px;
+    font-size: 30px;
+    background-color: #999999;
+    color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text {
+    width: 80%;
 }
