@@ -42,6 +42,13 @@
   src: url('/static/fonts/Maison-Mono-Regular.otf');
 }
 
+@font-face {
+  font-family: 'Maison Mono';
+  font-weight: 700;
+	font-style: normal;
+  src: url('/static/fonts/Maison-Mono-Bold.otf');
+}
+
 * {
   font-family: 'Circular Std';
   font-size: 100%;
