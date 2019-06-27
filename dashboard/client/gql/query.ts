@@ -13,7 +13,7 @@ export function getSpaces() {
   })
 }
 
-export function getTickets(spaceId = 12) {
+export function getTickets(spaceId?) {
   return server({
     data: {
       query: `{
@@ -22,6 +22,19 @@ export function getTickets(spaceId = 12) {
               title
               body
               createdAt
+              assignedTo {
+                id
+                name
+                image_url
+              }
+              author {
+                id
+                username
+              }
+              topics {
+                id
+                name
+              }
             }
           }`
     }

@@ -1,108 +1,119 @@
 require('dotenv').config()
-const { mergeSchemas } = require('graphql-tools')
-const { ApolloServer } = require('apollo-server')
+const { buildSchema } = require('graphql')
+const cors = require('cors')
+const express = require('express')
+const graphqlHTTP = require('express-graphql')
+const playground = require('graphql-playground-middleware-express').default
 
-const getSchema = require('./schema')
-const communityServer = require('./communityAPI')
+const community = require('./communityAPI')
+const db = require('../db/helpers')
 
-const extendSchema = async () => {
-  const typeExtensions = `
-    type ticket {
-      title: String
-      body: String
-      createdAt: String
+const app = express()
+
+const schema = buildSchema(`
+    type Admin {
+        id: Int!
+        name: String!
+        image_url: String
+        tickets: [Ticket]
     }
-
-    type space {
-      id: Int
-      name: String
+    type Ticket {
+        id: Int!
+        title: String!
+        body: String!
+        createdAt: String
+        assignedTo: Admin
+        author: User
+        topics: [Topic]
     }
-
-    extend type Query {
-      tickets: [ticket]
-      spaces: [space]
+    type User {
+        id: Int
+        username: String
+        reputation: Int
     }
-   `
+    type Space {
+        id: Int!
+        name: String
+    }
+    type Topic {
+        id: Int
+        name: String
+    }
+    type Query {
+        hello: String
+        tickets(spaceId: Int): [Ticket]
+        spaces: [Space]
+    }
+    type Mutation {
+        createAdmin(name: String!, image_url: String): Admin
+        assignAdmin(adminId: Int!, ticketId: Int!): String
+    }
+`)
 
-  // const schemaExtensionResolvers = {
-  //   Query: {
-  //     tickets: {
-  //       info: {
-  //       resolve(parent, args, context, info) {
-  //       try {
-  //         const { list } = await communityServer.query.tickets(12)
-  //         return list.map(item => ({ title: item.title, body: item.body, createdAt: item.creationDateFormatted }))
-  //       } catch (e) {
-  //         console.log(e)
-  //       }
-  //     },
-  //   },
-  //   },
-  //     spaces: async (parent, args, context, info) => {
-  //       try {
-  //         const { list } = await communityServer.query.spaces()
-  //         return list.map(item => ({ id: item.id, name: item.name }))
-  //       } catch (e) {
-  //         console.log(e)
-  //       }
-  //     }
-  //   }
-  // }
+const rootValue = {
+  tickets: async ({ spaceId }) => {
+    try {
+      const data = await community.getTickets(spaceId)
 
-  const schemaExtensionResolvers = {
-    ticket: {
-      ref: {
-        async resolve(parent, args, context, info) {
-          return info.mergeInfo.delegateToSchema({
-            schema: await getSchema(),
-            operation: 'query',
-            fieldName: 'ticket_ref',
-            args: {
-              external_id: parent.id
-            },
-            context,
-            info
-          })
-        }
+      const internalTickets = await db.getTickets()
+
+      if (data) {
+        return data.reduce((arr, curr) => {
+          const internal_ticket = internalTickets.find(t => t.external_id === curr.id)
+
+          const ticket = {
+            id: curr.id,
+            title: curr.title,
+            body: curr.body,
+            createdAt: curr.creationDateFormatted,
+            author: curr.author,
+            topics: curr.topics.map(({ id, name }) => ({ id, name }))
+          }
+          if (internal_ticket) {
+            ticket.assignedTo = {
+              id: internal_ticket.assigned_to_id,
+              name: internal_ticket.name,
+              image_url: internal_ticket.image_url
+            }
+          }
+
+          return [...arr, ticket]
+        }, [])
       }
+    } catch (e) {
+      console.error(e)
     }
-  }
-
-  const linkHasuraTypeDefs = `
-    extend type ticket {
-      ref: ticket_ref
+  },
+  spaces: async () => {
+    try {
+      const data = await community.getSpaces()
+      return data.map(({ id, name }) => ({ id, name }))
+    } catch (e) {
+      console.error(e)
     }
-  `
+  },
+  createAdmin: async ({ name, image_url }) => {
+    const [admin] = await db.createAdmin(name, image_url)
 
-  try {
-    const remoteSchema = await getSchema()
-    const newSchema = mergeSchemas({
-      schemas: [remoteSchema, communityServer, linkHasuraTypeDefs],
-      resolvers: schemaExtensionResolvers
-    })
-    return newSchema
-  } catch (e) {
-    console.error('👮‍', e)
-    return e
+    return { ...admin, tickets: [] }
+  },
+  assignAdmin: async ({ adminId, ticketId }) => {
+    const [ticket] = await db.assignAdmin(adminId, ticketId)
+
+    // do we want to return a ticket or wat, d00d?
+    return 'yay'
   }
 }
 
-const startServer = async () => {
-  try {
-    const schema = await extendSchema()
-    const server = new ApolloServer({
-      schema
-    })
+app.use(cors())
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema,
+    rootValue,
+    graphiql: true
+  })
+)
 
-    const { url } = await server.listen()
-    console.log(`🐒 Server running at ${url}`)
-  } catch (e) {
-    console.error('🙈', e)
-  }
-}
-
-try {
-  startServer()
-} catch (e) {
-  console.error('🧛‍♂️', e)
-}
+app.get('/playground', playground({ endpoint: '/graphql' }))
+app.listen(4000, () => console.log('Running at 4000 mon 🔥'))

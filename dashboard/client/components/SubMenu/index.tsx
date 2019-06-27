@@ -1,5 +1,4 @@
 import Router from 'next/router'
-
 import React, { Fragment } from 'react'
 
 import './styles.scss'
@@ -24,7 +23,7 @@ const SubMenu = ({ spaces, space }) => {
               <Fragment key={id}>
                 <div
                   onClick={x(id, name)}
-                  className={'sub-menu__items' + (space === id ? '-selected' : '')}
+                  className={'sub-menu__items' + (parseInt(space, 10) === id ? '-selected' : '')}
                   key={id}
                 >
                   <div>{name}</div>
@@ -39,4 +38,5 @@ const SubMenu = ({ spaces, space }) => {
     </div>
   )
 }
+
 export default SubMenu
