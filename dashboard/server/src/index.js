@@ -1,12 +1,14 @@
 require('dotenv').config()
-const express = require('express')
-const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
 const cors = require('cors')
+const express = require('express')
+const graphqlHTTP = require('express-graphql')
 const playground = require('graphql-playground-middleware-express').default
 
 const community = require('./communityAPI')
 const db = require('../db/helpers')
+
+const app = express()
 
 const schema = buildSchema(`
     type Admin {
@@ -48,69 +50,70 @@ const schema = buildSchema(`
     }
 `)
 
-const root = {
+const rootValue = {
   tickets: async ({ spaceId }) => {
     try {
-      let data = await community.getTickets(spaceId)
+      const data = await community.getTickets(spaceId)
 
-      let internalTickets = await db.getTickets()
+      const internalTickets = await db.getTickets()
 
-      return data.reduce((arr, curr) => {
-        let internal_ticket = internalTickets.find(t => t.external_id === curr.id)
+      if (data) {
+        return data.reduce((arr, curr) => {
+          const internal_ticket = internalTickets.find(t => t.external_id === curr.id)
 
-        let ticket = {
-          id: curr.id,
-          title: curr.title,
-          body: curr.body,
-          createdAt: curr.creationDateFormatted,
-          author: curr.author,
-          topics: curr.topics.map(({ id, name }) => ({ id, name }))
-        }
-        if (internal_ticket) {
-          ticket.assignedTo = {
-            id: internal_ticket.assigned_to_id,
-            name: internal_ticket.name,
-            image_url: internal_ticket.image_url
+          const ticket = {
+            id: curr.id,
+            title: curr.title,
+            body: curr.body,
+            createdAt: curr.creationDateFormatted,
+            author: curr.author,
+            topics: curr.topics.map(({ id, name }) => ({ id, name }))
           }
-        }
-        arr = [...arr, ticket]
-        return arr
-      }, [])
+          if (internal_ticket) {
+            ticket.assignedTo = {
+              id: internal_ticket.assigned_to_id,
+              name: internal_ticket.name,
+              image_url: internal_ticket.image_url
+            }
+          }
+
+          return [...arr, ticket]
+        }, [])
+      }
     } catch (e) {
       console.error(e)
     }
   },
   spaces: async () => {
     try {
-      let data = await community.getSpaces()
+      const data = await community.getSpaces()
       return data.map(({ id, name }) => ({ id, name }))
     } catch (e) {
       console.error(e)
     }
   },
   createAdmin: async ({ name, image_url }) => {
-    let [admin] = await db.createAdmin(name, image_url)
+    const [admin] = await db.createAdmin(name, image_url)
 
     return { ...admin, tickets: [] }
   },
   assignAdmin: async ({ adminId, ticketId }) => {
-    let [ticket] = await db.assignAdmin(adminId, ticketId)
-    console.log(ticket)
+    const [ticket] = await db.assignAdmin(adminId, ticketId)
+
+    // do we want to return a ticket or wat, d00d?
     return 'yay'
   }
 }
 
-const app = express()
 app.use(cors())
 app.use(
   '/graphql',
   graphqlHTTP({
     schema,
-    rootValue: root,
+    rootValue,
     graphiql: true
   })
 )
 
 app.get('/playground', playground({ endpoint: '/graphql' }))
-app.listen(4000)
-console.log('Running at 4000 mon')
+app.listen(4000, () => console.log('Running at 4000 mon 🔥'))

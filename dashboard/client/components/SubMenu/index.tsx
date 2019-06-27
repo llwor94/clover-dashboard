@@ -1,5 +1,4 @@
 import Router from 'next/router'
-
 import React, { Fragment } from 'react'
 
 import './styles.scss'
@@ -39,4 +38,5 @@ const SubMenu = ({ spaces, space }) => {
     </div>
   )
 }
+
 export default SubMenu

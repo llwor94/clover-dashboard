@@ -1,8 +1,8 @@
 import { NextStatelessComponent } from 'next'
 import React, { useEffect, useState } from 'react'
 
-import Layout from '../components/Layout'
 import Header from '../components/Header'
+import Layout from '../components/Layout'
 import SubMenu from '../components/SubMenu'
 import Ticket from '../components/Ticket'
 
@@ -14,7 +14,11 @@ interface IProps {
   query?: { space: string }
 }
 
-const Tickets: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTickets = [], query }) => {
+const Tickets: NextStatelessComponent<IProps> = ({
+  spaces,
+  tickets: initalTickets = [],
+  query
+}) => {
   const [tickets, setTickets] = useState(initalTickets)
 
   useEffect(() => {
@@ -36,9 +40,7 @@ const Tickets: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTicket
       <main className="main">
         <Header />
         <div className="content">
-          {tickets && tickets.map(t => (
-            <Ticket key={t.id} ticket={t} />
-          ))}
+          {tickets && tickets.map(t => <Ticket key={t.id} ticket={t} />)}
         </div>
       </main>
     </Layout>
@@ -47,7 +49,9 @@ const Tickets: NextStatelessComponent<IProps> = ({ spaces, tickets: initalTicket
 
 Tickets.getInitialProps = async ({ query }) => {
   try {
-    const { data: { spaces } } = await getSpaces()
+    const {
+      data: { spaces }
+    } = await getSpaces()
 
     return { spaces, query }
   } catch (e) {
