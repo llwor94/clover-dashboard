@@ -19,14 +19,15 @@ const Ticket = ({ ticket }) => (
     {/* )} */}
     <div className="ticket__title">
       {ticket.title}
-      <div className="ticket__date">
-        <div>
-          {moment(ticket.createdAt)
-            .subtract(6, 'hours')
-            .fromNow()
-            .toUpperCase()}
+      <div className="ticket__info">
+        <div className="ticket__date">
+          {ticket &&
+            ticket.createdAt &&
+            moment(parseInt(ticket.createdAt, 10))
+              .fromNow()
+              .toUpperCase()}
         </div>
-        <div className="ticket__margin">
+        <div className="ticket__author-wrapper">
           Question by <span className="ticket__author">{ticket.author.username}</span>
         </div>
         <div className="ticket__topics">

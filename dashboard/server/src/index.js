@@ -65,7 +65,7 @@ const rootValue = {
             id: curr.id,
             title: curr.title,
             body: curr.body,
-            createdAt: curr.creationDateFormatted,
+            createdAt: curr.creationDate,
             author: curr.author,
             topics: curr.topics.map(({ id, name }) => ({ id, name }))
           }
