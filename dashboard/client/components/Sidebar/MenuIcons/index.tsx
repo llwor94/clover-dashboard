@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { withRouter } from 'next/router'
 import React from 'react'
+
+import { withRouter } from 'next/router'
 
 import AnalyticsIcon from './AnalyticsIcon'
 import AssignedIcon from './AssignedIcon'
@@ -14,18 +15,20 @@ const icons = [
   { name: '/profile', Icon: ProfileIcon, path: '/profile' }
 ]
 
-const MenuIcons = ({ router }) => (
-  <>
-    {icons.map(({ Icon, name, path }) => (
-      <Link key={name} href={path}>
-        {
-          <div className={router.pathname === name ? 'selected' : ''}>
-            <Icon />
-          </div>
-        }
-      </Link>
-    ))}
-  </>
-)
+const MenuIcons = ({ router }) => {
+  return (
+    <>
+      {icons.map(({ Icon, name, path }) => (
+        <Link key={name} href={path}>
+          {
+            <div className={router.pathname === name ? 'selected' : ''}>
+              <Icon />
+            </div>
+          }
+        </Link>
+      ))}
+    </>
+  )
+}
 
 export default withRouter(MenuIcons)
