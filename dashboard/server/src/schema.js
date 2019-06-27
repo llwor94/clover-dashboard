@@ -7,9 +7,6 @@ const { GRAPHQL_ENDPOINT, HASURA_GRAPHQL_ADMIN_SECRET } = process.env
 module.exports = async () => {
   const link = new HttpLink({
     uri: GRAPHQL_ENDPOINT,
-    headers: {
-      'X-Hasura-admin-secret': HASURA_GRAPHQL_ADMIN_SECRET
-    },
     fetch
   })
 
