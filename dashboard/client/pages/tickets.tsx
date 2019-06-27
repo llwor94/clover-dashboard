@@ -1,6 +1,7 @@
 import { NextStatelessComponent } from 'next'
 import React, { useEffect, useState } from 'react'
 
+import Filter from '../components/Filter'
 import Header from '../components/Header'
 import Layout from '../components/Layout'
 import SubMenu from '../components/SubMenu'
@@ -34,11 +35,15 @@ const Tickets: NextStatelessComponent<IProps> = ({
     fetchTickets()
   }, [query])
 
+  const space = spaces.find(({ id }) => id === parseInt(query.space, 10))
+
   return (
     <Layout>
       <SubMenu spaces={spaces} space={query && query.space} />
       <main className="main">
         <Header />
+        <div className="tickets__heading">{space.name}</div>
+        <Filter />
         <div className="content">
           {tickets && tickets.map(t => <Ticket key={t.id} ticket={t} />)}
         </div>

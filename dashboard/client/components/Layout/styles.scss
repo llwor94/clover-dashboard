@@ -16,8 +16,15 @@ main {
 }
 
 .content {
-  margin-top: 60px;
-  padding-top: 40px;
+  margin-top: 20px;
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+.tickets__heading {
+  margin-top: 60px;
+  padding: 40px 0 40px 40px;
+  font-weight: 600;
+  color: $selected;
+  background-color: $bg-secondary;
 }
