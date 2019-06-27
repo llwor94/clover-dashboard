@@ -53,6 +53,7 @@
 }
 
 .ticket__author {
+  font-family: 'Maison Mono';
   font-weight: 700;
   color: #44B02A
 }
@@ -64,8 +65,10 @@
 
 .ticket__topic {
   margin: 0 4px;
-  padding: 2px 4px;
+  padding: 3px 4px 1.5px;
   background-color: #FFDCDC;
   border-radius: 2px;
+  font-family: 'Maison Mono';
+  font-weight: 300;
   font-size: 9px;
 }
