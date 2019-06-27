@@ -3,8 +3,8 @@ module.exports = {
     client: 'pg',
     connection: {
       host: 'localhost',
-      user: 'lworthington',
-      database: 'lworthington'
+      user: process.env.DATABASE_USER,
+      database: process.env.DATABASE_NAME
     },
     useNullAsDefault: true,
     migrations: {
