@@ -64,8 +64,7 @@ const root = {
           body: curr.body,
           createdAt: curr.creationDateFormatted,
           author: curr.author,
-          topics: curr.topics.map(({id, name}) => ({id, name}))
-
+          topics: curr.topics.map(({ id, name }) => ({ id, name }))
         }
         if (internal_ticket) {
           ticket.assignedTo = {

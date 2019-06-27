@@ -15,13 +15,22 @@ const Ticket = ({ ticket }) => (
     <div className="text">
       {ticket.title}
       <div className="info">
-      <div >
-        {moment(ticket.createdAt)
-          .subtract(6, 'hours')
-          .fromNow().toUpperCase()}
-      </div>
-      <div className='largeMargin'>Question by <span className='username'>{ticket.author.username}</span></div>
-      <div className='topics'>{ticket.topics.map(t => <div key={t.id} className='topic'>{t.name}</div>)}</div>
+        <div>
+          {moment(ticket.createdAt)
+            .subtract(6, 'hours')
+            .fromNow()
+            .toUpperCase()}
+        </div>
+        <div className="largeMargin">
+          Question by <span className="username">{ticket.author.username}</span>
+        </div>
+        <div className="topics">
+          {ticket.topics.map(t => (
+            <div key={t.id} className="topic">
+              {t.name}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </div>
