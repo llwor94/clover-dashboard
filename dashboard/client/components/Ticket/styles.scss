@@ -1,71 +1,66 @@
 .ticket {
-    background-color: #F3F3F3;
-    border: #E0E1DE solid 1px;
-    border-radius: 12px;
-    margin: 3px 60px 0 60px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    
-}
-.checkbox {
-   width: 15px;
-   height: 15px;
-   border: 1px solid #999999;
-    border-radius: 2px;
-    margin: 5px;
+  display: flex;
+  align-items: center;
+  margin: 3px 60px 0 60px;
+  padding: 10px;
+  border: #E0E1DE solid 1px;
+  border-radius: 12px;
+  background-color: #F3F3F3;
 }
 
-.image {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin: 0 10px;
-    
+// .ticket__checkbox {
+//   margin: 5px;
+//   width: 15px;
+//   height: 15px;
+//   border: 1px solid #999999;
+//   border-radius: 2px;
+// }
+
+// .ticket__image {
+//   margin: 0 10px;
+//   width: 35px;
+//   height: 35px;
+//   border-radius: 50%;
+// }
+
+// .ticket__add-button {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: 0 10px;
+//   width: 35px;
+//   height: 35px;
+//   border-radius: 50%;
+//   font-size: 30px;
+//   background-color: #999999;
+//   color: #f3f3f3;
+// }
+
+.ticket__title {
+  width: 80%;
 }
 
-.addButton {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin: 0 10px;
-    font-size: 30px;
-    background-color: #999999;
-    color: #f3f3f3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.ticket__date {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  font-size: 10px;
 }
 
-.text {
-    width: 80%;
+.ticket__author {
+  color: #44B02A
 }
 
-.info {
-    margin: 5px 0;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
+.ticket__topics {
+  display: flex;
+  justify-content: space-around;
+}
+.ticket__topic {
+  margin: 0 4px;
+  background-color: #FFDCDC;
+  padding: 2px 4px;
 }
 
-.questionBy {
-    margin: 0 4px;
-}
-
-.username {
-    color: #44B02A
-}
-
-.topics {
-    display: flex;
-    justify-content: space-around;
-}
-.topic {
-    margin: 0 4px;
-    background-color: #FFDCDC;
-    padding: 2px 4px;
-}
-
-.largeMargin {
-    margin: 0 15px;
+.ticket__margin {
+  margin: 0 15px;
 }
