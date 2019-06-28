@@ -11,14 +11,13 @@ main {
   flex-grow: 1;
   overflow: hidden;
   background: $bg-primary;
-  border-left: 20px solid $bg-secondary;
-  border-right: 20px solid $bg-highlight-secondary;
 }
 
 .content {
-  margin-top: 20px;
+  padding-top: 20px;
   height: 100%;
   overflow-y: auto;
+  border-left: 20px solid $bg-secondary;
 }
 
 .tickets__heading {
