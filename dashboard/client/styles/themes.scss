@@ -1,0 +1,55 @@
+$theme-colors: (
+  text: (
+    light: #000000,
+    dark: #FFFFFF
+  ),
+  menu-item: (
+    light: #828C96,
+    dark: #000000
+  ),
+  menu-item-secondary: (
+    light: #999999,
+    dark: #000000
+  ),
+  highlight: (
+    light: #44B02A,
+    dark: #000000
+  ),
+  selected: (
+    light: #2E3F52,
+    dark: #000000
+  ),
+  selected-secondary: (
+    light: #565656,
+    dark: #000000
+  ),
+  bg-primary: (
+    light: #EFEFEE,
+    dark: #000000
+  ),
+  bg-secondary: (
+    light: #ECECEC,
+    dark: #000000
+  ),
+  bg-tertiary: (
+    light: #D8D8D8,
+    dark: #000000
+  ),
+  bg-highlight: (
+    light: #F9F9F9,
+    dark: #000000
+  ),
+  bg-highlight-secondary: (
+    light: #F1F1F1,
+    dark: #000000
+  ),
+  border: (
+    light: #E0E1DE,
+    dark: #000000
+  )
+);
+
+@function theme-color($key: 'light', $variant: 'dark') {
+  $map: map-get($theme-colors, $key);
+  @return map-get($map, $variant);
+}
