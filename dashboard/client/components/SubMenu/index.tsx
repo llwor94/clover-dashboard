@@ -5,6 +5,7 @@ import './styles.scss'
 
 const SubMenu = ({ spaces, space }) => {
   const x = (id, name) => _ => Router.push({ pathname: '/tickets', query: { space: id } })
+  const ignoredSpaces = new Set([8, 9, 24])
 
   return (
     <div className="sub-menu">
@@ -16,7 +17,7 @@ const SubMenu = ({ spaces, space }) => {
         </div>
         {spaces &&
           spaces.map(({ id, name, totalCount }) => {
-            if (name === 'Default' || name === 'Help') {
+            if (ignoredSpaces.has(id)) {
               return null
             }
             return (
@@ -29,7 +30,7 @@ const SubMenu = ({ spaces, space }) => {
                   <div>{name}</div>
                   <div>{totalCount}</div>
                 </div>
-                <div className="test" />
+                <div className="sub-menu__item-border" />
               </Fragment>
             )
           })}

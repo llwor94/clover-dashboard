@@ -1,32 +1,38 @@
+import moment from 'moment'
 import React from 'react'
 
-import moment from 'moment'
+import EmptyCheckboxIcon from './EmptyCheckboxIcon'
+import StarIcon from './StarIcon'
 
 import './styles.scss'
 
 const Ticket = ({ ticket }) => (
   <div className="ticket">
-    <div className="checkbox" />
-    {ticket.assignedTo ? (
-      <img className="image" src={ticket.assignedTo.image_url} />
-    ) : (
-      <div className="addButton">+</div>
-    )}
-    <div className="text">
+    {/* aSB0aGluayBpJ20ga2luZGEgaW4gbG92ZSB3aXRoIHU= */}
+    {/* <div className="ticket__checkbox" /> */}
+    <EmptyCheckboxIcon />
+    <StarIcon />
+    {/* {ticket.assignedTo ? (
+      <img className="ticket__image" src={ticket.assignedTo.image_url} />
+    ) : ( */}
+    {/* <div className="ticket__add-button">+</div> */}
+    {/* )} */}
+    <div className="ticket__title">
       {ticket.title}
-      <div className="info">
-        <div>
-          {moment(ticket.createdAt)
-            .subtract(6, 'hours')
-            .fromNow()
-            .toUpperCase()}
+      <div className="ticket__info">
+        <div className="ticket__date">
+          {ticket &&
+            ticket.createdAt &&
+            moment(parseInt(ticket.createdAt, 10))
+              .fromNow()
+              .toUpperCase()}
         </div>
-        <div className="largeMargin">
-          Question by <span className="username">{ticket.author.username}</span>
+        <div className="ticket__author-wrapper">
+          Question by <span className="ticket__author">{ticket.author.username}</span>
         </div>
-        <div className="topics">
+        <div className="ticket__topics">
           {ticket.topics.map(t => (
-            <div key={t.id} className="topic">
+            <div key={t.id} className="ticket__topic">
               {t.name}
             </div>
           ))}

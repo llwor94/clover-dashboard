@@ -3,42 +3,50 @@
   font-family: 'Circular Std';
   font-weight: 400;
 	font-style: normal;
-  src: url('/static/CircularStd-Book.otf') format('otf');
+  src: url('/static/fonts/CircularStd-Book.otf');
+  // src: url('/static/fonts/CircularStd-Book.otf');
 }
 
 @font-face {
   font-family: 'Circular Std';
   font-weight: 600;
 	font-style: normal;
-  src: url('/static/CircularStd-Medium.otf') format('otf');
+  src: url('/static/fonts/CircularStd-Medium.otf');
 }
 
 @font-face {
   font-family: 'Circular Std';
   font-weight: 700;
 	font-style: normal;
-  src: url('/static/CircularStd-Bold.otf') format('otf');
+  src: url('/static/fonts/CircularStd-Bold.otf');
 }
 
 @font-face {
   font-family: 'Circular Std';
   font-weight: 900;
 	font-style: normal;
-  src: url('/static/CircularStd-Black.otf') format('otf');
+  src: url('/static/fonts/CircularStd-Black.otf');
 }
 
 @font-face {
   font-family: 'Maison Mono';
   font-weight: 300;
 	font-style: normal;
-  src: url('/static/Maison-Mono-Light.otf') format('otf');
+  src: url('/static/fonts/Maison-Mono-Light.otf');
 }
 
 @font-face {
   font-family: 'Maison Mono';
   font-weight: 400;
 	font-style: normal;
-  src: url('/static/Maison-Mono-Regular.otf') format('otf');
+  src: url('/static/fonts/Maison-Mono-Regular.otf');
+}
+
+@font-face {
+  font-family: 'Maison Mono';
+  font-weight: 700;
+	font-style: normal;
+  src: url('/static/fonts/Maison-Mono-Bold.otf');
 }
 
 * {

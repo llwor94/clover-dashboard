@@ -1,71 +1,76 @@
+@import '../../styles/themes.scss';
+
 .ticket {
-    background-color: #F3F3F3;
-    border: #E0E1DE solid 1px;
-    border-radius: 12px;
-    margin: 3px 60px 0 60px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    
-}
-.checkbox {
-   width: 15px;
-   height: 15px;
-   border: 1px solid #999999;
-    border-radius: 2px;
-    margin: 5px;
+  display: flex;
+  align-items: center;
+  margin: 3px 20px 0 20px;
+  padding: 15px 20px 15px 20px;
+  height: 65px;
+  border: #E0E1DE solid 1px;
+  border-radius: 8px;
+  background-color: #F3F3F3;
 }
 
-.image {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin: 0 10px;
-    
+.ticket svg {
+  margin-right: 10px;
 }
 
-.addButton {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin: 0 10px;
-    font-size: 30px;
-    background-color: #999999;
-    color: #f3f3f3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+// .ticket__image {
+//   margin: 0 10px;
+//   width: 35px;
+//   height: 35px;
+//   border-radius: 50%;
+// }
+
+.ticket__title {
+  height: 40px;
+  margin-left: 5px;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.text {
-    width: 80%;
+.ticket__info {
+  display: flex;
+  align-items: center;
+  margin: 3.5px 0 0 0;
 }
 
-.info {
-    margin: 5px 0;
-    font-size: 10px;
-    display: flex;
-    align-items: center;
+.ticket__date {
+  margin: 2px 0 0 0;
+  font-family: 'Maison Mono';
+  font-weight: 400;
+  font-size: 9px;
+  color: theme-color('menu-item-secondary', 'light');
 }
 
-.questionBy {
-    margin: 0 4px;
+.ticket__author-wrapper {
+  margin: 0 15px;
+  font-family: 'Maison Mono';
+  font-weight: 400;
+  font-size: 9px;
+  color: theme-color('menu-item-secondary', 'light'); 
 }
 
-.username {
-    color: #44B02A
+.ticket__author {
+  font-family: 'Maison Mono';
+  font-weight: 700;
+  color: theme-color('highlight', 'light');
 }
 
-.topics {
-    display: flex;
-    justify-content: space-around;
-}
-.topic {
-    margin: 0 4px;
-    background-color: #FFDCDC;
-    padding: 2px 4px;
+.ticket__topics {
+  display: flex;
+  justify-content: space-around;
 }
 
-.largeMargin {
-    margin: 0 15px;
+.ticket__topic {
+  margin: 0 4px;
+  padding: 3px 4px 1.5px;
+  background-color: #FFDCDC;
+  border-radius: 2px;
+  font-family: 'Maison Mono';
+  font-weight: 300;
+  font-size: 9px;
 }
