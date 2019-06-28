@@ -24,6 +24,6 @@ main {
   margin-top: 60px;
   padding: 40px 0 40px 40px;
   font-weight: 600;
-  color: theme-color('selected');
+  color: theme-color('selected', 'light');
   background-color: theme-color('bg-secondary', 'light');
 }
