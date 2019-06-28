@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import '../../styles/themes.scss';
 
 header {
   z-index: 99;
@@ -7,5 +7,5 @@ header {
   width: 100vw;
   left: 0;
   right: 0;
-  border-bottom: 1px solid $bg-tertiary;
+  border-bottom: 1px solid theme-color('bg-tertiary', 'light');
 }

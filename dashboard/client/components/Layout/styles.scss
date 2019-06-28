@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import '../../styles/themes.scss';
 
 .layout {
   display: flex;
@@ -10,20 +10,20 @@
 main {
   flex-grow: 1;
   overflow: hidden;
-  background: $bg-primary;
+  background: theme-color('bg-primary', 'light');
 }
 
 .content {
   padding-top: 20px;
   height: 100%;
   overflow-y: auto;
-  border-left: 20px solid $bg-secondary;
+  border-left: 20px solid theme-color('bg-secondary', 'light');
 }
 
 .tickets__heading {
   margin-top: 60px;
   padding: 40px 0 40px 40px;
   font-weight: 600;
-  color: $selected;
-  background-color: $bg-secondary;
+  color: theme-color('selected');
+  background-color: theme-color('bg-secondary', 'light');
 }
