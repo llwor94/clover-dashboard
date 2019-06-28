@@ -5,7 +5,7 @@ export function getSpaces() {
     data: {
       query: `{
             spaces {
-              id 
+              id
               name
             }
           }`

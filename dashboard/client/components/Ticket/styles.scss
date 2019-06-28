@@ -1,3 +1,5 @@
+@import '../../styles/themes.scss';
+
 .ticket {
   display: flex;
   align-items: center;
@@ -41,7 +43,7 @@
   font-family: 'Maison Mono';
   font-weight: 400;
   font-size: 9px;
-  color: #999999;
+  color: theme-color('menu-item-secondary', $light);
 }
 
 .ticket__author-wrapper {
@@ -49,13 +51,13 @@
   font-family: 'Maison Mono';
   font-weight: 400;
   font-size: 9px;
-  color: #999999; 
+  color: theme-color('menu-item-secondary', $light); 
 }
 
 .ticket__author {
   font-family: 'Maison Mono';
   font-weight: 700;
-  color: #44B02A
+  color: theme-color('highlight', $light);
 }
 
 .ticket__topics {
