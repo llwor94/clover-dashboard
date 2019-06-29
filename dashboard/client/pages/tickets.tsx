@@ -20,7 +20,7 @@ const Tickets: NextStatelessComponent<IProps> = ({
   tickets: initalTickets = [],
   query
 }) => {
-  const [tickets, setTickets] = useState(initalTickets)
+  const [ticketsList, setTickets] = useState(initalTickets)
 
   useEffect(() => {
     const fetchTickets = async () => {
@@ -37,6 +37,8 @@ const Tickets: NextStatelessComponent<IProps> = ({
 
   const space = spaces.find(({ id }) => id === parseInt(query.space, 10))
 
+  const tickets = ticketsList.map(t => <Ticket key={t.id} ticket={t} />)
+
   return (
     <Layout>
       <SubMenu spaces={spaces} space={query && query.space} />
@@ -44,9 +46,7 @@ const Tickets: NextStatelessComponent<IProps> = ({
         <Header />
         <div className="tickets__heading">{space.name}</div>
         <Filter />
-        <div className="content">
-          {tickets && tickets.map(t => <Ticket key={t.id} ticket={t} />)}
-        </div>
+        <div className="content">{tickets}</div>
       </main>
     </Layout>
   )
