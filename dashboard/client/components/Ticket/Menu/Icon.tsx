@@ -1,10 +1,15 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { ReactElement } from 'react'
 
 import Modal from '../Modal'
 import { useHover, useModal } from '../../../lib/hooks'
 
-const Icon: React.FC = ({ children, modal }) => {
+interface IconProps {
+  children: ReactElement
+  modal: string
+}
+
+const Icon = ({ children, modal }: IconProps): ReactElement => {
   const { hovered, toggleState } = useHover()
   const { state, toggleModal } = useModal()
 

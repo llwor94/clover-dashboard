@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import React from 'react'
 import { Transition } from 'react-transition-group'
 
@@ -16,7 +17,7 @@ const Ticket = ({ ticket }) => {
     <Transition in={hovered} timeout={150}>
       {(state: string) => (
         <div
-          className={`ticket ${state ? state : ''}`}
+          className={clsx('ticket', state)}
           onMouseEnter={toggleState(true)}
           onMouseLeave={toggleState(false)}
         >

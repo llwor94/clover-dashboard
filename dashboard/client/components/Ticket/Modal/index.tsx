@@ -5,7 +5,7 @@ import Item from './Item'
 import './styles.scss'
 
 const ADMINS = ['Frank Faustino', 'Raymond Lee', 'Emily Lucek', 'Lauren Worthington', 'Nicholas Ho']
-const CONFIRM_OPTIONS = ['👌', '🙅‍♀️']
+const CONFIRM_OPTIONS = ['👌 OK', '🙅‍♀️ Cancel']
 
 const Modal = ({ cursorX, cursorY, modal }) => {
   const renderItems = (list: string[], offSet: number) => (
