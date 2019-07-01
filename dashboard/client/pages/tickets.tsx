@@ -14,7 +14,7 @@ import Layout from '../components/Layout'
 import SubMenu from '../components/SubMenu'
 import Ticket from '../components/Ticket'
 
-import { getSpaces, getTickets } from '../gql/query'
+import { getSpaces, getTickets } from '../lib/gql/query'
 
 interface TicketsProps {
   spaces: any[]
