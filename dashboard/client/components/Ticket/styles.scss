@@ -75,18 +75,25 @@
   font-size: 9px;
 }
 
-.ticket__menu {
-  display: flex;
-  justify-content: space-evenly;
-  width: 33%;
-}
-
-.ticket-entered {
+.ticket.entered {
   background-color: #F9F9F9;
 }
 
-.entered {
-  display: none;
-  visibility: hidden;
-  opacity: 0;
+.ticket__menu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 33%;
+}
+
+.ticket__menu-item > svg {
+  margin-top: 0.5px;
+}
+
+.ticket__menu-item > * {
+  fill: #999999;
+}
+
+.ticket__menu-item.hovered > * {
+  fill: theme-color('highlight', 'light');
 }
