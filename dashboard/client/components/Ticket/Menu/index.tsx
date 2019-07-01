@@ -10,7 +10,11 @@ const icons = [StarIcon, OpenIcon, DeleteIcon, CloseIcon]
 
 const Menu: React.FC = () => (
   <div className="ticket__menu">
-    {icons.map(({ component, modal }, i) => <Icon key={i} modal={modal}>{component}</Icon>)}
+    {icons.map(({ component, modal }, i) => (
+      <Icon key={i} modal={modal}>
+        {component}
+      </Icon>
+    ))}
   </div>
 )
 
