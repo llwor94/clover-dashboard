@@ -57,6 +57,10 @@ $theme-colors: (
   bg-topic: (
     light: #FFDCDC,
     dark: #443a3a
+  ),
+  border-shadow: (
+    light: 0 3px 8px 2px rgba(0, 0, 0, 0.15),
+    dark: 0 3px 8px 2px rgba(0, 0, 0, 0.55)
   )
 );
 
