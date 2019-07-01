@@ -2,7 +2,7 @@
 
 .sub-menu {
   width: 315px;
-  background-color: theme-color('bg-primary', 'light');
+  background-color: theme-color('bg-primary', $dark);
 }
 
 .sub-menu__header {
@@ -15,8 +15,8 @@
   align-items: center;
   height: 60px;
   width: 315px;
-  border-bottom: 1px solid theme-color('bg-tertiary', 'light');
-  color: theme-color('highlight', 'light');
+  border-bottom: 1px solid theme-color('bg-tertiary', $dark);
+  color: theme-color('highlight', $dark);
   font-size: 14px;
   font-weight: 600;
 }
@@ -28,7 +28,7 @@
   left: 60px;
   width: 315px;
   margin: 40px 0 0 0;
-  color: theme-color('menu-item', 'light');
+  color: theme-color('menu-item', $dark);
 }
 
 .sub-menu__background {
@@ -39,20 +39,20 @@
   left: 60px;
   height: 100%;
   width: 315px;
-  border-left: 20px solid theme-color('bg-secondary', 'light');
-  border-right: 20px solid theme-color('bg-highlight-secondary', 'light');
+  border-left: 20px solid theme-color('bg-secondary', $dark);
+  border-right: 20px solid theme-color('bg-highlight-secondary', $dark);
 }
 
 .sub-menu__title {
   display: flex;
   justify-content: space-between;
   margin: 0 60px 60px 60px;
-  color: theme-color('menu-item', 'light');
+  color: theme-color('menu-item', $dark);
   font-size: 16px;
 
   &-selected {
     @extend .sub-menu__title;
-    color: theme-color('selected', 'light');
+    color: theme-color('selected', $dark);
     font-weight: 700;
   }
 }
@@ -67,7 +67,7 @@
 
   &-selected {
     @extend .sub-menu__items;
-    color: theme-color('selected', 'light');
+    color: theme-color('selected', $dark);
     font-weight: 700;
   }
 }
@@ -75,7 +75,7 @@
 .sub-menu__item-border {
   width: 100%;
   height: 1px;
-  background: theme-color('border', 'light');
+  background: theme-color('border', $dark);
   margin: 0;
   padding: 0;
 }

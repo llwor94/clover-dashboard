@@ -6,7 +6,7 @@
   align-items: center;
   width: 60px;
   height: 100vh;
-  background-color: theme-color('bg-tertiary', 'light');
+  background-color: theme-color('bg-tertiary', $dark);
 }
 
 .logo {
@@ -29,12 +29,12 @@
     width: 60px;
     height: 60px;
     margin: 20px 0 10px 0;
-    fill: theme-color('selected-secondary', 'light');
+    fill: theme-color('selected-secondary', $dark);
     cursor: pointer;
   }
 
   .selected {
     fill: theme-color('highlight');
-    background-color: theme-color('bg-primary', 'light');
+    background-color: theme-color('bg-primary', $dark);
   }
 }

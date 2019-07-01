@@ -6,9 +6,9 @@
   margin: 3px 20px 0 20px;
   padding: 20px 20px 15px 20px;
   height: 65px;
-  border: #E0E1DE solid 1px;
+  border: theme-color('border', $dark) solid 1px;
   border-radius: 8px;
-  background-color: #F3F3F3;
+  background-color: theme-color('bg-quaternary', $dark);
 }
 
 .ticket svg {
@@ -25,11 +25,12 @@
 .ticket__title {
   height: 40px;
   margin-left: 5px;
-  // font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 300;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: theme-color('selected', $dark)
 }
 
 .ticket__info {
@@ -43,7 +44,7 @@
   font-family: 'Maison Mono';
   font-weight: 400;
   font-size: 9px;
-  color: theme-color('menu-item-secondary', $light);
+  color: theme-color('menu-item-secondary', $dark);
 }
 
 .ticket__author-wrapper {
@@ -51,13 +52,13 @@
   font-family: 'Maison Mono';
   font-weight: 400;
   font-size: 9px;
-  color: theme-color('menu-item-secondary', $light); 
+  color: theme-color('menu-item-secondary', $dark); 
 }
 
 .ticket__author {
   font-family: 'Maison Mono';
   font-weight: 700;
-  color: theme-color('highlight', $light);
+  color: theme-color('highlight', $dark);
 }
 
 .ticket__topics {
@@ -68,7 +69,7 @@
 .ticket__topic {
   margin: 0 4px;
   padding: 3px 4px 1.5px;
-  background-color: #FFDCDC;
+  background-color: theme-color('bg-topic', $dark);
   border-radius: 2px;
   font-family: 'Maison Mono';
   font-weight: 300;
@@ -76,7 +77,7 @@
 }
 
 .ticket.entered {
-  background-color: #F9F9F9;
+  background-color: theme-color('bg-highlight', $dark);
 }
 
 .ticket__menu {
@@ -91,9 +92,9 @@
 }
 
 .ticket__menu-item > * {
-  fill: #999999;
+  fill: theme-color('menu-item-secondary', $dark);
 }
 
 .ticket__menu-item.hovered > * {
-  fill: theme-color('highlight', 'light');
+  fill: theme-color('highlight', $dark);
 }

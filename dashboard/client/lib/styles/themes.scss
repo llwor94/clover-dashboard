@@ -4,51 +4,59 @@ $dark: dark;
 $theme-colors: (
   text: (
     light: #000000,
-    dark: #FFFFFF
+    dark: #B3B3B3
   ),
   menu-item: (
     light: #828C96,
-    dark: #000000
+    dark: #acacac
   ),
   menu-item-secondary: (
     light: #999999,
-    dark: #000000
+    dark: #8c8c8c
   ),
   highlight: (
     light: #44B02A,
-    dark: #000000
+    dark: #44B02A
   ),
   selected: (
     light: #2E3F52,
-    dark: #000000
+    dark: #eeeeee
   ),
   selected-secondary: (
     light: #565656,
-    dark: #000000
+    dark: #B3B3B3
   ),
   bg-primary: (
     light: #EFEFEE,
-    dark: #000000
+    dark: #121212
   ),
   bg-secondary: (
     light: #ECECEC,
-    dark: #000000
+    dark: #121212
   ),
   bg-tertiary: (
     light: #D8D8D8,
-    dark: #000000
+    dark: #191919
+  ),
+  bg-quaternary: (
+    light: #F3F3F3,
+    dark: #171717
   ),
   bg-highlight: (
     light: #F9F9F9,
-    dark: #000000
+    dark: #171717
   ),
   bg-highlight-secondary: (
     light: #F1F1F1,
-    dark: #000000
+    dark: #121212
   ),
   border: (
     light: #E0E1DE,
-    dark: #000000
+    dark: #171717
+  ),
+  bg-topic: (
+    light: #FFDCDC,
+    dark: #443a3a
   )
 );
 

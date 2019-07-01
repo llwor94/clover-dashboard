@@ -10,7 +10,7 @@
 main {
   flex-grow: 1;
   overflow: hidden;
-  background: theme-color('bg-primary', 'light');
+  background: theme-color('bg-primary', $dark);
 }
 
 .content {
@@ -18,13 +18,13 @@ main {
   padding-bottom: 250px;
   height: 100%;
   overflow-y: auto;
-  border-left: 20px solid theme-color('bg-secondary', 'light');
+  border-left: 20px solid theme-color('bg-secondary', $dark);
 }
 
 .tickets__heading {
   margin-top: 60px;
   padding: 40px 0 40px 40px;
   font-weight: 600;
-  color: theme-color('selected', 'light');
-  background-color: theme-color('bg-secondary', 'light');
+  color: theme-color('selected', $dark);
+  background-color: theme-color('bg-secondary', $dark);
 }
