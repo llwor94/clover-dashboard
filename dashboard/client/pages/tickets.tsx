@@ -46,7 +46,7 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
   const [ticketsList, setTickets] = useState(initalTickets)
 
   useEffect(() => {
-    ; (async () => {
+    ;(async () => {
       if (query && query.space) {
         const { data } = await getTickets(query.space)
 
