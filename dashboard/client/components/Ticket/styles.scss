@@ -75,6 +75,12 @@
   font-size: 9px;
 }
 
+.ticket__menu {
+  display: flex;
+  justify-content: space-evenly;
+  width: 33%;
+}
+
 .ticket-entered {
   background-color: #F9F9F9;
 }
