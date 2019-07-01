@@ -10,13 +10,13 @@ import { useHover } from '../../lib/hooks'
 import './styles.scss'
 
 const Ticket = ({ ticket }) => {
-  const { hoverState, toggleState } = useHover()
+  const { hovered, toggleState } = useHover()
 
   return (
-    <Transition in={hoverState} timeout={150}>
+    <Transition in={hovered} timeout={150}>
       {(state: string) => (
         <div
-          className={`ticket ticket${state ? '-' + state : ''}`}
+          className={`ticket ${state ? state : ''}`}
           onMouseEnter={toggleState(true)}
           onMouseLeave={toggleState(false)}
         >

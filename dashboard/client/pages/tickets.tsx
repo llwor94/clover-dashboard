@@ -46,12 +46,12 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
   const [ticketsList, setTickets] = useState(initalTickets)
 
   useEffect(() => {
-    (async () => {
+    ; (async () => {
       if (query && query.space) {
         const { data } = await getTickets(query.space)
 
         if (data && data.tickets) {
-          // Adding `selected` field to each Ticket
+          // Add `selected` field to each Ticket
           setTickets(data.tickets.map((ticket: Ticket) => ({ ...ticket, selected: false })))
         }
       }

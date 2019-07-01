@@ -4,13 +4,13 @@ import CloseIcon from './CloseIcon'
 import DeleteIcon from './DeleteIcon'
 import OpenIcon from './OpenIcon'
 import StarIcon from './StarIcon'
+import Icon from './Icon'
 
-const Menu = () => (
+const icons = [StarIcon, OpenIcon, DeleteIcon, CloseIcon]
+
+const Menu: React.FC = () => (
   <div className="ticket__menu">
-    <StarIcon />
-    <OpenIcon />
-    <DeleteIcon />
-    <CloseIcon />
+    {icons.map(({ component, modal }, i) => <Icon key={i} modal={modal}>{component}</Icon>)}
   </div>
 )
 

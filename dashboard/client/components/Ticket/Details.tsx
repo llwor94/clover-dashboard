@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React from 'react'
 
-const TicketDetails = ({ hoverState, author, createdAt, title, topics }) => {
+const TicketDetails = ({ author, createdAt, title, topics }) => {
   const TicketDate =
     createdAt &&
     moment(parseInt(createdAt, 10))
@@ -14,7 +14,7 @@ const TicketDetails = ({ hoverState, author, createdAt, title, topics }) => {
   ))
 
   return (
-    <div className={`ticket__title ${hoverState}`}>
+    <div className="ticket__title">
       {title}
       <div className="ticket__info">
         <div className="ticket__date">{TicketDate}</div>
