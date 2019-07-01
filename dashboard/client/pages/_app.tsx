@@ -7,7 +7,7 @@ import '../lib/styles/global.scss'
 import '../lib/styles/reset.scss'
 
 class MyApp extends App {
-  async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }) {
     let pageProps = {}
     try {
       if (Component.getInitialProps) {

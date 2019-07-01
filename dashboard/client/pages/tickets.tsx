@@ -46,7 +46,7 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
   const [ticketsList, setTickets] = useState(initalTickets)
 
   useEffect(() => {
-    const fetchTickets = async () => {
+    (async () => {
       if (query && query.space) {
         const { data } = await getTickets(query.space)
 
@@ -55,8 +55,7 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
           setTickets(data.tickets.map((ticket: Ticket) => ({ ...ticket, selected: false })))
         }
       }
-    }
-    fetchTickets()
+    })()
   }, [query])
 
   const toggleCheckbox = (id: string) => () => {
