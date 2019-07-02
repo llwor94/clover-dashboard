@@ -6,7 +6,7 @@ import './styles.scss'
 
 const Filter = () => (
   <div className="filter">
-    <Button name="No response" selected={true} />
+    <Button name="Unanswered" selected={true} />
     <Button name="Last response by us" />
     <Button name="All" />
   </div>

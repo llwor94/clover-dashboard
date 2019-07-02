@@ -1,0 +1,45 @@
+@import '../../../lib/styles/themes.scss';
+
+.modal {
+  position: absolute;
+  width: 160px;
+  font-family: 'Maison Mono';
+  font-size: 12px;
+  font-weight: 400;
+  color: theme-color('menu-item', $dark);
+  background: theme-color('bg-highlight', $dark);
+  box-shadow: theme-color('border-shadow', $dark);
+  border-radius: 8px;
+}
+
+.modal__confirm {
+  @extend .modal;
+  width: 80px;
+}
+
+.modal__multi {
+  @extend .modal;
+}
+
+.modal__full {
+  @extend .modal;
+  width: 500px;
+}
+
+.modal-item {
+  width: 100%;
+  margin: 3px 0 3px 0;
+  padding: 5px 0 7px 0;
+  border-bottom: 1px solid theme-color('border', $dark);
+  text-align: center;
+}
+
+.modal-item:last-child {
+  @extend .modal-item;
+  border-bottom: none;
+}
+
+.modal-item.hovered {
+  font-weight: 700;
+  color: theme-color('highlight', $dark);
+}

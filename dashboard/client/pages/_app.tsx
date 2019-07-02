@@ -3,8 +3,8 @@ import React from 'react'
 
 import Sidebar from '../components/Sidebar'
 
-import '../styles/global.scss'
-import '../styles/reset.scss'
+import '../lib/styles/global.scss'
+import '../lib/styles/reset.scss'
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

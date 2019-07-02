@@ -1,4 +1,3 @@
-lib/
 *.pyc
 node_modules/
 .next/
