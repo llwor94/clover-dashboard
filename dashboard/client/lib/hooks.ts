@@ -1,31 +1,48 @@
-import { MouseEvent, useState } from 'react'
+import { Dispatch, MouseEvent, useState } from 'react'
 
-export const useHover = () => {
-  const [state, setState] = useState({ hovered: false })
+type UseHover = () => { hovered: boolean; toggleHoverState: ToggleHoverState }
+type ToggleHoverState = (s?: boolean) => (e: MouseEvent<HTMLDivElement>) => void
 
-  const toggleState = (s?: boolean) => (e: MouseEvent<HTMLDivElement>) => {
+interface ModalState {
+  cursorX: number
+  cursorY: number
+  open: boolean
+}
+
+type UseModal = () => {
+  modalState: ModalState
+  setModalState: Dispatch<ModalState>
+  toggleModalState: ToggleModalState
+}
+type ToggleModalState = (e: MouseEvent<HTMLDivElement>) => void
+
+export const useHover: UseHover = () => {
+  const [{ hovered }, setState] = useState({ hovered: false })
+
+  const toggleHoverState: ToggleHoverState = s => e => {
     e.persist()
-    return typeof s === 'boolean'
+    typeof s === 'boolean'
       ? setState(() => ({ hovered: s }))
       : setState(c => ({ hovered: !c.hovered }))
   }
 
   return {
-    hovered: state.hovered,
-    toggleState
+    hovered,
+    toggleHoverState
   }
 }
 
-export const useModal = () => {
-  const [state, setState] = useState({ cursorX: 0, cursorY: 0, open: false })
+export const useModal: UseModal = () => {
+  const [modalState, setModalState] = useState({ cursorX: 0, cursorY: 0, open: false })
 
-  const toggleModal = () => (e: MouseEvent<HTMLDivElement>) => {
+  const toggleModalState: ToggleModalState = e => {
     e.persist()
-    setState(c => ({ cursorY: e.clientY, cursorX: e.clientX, open: !c.open }))
+    setModalState(c => ({ cursorX: e.clientX, cursorY: e.clientY, open: !c.open }))
   }
 
   return {
-    state,
-    toggleModal
+    modalState,
+    setModalState,
+    toggleModalState
   }
 }
