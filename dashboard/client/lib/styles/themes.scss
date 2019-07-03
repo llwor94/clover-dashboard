@@ -28,11 +28,11 @@ $theme-colors: (
   ),
   bg-primary: (
     light: #EFEFEE,
-    dark: #121212
+    dark: #161616
   ),
   bg-secondary: (
     light: #ECECEC,
-    dark: #121212
+    dark: #161616
   ),
   bg-tertiary: (
     light: #D8D8D8,
@@ -40,27 +40,27 @@ $theme-colors: (
   ),
   bg-quaternary: (
     light: #F3F3F3,
-    dark: #171717
+    dark: #1C1C1C
   ),
   bg-highlight: (
     light: #F9F9F9,
-    dark: #171717
+    dark: #212121
   ),
   bg-highlight-secondary: (
     light: #F1F1F1,
-    dark: #121212
+    dark: #161616
   ),
   border: (
     light: #E0E1DE,
-    dark: #171717
+    dark: #1C1C1C
   ),
   bg-topic: (
     light: #FFDCDC,
     dark: #443a3a
   ),
-  border-shadow: (
+  box-shadow: (
     light: 0 3px 8px 2px rgba(0, 0, 0, 0.15),
-    dark: 0 3px 8px 2px rgba(0, 0, 0, 0.55)
+    dark: 0 3px 8px 2px rgba(0, 0, 0, 0.40)
   )
 );
 
