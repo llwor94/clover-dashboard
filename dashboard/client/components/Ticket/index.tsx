@@ -11,15 +11,15 @@ import { useHover } from '../../lib/hooks'
 import './styles.scss'
 
 const Ticket = ({ ticket }) => {
-  const { hovered, toggleState } = useHover()
+  const { hovered, toggleHoverState } = useHover()
 
   return (
     <Transition in={hovered} timeout={150}>
       {(state: string) => (
         <div
           className={clsx('ticket', state)}
-          onMouseEnter={toggleState(true)}
-          onMouseLeave={toggleState(false)}
+          onMouseEnter={toggleHoverState(true)}
+          onMouseLeave={toggleHoverState(false)}
         >
           {ticket.selected ? <CheckboxIcon id={ticket.id} /> : <EmptyCheckboxIcon id={ticket.id} />}
           {state !== 'entered' ? <TicketDetails {...ticket} /> : <Menu />}

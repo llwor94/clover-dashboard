@@ -9,6 +9,12 @@
   border: theme-color('border', $dark) solid 1px;
   border-radius: 8px;
   background-color: theme-color('bg-quaternary', $dark);
+  // Disable text selection in modal
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 .ticket svg {

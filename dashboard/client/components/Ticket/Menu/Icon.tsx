@@ -6,24 +6,31 @@ import { useHover, useModal } from '../../../lib/hooks'
 
 interface IconProps {
   children: ReactElement
-  modal: string
+  type: string
 }
 
-const Icon = ({ children, modal }: IconProps): ReactElement => {
-  const { hovered, toggleState } = useHover()
-  const { state, toggleModal } = useModal()
+type Icon = (args: IconProps) => ReactElement
+
+const Icon: Icon = ({ children, type }) => {
+  const { hovered, toggleHoverState } = useHover()
+  const { modalState, setModalState, toggleModalState } = useModal()
+
+  const handleClickOutside = (_: MouseEvent) =>
+    setModalState({ cursorX: 0, cursorY: 0, open: false })
 
   return (
     <>
       <div
         className={clsx('ticket__menu-item', { hovered })}
-        onClick={toggleModal()}
-        onMouseEnter={toggleState(true)}
-        onMouseLeave={toggleState(false)}
+        onClick={toggleModalState}
+        onMouseEnter={toggleHoverState(true)}
+        onMouseLeave={toggleHoverState(false)}
       >
         {children}
       </div>
-      {state.open && <Modal {...state} modal={modal} />}
+      {modalState.open && (
+        <Modal {...modalState} handleClickOutside={handleClickOutside} type={type} />
+      )}
     </>
   )
 }

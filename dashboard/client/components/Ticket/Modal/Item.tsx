@@ -4,13 +4,13 @@ import React from 'react'
 import { useHover } from '../../../lib/hooks'
 
 const Item = ({ children }) => {
-  const { hovered, toggleState } = useHover()
+  const { hovered, toggleHoverState } = useHover()
 
   return (
     <div
       className={clsx('modal-item', { hovered })}
-      onMouseEnter={toggleState(true)}
-      onMouseLeave={toggleState(false)}
+      onMouseEnter={toggleHoverState(true)}
+      onMouseLeave={toggleHoverState(false)}
     >
       {children}
     </div>

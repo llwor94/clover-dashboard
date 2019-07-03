@@ -39,7 +39,7 @@ const DeleteIcon = {
     </svg>
   ),
   name: 'delete',
-  modal: 'modal__confirm'
+  type: 'modal__confirm'
 }
 
 export default DeleteIcon
