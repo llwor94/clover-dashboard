@@ -33,10 +33,11 @@
   margin-left: 5px;
   font-size: 14px;
   font-weight: 300;
+  letter-spacing: 0.33pt;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: theme-color('selected', $dark)
+  color: theme-color('text', $dark);
 }
 
 .ticket__info {
