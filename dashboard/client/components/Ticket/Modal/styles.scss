@@ -2,13 +2,13 @@
 
 .modal {
   position: absolute;
-  width: 160px;
+  width: 145px;
   font-family: 'Maison Mono';
   font-size: 12px;
   font-weight: 400;
   color: theme-color('menu-item', $dark);
   background: theme-color('bg-highlight', $dark);
-  box-shadow: theme-color('border-shadow', $dark);
+  box-shadow: theme-color('box-shadow', $dark);
   border-radius: 8px;
 }
 

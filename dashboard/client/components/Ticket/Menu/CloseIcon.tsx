@@ -8,7 +8,7 @@ const CloseIcon = {
     </svg>
   ),
   name: 'close',
-  modal: 'modal__confirm'
+  type: 'modal__confirm'
 }
 
 export default CloseIcon
