@@ -12,6 +12,7 @@ import Filter from '../components/Filter'
 import Header from '../components/Header'
 import Layout from '../components/Layout'
 import SubMenu from '../components/SubMenu'
+import TableHeader from '../components/TableHeader'
 import Ticket from '../components/Ticket'
 
 import { getSpaces, getTickets } from '../lib/gql/query'
@@ -46,16 +47,20 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
   const [ticketsList, setTickets] = useState(initalTickets)
 
   useEffect(() => {
+    let didCancel = false
     ;(async () => {
       if (query && query.space) {
         const { data } = await getTickets(query.space)
 
-        if (data && data.tickets) {
+        if (!didCancel && data && data.tickets) {
           // Add `selected` field to each Ticket
-          setTickets(data.tickets.map((ticket: Ticket) => ({ ...ticket, selected: false })))
+          setTickets(data.tickets.tickets.map((ticket: Ticket) => ({ ...ticket, selected: false })))
         }
       }
     })()
+    return () => {
+      didCancel = true
+    }
   }, [query])
 
   const toggleCheckbox = (id: string) => () => {
@@ -66,13 +71,17 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
     )
   }
 
+  const toggleAllCheckboxes = (bool: boolean) => () =>
+    setTickets(ticketsList.map(ticket => ({ ...ticket, selected: bool })))
+
   const space = spaces.find(({ id }) => id === parseInt(query.space, 10))
 
   const tickets = ticketsList.map((t: Ticket) => <Ticket key={t.id} ticket={t} />)
 
-  const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox }), [
+  const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox, toggleAllCheckboxes }), [
     ticketsList,
-    toggleCheckbox
+    toggleCheckbox,
+    toggleAllCheckboxes
   ])
 
   return (
@@ -80,9 +89,9 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
       <Layout>
         <SubMenu spaces={spaces} space={query && query.space} />
         <main className="main">
-          <Header />
-          <div className="tickets__heading">{space.name}</div>
+          <Header name={space.name} />
           <Filter />
+          <TableHeader />
           <div className="content">{tickets}</div>
         </main>
       </Layout>
