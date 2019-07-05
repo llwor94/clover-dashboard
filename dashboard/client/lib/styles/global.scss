@@ -1,3 +1,47 @@
+html {
+  --text: #000000;
+  --menu-item: #828C96;
+  --menu-item-secondary: #999999;
+  --highlight: #44B02A;
+  --selected: #2E3F52;
+  --selected-secondary: #565656;
+  --bg-primary: #F6F6F6;
+  --bg-secondary: #F6F6F6;
+  --bg-tertiary: #EBEBEB;
+  --bg-quaternary: #F3F3F3;
+  --bg-highlight: #F9F9F9;
+  --bg-highlight-secondary: #F6F6F6;
+  --border: #F6F6F6;
+  --topic-bg: #FFDCDC;
+  --box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme="dark"] {
+  --text: #DDDDDD;
+  --menu-item: #ACACAC;
+  --menu-item-secondary: #8C8C8C;
+  --highlight: #44B02A;
+  --selected: #EEEEEE;
+  --selected-secondary: #B3B3B3;
+  --bg-primary: #161616;
+  --bg-secondary: #161616;
+  --bg-tertiary: #191919;
+  --bg-quaternary: #1C1C1C;
+  --bg-highlight: #212121;
+  --bg-highlight-secondary: #161616;
+  --border: #1C1C1C;
+  --topic-bg: #443a3a;
+  --box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.40);
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
 @font-face {
   font-family: 'Circular Std';
   font-weight: 400;

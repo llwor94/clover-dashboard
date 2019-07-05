@@ -1,39 +1,28 @@
 import Router from 'next/router'
-import React, { Fragment } from 'react'
+import React, { MouseEvent } from 'react'
+
+import Item from './Item'
+
+import { Spaces } from '../../lib/interfaces'
 
 import './styles.scss'
 
 const SubMenu = ({ spaces, space }) => {
-  const goToSpace = id => _ => Router.push({ pathname: '/tickets', query: { space: id } })
+  const goToSpace = (id: string) => (_: MouseEvent) =>
+    Router.push({ pathname: '/tickets', query: { space: id } })
+  // ignoredSpaces { 8: Default, 9: Help, 24: Ideas & Feedback }
   const ignoredSpaces = new Set([8, 9, 24])
 
   return (
     <div className="sub-menu">
-      <div className="sub-menu__header">Developer Relations Dashboard</div>
+      <div className="sub-menu__title">Spaces</div>
       <div className="sub-menu__wrapper">
-        <div className={'sub-menu__title' + (space ? '' : '-selected')}>
-          <div>All Spaces</div>
-          <div>378</div>
-        </div>
         {spaces &&
-          spaces.map(({ id, name, totalCount }) => {
-            if (ignoredSpaces.has(id)) {
-              return null
-            }
-            return (
-              <Fragment key={id}>
-                <div
-                  onClick={goToSpace(id)}
-                  className={'sub-menu__items' + (parseInt(space, 10) === id ? '-selected' : '')}
-                  key={id}
-                >
-                  <div>{name}</div>
-                  <div>{totalCount}</div>
-                </div>
-                <div className="sub-menu__item-border" />
-              </Fragment>
+          spaces.map((sp: Spaces) =>
+            ignoredSpaces.has(sp.id) ? null : (
+              <Item {...sp} goToSpace={goToSpace} key={sp.id} space={space} />
             )
-          })}
+          )}
       </div>
       <div className="sub-menu__background" />
     </div>
