@@ -8,19 +8,25 @@ const server = axios.create({
 module.exports = {
   getTickets: async spaceId => {
     try {
-      let { data } = await server({
+      const { data } = await server({
         method: 'get',
         url: '/question.json',
-        params: { answered: false, spaceId, sort: 'newest' }
+        params: {
+          pageSize: 75,
+          sort: 'newest',
+          spaceId,
+          unanswered: true
+        }
       })
-      return data.list
+
+      return data
     } catch (e) {
       console.log(e)
     }
   },
   getSpaces: async () => {
     try {
-      let { data } = await server({ method: 'get', url: '/space.json' })
+      const { data } = await server({ method: 'get', url: '/space.json' })
       return data.list
     } catch (e) {
       console.log(e)

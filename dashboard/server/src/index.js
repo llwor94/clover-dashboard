@@ -39,9 +39,13 @@ const schema = buildSchema(`
         id: Int
         name: String
     }
+    type TicketsResponse {
+      tickets: [Ticket]
+      totalCount: Int
+    }
     type Query {
         hello: String
-        tickets(spaceId: Int): [Ticket]
+        tickets(spaceId: Int): TicketsResponse
         spaces: [Space]
     }
     type Mutation {
@@ -53,12 +57,11 @@ const schema = buildSchema(`
 const rootValue = {
   tickets: async ({ spaceId }) => {
     try {
-      const data = await community.getTickets(spaceId)
-
+      const { list, totalCount } = await community.getTickets(spaceId)
       const internalTickets = await db.getTickets()
 
-      if (data) {
-        return data.reduce((arr, curr) => {
+      if (list && Array.isArray(list)) {
+        const tickets = list.reduce((arr, curr) => {
           const internal_ticket = internalTickets.find(t => t.external_id === curr.id)
 
           const ticket = {
@@ -78,7 +81,8 @@ const rootValue = {
           }
 
           return [...arr, ticket]
-        }, [])
+        }, []).reverse()
+        return { tickets, totalCount }
       }
     } catch (e) {
       console.error(e)
