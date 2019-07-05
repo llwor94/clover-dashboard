@@ -61,27 +61,29 @@ const rootValue = {
       const internalTickets = await db.getTickets()
 
       if (list && Array.isArray(list)) {
-        const tickets = list.reduce((arr, curr) => {
-          const internal_ticket = internalTickets.find(t => t.external_id === curr.id)
+        const tickets = list
+          .reduce((arr, curr) => {
+            const internal_ticket = internalTickets.find(t => t.external_id === curr.id)
 
-          const ticket = {
-            id: curr.id,
-            title: curr.title,
-            body: curr.body,
-            createdAt: curr.creationDate,
-            author: curr.author,
-            topics: curr.topics.map(({ id, name }) => ({ id, name }))
-          }
-          if (internal_ticket) {
-            ticket.assignedTo = {
-              id: internal_ticket.assigned_to_id,
-              name: internal_ticket.name,
-              image_url: internal_ticket.image_url
+            const ticket = {
+              id: curr.id,
+              title: curr.title,
+              body: curr.body,
+              createdAt: curr.creationDate,
+              author: curr.author,
+              topics: curr.topics.map(({ id, name }) => ({ id, name }))
             }
-          }
+            if (internal_ticket) {
+              ticket.assignedTo = {
+                id: internal_ticket.assigned_to_id,
+                name: internal_ticket.name,
+                image_url: internal_ticket.image_url
+              }
+            }
 
-          return [...arr, ticket]
-        }, []).reverse()
+            return [...arr, ticket]
+          }, [])
+          .reverse()
         return { tickets, totalCount }
       }
     } catch (e) {
