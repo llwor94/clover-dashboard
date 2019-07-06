@@ -20,12 +20,25 @@
   }
 }
 
-// .ticket__image {
-//   margin: 0 10px;
-//   width: 35px;
-//   height: 35px;
-//   border-radius: 50%;
-// }
+#person {
+  height: 24px;
+  width: 24px;
+  margin: 0 8px 4px 2px;
+  border-radius: 50%;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.ticket__user {
+  margin: 0 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
 
 /* Ticket Details */
 .ticket__details {
@@ -71,13 +84,18 @@
 
 .ticket__topics {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  align-items: center;
+  height: 34px;
   width: 100%;
+  margin: 0 0 5px 0;
   color: var(--text);
 }
 
 .ticket__topic {
-  margin: 0 4px;
+  height: 14.5px;
+  margin: 0px 2px 4px 2px;
   padding: 3px 4px 1.5px;
   background-color: var(--topic-bg);
   border-radius: 2px;

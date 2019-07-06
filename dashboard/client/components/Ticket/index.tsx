@@ -1,19 +1,27 @@
 import clsx from 'clsx'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Transition } from 'react-transition-group'
 
 import CheckboxIcon from './CheckboxIcon'
+import Details from './Details'
 import EmptyCheckboxIcon from './EmptyCheckboxIcon'
 import Menu from './Menu'
-import TicketDetails from './Details'
+import UserImage from './UserImage'
 
 import { useToggle } from '../../lib/hooks'
 import { TicketsContext } from '../../pages/tickets'
 import './styles.scss'
 
 const Ticket = ({ ticket }) => {
+  const [someSelected, setSomeSelected] = useState(false)
   const { state, toggleState } = useToggle()
-  const { toggleCheckbox } = useContext(TicketsContext)
+  const { ticketsList, toggleCheckbox } = useContext(TicketsContext)
+
+  useEffect(() => {
+    if (ticketsList.length) {
+      setSomeSelected(ticketsList.some(({ selected }) => selected))
+    }
+  }, [ticketsList])
 
   const Checkbox = ticket.selected ? (
     <CheckboxIcon handleClick={toggleCheckbox(ticket.id)} />
@@ -25,12 +33,16 @@ const Ticket = ({ ticket }) => {
     <Transition in={state} timeout={150}>
       {(state: string) => (
         <div
-          className={clsx('ticket', state)}
+          className={clsx('ticket', state || ticket.selected)}
           onMouseEnter={toggleState(true)}
           onMouseLeave={toggleState(false)}
         >
-          {Checkbox}
-          {state !== 'entered' ? <TicketDetails {...ticket} /> : <Menu />}
+          {someSelected ? (
+            Checkbox
+          ) : (
+            <UserImage {...ticket} handleClick={toggleCheckbox(ticket.id)} />
+          )}
+          {state !== 'entered' ? <Details {...ticket} /> : <Menu />}
         </div>
       )}
     </Transition>
