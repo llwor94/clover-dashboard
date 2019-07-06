@@ -1,13 +1,14 @@
-require('dotenv').config()
-const { buildSchema } = require('graphql')
-const cors = require('cors')
-const express = require('express')
-const graphqlHTTP = require('express-graphql')
-const playground = require('graphql-playground-middleware-express').default
+import { config } from 'dotenv'
+import * as cors from 'cors'
+import * as express from 'express'
+import * as graphqlHTTP from 'express-graphql'
+import { buildSchema } from 'graphql'
+import playground from 'graphql-playground-middleware-express'
 
-const community = require('./communityAPI')
-const db = require('../db/helpers')
+import community from './communityAPI'
+import db from '../db/helpers'
 
+config()
 const app = express()
 
 const schema = buildSchema(`
@@ -58,14 +59,15 @@ const rootValue = {
   tickets: async ({ spaceId }) => {
     try {
       const { list, totalCount } = await community.getTickets(spaceId)
-      const internalTickets = await db.getTickets()
+      const dbTickets = await db.getTickets()
 
       if (list && Array.isArray(list)) {
         const tickets = list
           .reduce((arr, curr) => {
-            const internal_ticket = internalTickets.find(t => t.external_id === curr.id)
+            const dbTicket = dbTickets.find(t => t.external_id === curr.id)
 
             const ticket = {
+              assignedTo: {},
               id: curr.id,
               title: curr.title,
               body: curr.body,
@@ -73,11 +75,11 @@ const rootValue = {
               author: curr.author,
               topics: curr.topics.map(({ id, name }) => ({ id, name }))
             }
-            if (internal_ticket) {
+            if (dbTicket) {
               ticket.assignedTo = {
-                id: internal_ticket.assigned_to_id,
-                name: internal_ticket.name,
-                image_url: internal_ticket.image_url
+                id: dbTicket.assigned_to_id,
+                name: dbTicket.name,
+                image_url: dbTicket.image_url
               }
             }
 
@@ -93,6 +95,7 @@ const rootValue = {
   spaces: async () => {
     try {
       const data = await community.getSpaces()
+      console.error(data)
       return data.map(({ id, name }) => ({ id, name }))
     } catch (e) {
       console.error(e)
@@ -105,7 +108,7 @@ const rootValue = {
   },
   assignAdmin: async ({ adminId, ticketId }) => {
     const [ticket] = await db.assignAdmin(adminId, ticketId)
-
+    console.error(ticket)
     // do we want to return a ticket or wat, d00d?
     return 'yay'
   }
@@ -122,4 +125,4 @@ app.use(
 )
 
 app.get('/playground', playground({ endpoint: '/graphql' }))
-app.listen(4000, () => console.log('Running at 4000 mon 🔥'))
+app.listen(4000, () => console.error('Running at 4000 mon 🔥'))
