@@ -8,7 +8,7 @@ const Item = ({ children }) => {
 
   return (
     <div
-      className={clsx('modal-item', { state })}
+      className={clsx('modal-item', state && 'hovered')}
       onMouseEnter={toggleState(true)}
       onMouseLeave={toggleState(false)}
     >

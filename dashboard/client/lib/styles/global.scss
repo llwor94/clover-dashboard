@@ -1,7 +1,7 @@
 html {
   --text: #000000;
   --menu-item: #828C96;
-  --menu-item-secondary: #999999;
+  --menu-item-secondary: #CCCCCC;
   --highlight: #44B02A;
   --selected: #2E3F52;
   --selected-secondary: #565656;
@@ -13,7 +13,7 @@ html {
   --bg-highlight-secondary: #F6F6F6;
   --border: #F6F6F6;
   --topic-bg: #FFDCDC;
-  --box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.15);
+  --box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 4px 24px 2px rgba(0,0,0,.1);
 }
 
 html[data-theme="dark"] {

@@ -21,7 +21,7 @@ const Icon: Icon = ({ children, type }) => {
   return (
     <>
       <div
-        className={clsx('ticket__menu-item', { state })}
+        className={clsx('ticket__menu-item', state && 'hovered')}
         onClick={toggleModalState}
         onMouseEnter={toggleState(true)}
         onMouseLeave={toggleState(false)}

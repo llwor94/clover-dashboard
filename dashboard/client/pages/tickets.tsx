@@ -1,12 +1,4 @@
-import React, {
-  Context,
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 
 import Filter from '../components/Filter'
 import Header from '../components/Header'
@@ -16,32 +8,42 @@ import TableHeader from '../components/TableHeader'
 import Ticket from '../components/Ticket'
 
 import { getSpaces, getTickets } from '../lib/gql/query'
+import { ITicket, ITicketsContext, TicketsProps } from '../lib/interfaces'
 
-interface TicketsProps {
-  spaces: any[]
-  tickets: any[]
-  query: { space: string }
-}
+export const TicketsContext: ITicketsContext = createContext({})
 
-interface Topic {
-  id: string
-  name: string
-}
-
-interface Ticket {
-  author: { username: string }
-  createdAt: string
-  id: string
-  title: string
-  topics: [Topic]
-}
-
-interface TicketsContext extends Context<any> {
-  ticketsList?: Ticket[]
-  toggleCheckbox?: Dispatch<SetStateAction<string>>
-}
-
-export const TicketsContext: TicketsContext = createContext({})
+const TEMP_ADMINS = [
+  {
+    id: 0,
+    name: 'frank',
+    image_url: 'frank.png',
+    tickets: []
+  },
+  {
+    id: 1,
+    name: 'raymond',
+    image_url: 'raymond.png',
+    tickets: []
+  },
+  {
+    id: 2,
+    name: 'emily',
+    image_url: 'emily.png',
+    tickets: []
+  },
+  {
+    id: 3,
+    name: 'lauren',
+    image_url: 'lauren.png',
+    tickets: []
+  },
+  {
+    id: 4,
+    name: 'other',
+    image_url: 'circle.svg',
+    tickets: []
+  }
+]
 
 const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) => {
   const [ticketsList, setTickets] = useState(initalTickets)
@@ -54,7 +56,16 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
 
         if (!didCancel && data && data.tickets) {
           // Add `selected` field to each Ticket
-          setTickets(data.tickets.tickets.map((ticket: Ticket) => ({ ...ticket, selected: false })))
+          setTickets(
+            data.tickets.tickets.map((ticket: ITicket) => ({
+              ...ticket,
+              assignedTo: {
+                ...TEMP_ADMINS[Math.round(Math.random() * 4)],
+                tickets: [ticket.id]
+              },
+              selected: false
+            }))
+          )
         }
       }
     })()
@@ -76,7 +87,7 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
 
   const space = spaces.find(({ id }) => id === parseInt(query.space, 10))
 
-  const tickets = ticketsList.map((t: Ticket) => <Ticket key={t.id} ticket={t} />)
+  const tickets = ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
 
   const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox, toggleAllCheckboxes }), [
     ticketsList,
