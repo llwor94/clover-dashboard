@@ -4,7 +4,7 @@
   "description": "Dashboard for Clover Developer Relations",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "ts-node-dev --respawn src/index.ts",
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -27,6 +27,10 @@
     "pg": "^7.11.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "@types/dotenv": "^6.1.1",
+    "@types/express-graphql": "^0.8.0",
+    "@types/graphql": "^14.2.2",
+    "ts-node-dev": "^1.0.0-pre.40",
+    "typescript": "^3.5.2"
   }
 }
