@@ -10,7 +10,7 @@ const SideBar = () => {
 
   useEffect(() => {
     document.documentElement.classList.add('theme-transition')
-    document.documentElement.setAttribute('data-theme', state ? 'light' : 'dark')
+    document.documentElement.setAttribute('data-theme', state ? 'dark' : 'light')
     window.setTimeout(() => {
       document.documentElement.classList.remove('theme-transition')
     }, 1000)
