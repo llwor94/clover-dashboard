@@ -1,7 +1,7 @@
 import { Dispatch, MouseEvent, useState } from 'react'
 
-type UseHover = () => { hovered: boolean; toggleHoverState: ToggleHoverState }
-type ToggleHoverState = (s?: boolean) => (e: MouseEvent<HTMLDivElement>) => void
+type UseToggle = (s?: boolean) => { state: boolean; toggleState: ToggleState }
+type ToggleState = (s?: boolean) => (e: MouseEvent<HTMLDivElement>) => void
 
 interface ModalState {
   cursorX: number
@@ -16,19 +16,18 @@ type UseModal = () => {
 }
 type ToggleModalState = (e: MouseEvent<HTMLDivElement>) => void
 
-export const useHover: UseHover = () => {
-  const [{ hovered }, setState] = useState({ hovered: false })
+export const useToggle: UseToggle = s => {
+  const [state, setState] = useState(typeof s === 'boolean' ? s : false)
 
-  const toggleHoverState: ToggleHoverState = s => e => {
+  const toggleState: ToggleState = s => e => {
     e.persist()
-    typeof s === 'boolean'
-      ? setState(() => ({ hovered: s }))
-      : setState(c => ({ hovered: !c.hovered }))
+    const ret = typeof s === 'boolean' ? s : (c: any) => c
+    setState(ret)
   }
 
   return {
-    hovered,
-    toggleHoverState
+    state,
+    toggleState
   }
 }
 
