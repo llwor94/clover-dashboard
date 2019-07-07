@@ -10,7 +10,7 @@ const Item = ({ goToSpace, id, name, space }) => {
     ;(async () => {
       const { data } = await getTotalCount(id)
 
-      if (!didCancel) {
+      if (!didCancel && data && data.tickets) {
         setState(data.tickets.totalCount)
       }
     })()

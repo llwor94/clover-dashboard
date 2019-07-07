@@ -47,9 +47,9 @@ export const getTotalCount = (spaceId: string) =>
   server({
     data: {
       query: `{
-      tickets(spaceId: ${spaceId}) {
-        totalCount
-      }
-    }`
+        tickets(spaceId: ${spaceId}) {
+          totalCount
+        }
+      }`
     }
   })

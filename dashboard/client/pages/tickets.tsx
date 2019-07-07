@@ -85,7 +85,7 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
   const toggleAllCheckboxes = (bool: boolean) => () =>
     setTickets(ticketsList.map(ticket => ({ ...ticket, selected: bool })))
 
-  const space = spaces.find(({ id }) => id === parseInt(query.space, 10))
+  const space = Array.isArray(spaces) && spaces.find(({ id }) => id === parseInt(query.space, 10))
 
   const tickets = ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
 
