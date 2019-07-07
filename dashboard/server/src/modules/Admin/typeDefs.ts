@@ -1,6 +1,6 @@
 const typeDefs = `
   type Admin {
-    id: Int!
+    id: Int
     name: String!
     image_url: String
     tickets: [Ticket]
@@ -9,6 +9,11 @@ const typeDefs = `
   type Mutation {
     createAdmin(name: String!, image_url: String): Admin
     assignAdmin(adminId: Int!, ticketId: Int!): String
+  }
+
+  schema {
+    query: Query
+    mutation: Mutation
   }
 `
 

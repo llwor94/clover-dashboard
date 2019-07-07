@@ -1,10 +1,10 @@
 import { makeExecutableSchema } from 'graphql-tools'
 
-import { adminTypeDefs } from './Admin/'
+import { adminTypeDefs, assignAdmin, createAdmin } from './Admin/'
 import { spaceTypeDefs, spaces } from './Space/'
-import { userTypeDefs } from './User/'
 import { ticketTypeDefs, tickets } from './Ticket/'
 import { topicTypeDefs } from './Topic/'
+import { userTypeDefs } from './User/'
 
 const typeDefs = [adminTypeDefs, spaceTypeDefs, ticketTypeDefs, topicTypeDefs, userTypeDefs]
 
@@ -12,7 +12,11 @@ const resolvers = {
   Query: {
     tickets,
     spaces
+  },
+  Mutation: {
+    assignAdmin,
+    createAdmin
   }
 }
 
-export default makeExecutableSchema({ typeDefs, resolvers })
+export default makeExecutableSchema({ resolvers, typeDefs })

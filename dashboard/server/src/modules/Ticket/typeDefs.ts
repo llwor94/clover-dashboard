@@ -17,10 +17,6 @@ const typeDefs = `
   extend type Query {
     tickets(spaceId: Int): TicketsResponse
   }
-
-  schema {
-    query: Query
-  }
 `
 
 export { typeDefs }
