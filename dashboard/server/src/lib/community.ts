@@ -1,4 +1,8 @@
 import axios from 'axios'
+import { config } from 'dotenv'
+import { resolve } from 'path'
+
+config({ path: resolve(__dirname, '../../.env') })
 
 const server = axios.create({
   baseURL: `https://community.clover.com/services/v2/`,

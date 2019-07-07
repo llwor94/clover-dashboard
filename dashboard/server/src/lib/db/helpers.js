@@ -1,12 +1,12 @@
 const db = require('./config')
 
-module.exports = {
+const helperFns = {
   getTickets: () => {
     return db('Ticket').join('Admin', 'Admin.id', 'Ticket.assigned_to_id')
   },
-  createAdmin: (name, image_url) => {
+  createAdmin: (name, imageUrl) => {
     return db('Admin')
-      .insert({ name, image_url })
+      .insert({ name, image_url: imageUrl })
       .returning('*')
   },
   assignAdmin: (adminId, ticketId) => {
@@ -15,3 +15,5 @@ module.exports = {
       .returning('*')
   }
 }
+
+module.exports = helperFns
