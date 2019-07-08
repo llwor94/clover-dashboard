@@ -23,15 +23,15 @@ html[data-theme="dark"] {
   --highlight: #44B02A;
   --selected: #EEEEEE;
   --selected-secondary: #B3B3B3;
-  --bg-primary: #161616;
-  --bg-secondary: #161616;
+  --bg-primary: #242424;
+  --bg-secondary: #242424;
   --bg-tertiary: #191919;
-  --bg-quaternary: #1C1C1C;
-  --bg-highlight: #212121;
-  --bg-highlight-secondary: #161616;
-  --border: #1C1C1C;
+  --bg-quaternary: #212121;
+  --bg-highlight: #333333;
+  --bg-highlight-secondary: #242424;
+  --border: #242424;
   --topic-bg: #443a3a;
-  --box-shadow: 0 3px 8px 2px rgba(0, 0, 0, 0.40);
+  --box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 2px 12px 2px rgba(0,0,0,.075), 0 4px 24px 1px rgba(0,0,0,.03);
 }
 
 html.theme-transition,
