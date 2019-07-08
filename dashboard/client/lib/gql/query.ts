@@ -53,3 +53,16 @@ export const getTotalCount = (spaceId: string) =>
       }`
     }
   })
+
+export const isLoggedIn = () =>
+  server({
+    data: {
+      query: `{
+        isLoggedIn {
+          id
+          name
+          image_url
+        }
+      }`
+    }
+  })

@@ -3,7 +3,7 @@ import React, { MouseEvent } from 'react'
 
 import Item from './Item'
 
-import { Spaces } from '../../lib/interfaces'
+import { Spaces } from '../../lib/typings/interfaces'
 
 import './styles.scss'
 

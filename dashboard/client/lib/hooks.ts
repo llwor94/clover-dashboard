@@ -1,20 +1,6 @@
-import { Dispatch, MouseEvent, useState } from 'react'
+import { useState } from 'react'
 
-type UseToggle = (s?: boolean) => { state: boolean; toggleState: ToggleState }
-type ToggleState = (s?: boolean) => (e: MouseEvent<HTMLDivElement>) => void
-
-interface ModalState {
-  cursorX: number
-  cursorY: number
-  open: boolean
-}
-
-type UseModal = () => {
-  modalState: ModalState
-  setModalState: Dispatch<ModalState>
-  toggleModalState: ToggleModalState
-}
-type ToggleModalState = (e: MouseEvent<HTMLDivElement>) => void
+import { ToggleModalState, ToggleState, UseModal, UseToggle } from './typings/interfaces'
 
 export const useToggle: UseToggle = s => {
   const [state, setState] = useState(typeof s === 'boolean' ? s : false)

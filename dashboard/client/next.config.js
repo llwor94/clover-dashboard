@@ -10,13 +10,12 @@ module.exports = withTypeScript(
       cssModules: false,
       webpack(config, options) {
         config.plugins.push(new webpack.EnvironmentPlugin(localEnv || { JWT_SECRET: '🤫' }))
-        
+
         config.module.rules.push({
           test: /\.(otf|ttf)$/,
           use: {
             loader: 'url-loader',
             options: {
-              ...options,
               outputPath: 'static/',
               limit: 100000
             }

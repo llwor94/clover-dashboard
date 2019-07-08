@@ -4,7 +4,7 @@ const typeDefs = `
     name: String
   }
 
-  type Query {
+  extend type Query {
     spaces: [Space]
   }
 `

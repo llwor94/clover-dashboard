@@ -7,8 +7,9 @@ import SubMenu from '../components/SubMenu'
 import TableHeader from '../components/TableHeader'
 import Ticket from '../components/Ticket'
 
+// import withAuth from '../lib/withAuth'
 import { getSpaces, getTickets } from '../lib/gql/query'
-import { ITicket, ITicketsContext, TicketsProps } from '../lib/interfaces'
+import { ITicket, ITicketsContext, TicketsProps } from '../lib/typings/interfaces'
 
 export const TicketsContext: ITicketsContext = createContext({})
 

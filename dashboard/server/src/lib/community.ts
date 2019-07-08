@@ -1,16 +1,14 @@
 import axios from 'axios'
-import { config } from 'dotenv'
-import { resolve } from 'path'
 
-config({ path: resolve(__dirname, '../../.env') })
+import env, { Env } from '../lib/config'
 
 const server = axios.create({
-  baseURL: `https://community.clover.com/services/v2/`,
-  headers: { Authorization: `Basic ${process.env.TEST_AUTH}` }
+  baseURL: (env as Env).ANSWERHUB_ENDPOINT,
+  headers: { Authorization: `Basic ${(env as Env).TEST_AUTH}` }
 })
 
 export default {
-  getTickets: async spaceId => {
+  getTickets: async (spaceId: number) => {
     try {
       const { data } = await server({
         method: 'get',

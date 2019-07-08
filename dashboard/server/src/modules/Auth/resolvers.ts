@@ -1,5 +1,11 @@
 import * as db from '../../lib/db/helpers'
 
+const isLoggedIn = async () => {
+  // 🚧 To-do: Check if id exists in db
+  const result = await db.isLoggedIn(1)
+  return result[0]
+}
+
 const assignAdmin = async (_, { adminId, ticketId }) => {
   const [ticket] = await db.assignAdmin(adminId, ticketId)
   console.error(ticket)
@@ -13,4 +19,4 @@ const createAdmin = async (_, { name, image_url }) => {
   return { ...admin, tickets: [] }
 }
 
-export { assignAdmin, createAdmin }
+export { assignAdmin, createAdmin, isLoggedIn }
