@@ -1,0 +1,38 @@
+.google-button__wrapper {
+  min-width: 500px;
+  width: 500px;
+}
+
+.google-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 200px;
+  border-radius: 6px;
+  background-color: #286EFA;
+  border: 1px solid #1271c4;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  height: 50px;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  vertical-align: middle;
+}
+
+.google-button__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.google-button__logo {
+  background: url('/static/google-logo.png') #fff 50% 50% no-repeat;
+  background-size: 18px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+}
