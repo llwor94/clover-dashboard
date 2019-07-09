@@ -10,9 +10,9 @@ const withAuth = (C: NextFunctionComponent) => {
       server.defaults.headers.common.cookie = context.req && context.req.headers.cookie
 
       const { data } = await isLoggedIn()
-      return {data, query: context.query}
+      return { data, query: context.query }
     }
-    return {query: context.query}
+    return { query: context.query }
   }
 
   return C

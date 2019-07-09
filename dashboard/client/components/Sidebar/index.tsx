@@ -5,7 +5,7 @@ import MenuIcons from './MenuIcons/'
 import { useToggle } from '../../lib/hooks'
 import './styles.scss'
 
-const SideBar = ({user}) => {
+const SideBar = ({ user }) => {
   const { state, toggleState } = useToggle(false)
   useEffect(() => {
     document.documentElement.classList.add('theme-transition')

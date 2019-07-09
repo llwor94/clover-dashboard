@@ -47,7 +47,7 @@ const TEMP_ADMINS = [
 ]
 
 const Tickets = props => {
-  const { query, loggedInUser} = props
+  const { query, loggedInUser } = props
   const [ticketsList, setTickets] = useState()
   const [spaces, setSpaces] = useState()
 
@@ -61,27 +61,26 @@ const Tickets = props => {
 
         setSpaces(spaces)
 
-      if (query && query.space) {
-        const { data } = await getTickets(query.space)
+        if (query && query.space) {
+          const { data } = await getTickets(query.space)
 
-        if (!didCancel && data && data.tickets) {
-          // Add `selected` field to each Ticket
-          setTickets(
-            data.tickets.tickets.map((ticket: ITicket) => ({
-              ...ticket,
-              assignedTo: {
-                ...TEMP_ADMINS[Math.round(Math.random() * 4)],
-                tickets: [ticket.id]
-              },
-              selected: false
-            }))
-          )
+          if (!didCancel && data && data.tickets) {
+            // Add `selected` field to each Ticket
+            setTickets(
+              data.tickets.tickets.map((ticket: ITicket) => ({
+                ...ticket,
+                assignedTo: {
+                  ...TEMP_ADMINS[Math.round(Math.random() * 4)],
+                  tickets: [ticket.id]
+                },
+                selected: false
+              }))
+            )
+          }
         }
+      } catch (e) {
+        console.error(e.message)
       }
-    } catch (e) {
-      console.error(e.message)
-    }
-
     })()
     return () => {
       didCancel = true
