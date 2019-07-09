@@ -125,16 +125,5 @@ const Tickets = props => {
   )
 }
 
-// Tickets.getInitialProps = async ({ query }) => {
-//   try {
-//     const {
-//       data: { spaces }
-//     } = await getSpaces()
-
-//     return { spaces, query }
-//   } catch (e) {
-//     console.error(e.message)
-//   }
-// }
 
 export default withAuth(Tickets)

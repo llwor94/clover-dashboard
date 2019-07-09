@@ -37,9 +37,6 @@ const auth = async (_, { idToken }, { res }) => {
   } catch (e) {
     console.error(e)
   }
-  // const [admin] = await db.createAdmin()
-
-  // return {image_url: 'sjfkdlsj'}
 }
 
 const assignAdmin = async (_, { adminId, ticketId }) => {
@@ -50,7 +47,7 @@ const assignAdmin = async (_, { adminId, ticketId }) => {
 }
 
 const createAdmin = async (_, {}) => {
-return 'hi'
+  return 'hi'
 }
 
 export { assignAdmin, createAdmin, loggedInUser, auth }

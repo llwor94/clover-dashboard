@@ -3,9 +3,6 @@ import * as React from 'react'
 import Router from 'next/router'
 import { auth } from '../lib/gql/query'
 
-import redirect from '../lib/redirect'
-
-// import GoogleButton from '../components/GoogleButton'
 import Layout from '../components/Layout'
 
 const Login = ({ query }) => {
@@ -50,23 +47,7 @@ const Login = ({ query }) => {
 Login.getInitialProps = async context => {
   const { query } = context
   return { query }
-  // if (query.id_token) {
-  //   try {
-  //   const data = await auth(query.id_token)
-  //   console.log('data', data.headers)
-  //   // if (data) {
-  //   //   redirect(context, '/tickets')
-  //   // }
-  //   } catch (e) {
-  //     console.log(e.response.data)
-  //   }
-  // }
-
-  // const isBrowser = typeof window !== undefined;
-  // if (isBrowser) {
-  //   let data = await auth()
-  //   console.log(data)
-  // }
+  
 }
 
 export default Login

@@ -37,10 +37,10 @@ const fetchData: FetchData = (accessToken, tokenType, url) =>
     .get(url, { headers: { Authorization: `${tokenType} ${accessToken}` } })
     .catch((e: Error) => console.error(e.message))
 
-const getAdmin = async google_id => {
+const getAdmin = async googleId => {
   try {
-    const existingAdmin = await db.getAdminByGid(google_id)
-    return existingAdmin || db.createAdmin(google_id)
+    const existingAdmin = await db.getAdminByGid(googleId)
+    return existingAdmin || db.createAdmin(googleId)
   } catch (e) {
     console.error(e)
   }
@@ -85,21 +85,13 @@ export const fetchUserInformation = async token => {
 }
 
 export const fetchGoogleProfile = async (req: Request, res: Response) => {
-  // const admin = {} as Admin
-
   if (req.query && req.query.code) {
     const { tokens } = await oauth2Client.getToken(req.query.code)
 
     if (tokens && tokens.access_token) {
       oauth2Client.setCredentials(tokens)
-      // let admin = await fetchUserInformation(tokens)
-
-      // admin.accessToken = (tokens as TokensResponse).access_token
-      // admin.tokenType = (tokens as TokensResponse).token_type
     }
 
-    //   console.log('admin', admin)
-    //   admin.key = key.reduce((a, c) => a + String.fromCharCode(c), '')
     const token = await sign(
       {
         accessToken: (tokens as TokensResponse).access_token,
@@ -108,17 +100,8 @@ export const fetchGoogleProfile = async (req: Request, res: Response) => {
       (env as Env).JWT_SECRET
     )
 
-    //   // Send the encrypted admin info as a JWT to the frontend
-    //   res.cookie('id_token', token)
-    //   console.info(admin, '👽')
-
-    //   // To-do: Store some shit in the db
-
     res.redirect(`http://localhost:3000/login?id_token=${token}`)
-    //   return
-    // }
 
-    // res.redirect('http://localhost:3000/login')
   } else {
     res.redirect(
       'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.me%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.login&response_type=code&client_id=363050689676-h91ocjh11ev1gvujf7iceomg56cl65ju.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A4000%2Foauth'
