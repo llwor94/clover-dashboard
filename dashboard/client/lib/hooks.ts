@@ -1,34 +1,19 @@
-import { Dispatch, MouseEvent, useState } from 'react'
+import { useState } from 'react'
 
-type UseHover = () => { hovered: boolean; toggleHoverState: ToggleHoverState }
-type ToggleHoverState = (s?: boolean) => (e: MouseEvent<HTMLDivElement>) => void
+import { ToggleModalState, ToggleState, UseModal, UseToggle } from './typings/interfaces'
 
-interface ModalState {
-  cursorX: number
-  cursorY: number
-  open: boolean
-}
+export const useToggle: UseToggle = s => {
+  const [state, setState] = useState(typeof s === 'boolean' ? s : false)
 
-type UseModal = () => {
-  modalState: ModalState
-  setModalState: Dispatch<ModalState>
-  toggleModalState: ToggleModalState
-}
-type ToggleModalState = (e: MouseEvent<HTMLDivElement>) => void
-
-export const useHover: UseHover = () => {
-  const [{ hovered }, setState] = useState({ hovered: false })
-
-  const toggleHoverState: ToggleHoverState = s => e => {
+  const toggleState: ToggleState = s => e => {
     e.persist()
-    typeof s === 'boolean'
-      ? setState(() => ({ hovered: s }))
-      : setState(c => ({ hovered: !c.hovered }))
+    const ret = typeof s === 'boolean' ? s : (c: any) => c
+    setState(ret)
   }
 
   return {
-    hovered,
-    toggleHoverState
+    state,
+    toggleState
   }
 }
 

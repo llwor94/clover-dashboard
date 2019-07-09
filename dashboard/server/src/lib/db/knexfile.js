@@ -1,3 +1,7 @@
+const { resolve } = require('path')
+
+require('dotenv').config({ path: resolve(__dirname, '../../../.env') })
+
 module.exports = {
   development: {
     client: 'pg',
@@ -8,11 +12,8 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './db/migrations',
+      directory: resolve(__dirname, './migrations'),
       tableName: 'dbmigrations'
-    },
-    seeds: {
-      directory: './db/seeds'
     }
   },
   production: {
@@ -24,11 +25,8 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: './db/migrations',
+      directory: resolve(__dirname, './migrations'),
       tableName: 'dbmigrations'
-    },
-    seeds: {
-      directory: './db/seeds'
     }
   }
 }

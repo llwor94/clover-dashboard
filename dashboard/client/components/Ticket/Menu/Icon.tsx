@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import React, { ReactElement } from 'react'
 
 import Modal from '../Modal'
-import { useHover, useModal } from '../../../lib/hooks'
+import { useModal, useToggle } from '../../../lib/hooks'
 
 interface IconProps {
   children: ReactElement
@@ -12,7 +12,7 @@ interface IconProps {
 type Icon = (args: IconProps) => ReactElement
 
 const Icon: Icon = ({ children, type }) => {
-  const { hovered, toggleHoverState } = useHover()
+  const { state, toggleState } = useToggle()
   const { modalState, setModalState, toggleModalState } = useModal()
 
   const handleClickOutside = (_: MouseEvent) =>
@@ -21,10 +21,10 @@ const Icon: Icon = ({ children, type }) => {
   return (
     <>
       <div
-        className={clsx('ticket__menu-item', { hovered })}
+        className={clsx('ticket__menu-item', state && 'hovered')}
         onClick={toggleModalState}
-        onMouseEnter={toggleHoverState(true)}
-        onMouseLeave={toggleHoverState(false)}
+        onMouseEnter={toggleState(true)}
+        onMouseLeave={toggleState(false)}
       >
         {children}
       </div>

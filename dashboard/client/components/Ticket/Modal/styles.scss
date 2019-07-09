@@ -1,14 +1,12 @@
-@import '../../../lib/styles/themes.scss';
-
 .modal {
   position: absolute;
   width: 145px;
   font-family: 'Maison Mono';
   font-size: 12px;
   font-weight: 400;
-  color: theme-color('menu-item', $dark);
-  background: theme-color('bg-highlight', $dark);
-  box-shadow: theme-color('box-shadow', $dark);
+  color: var(--menu-item);
+  background: var(--bg-highlight);
+  box-shadow: var(--box-shadow);
   border-radius: 8px;
 }
 
@@ -30,7 +28,7 @@
   width: 100%;
   margin: 3px 0 3px 0;
   padding: 5px 0 7px 0;
-  border-bottom: 1px solid theme-color('border', $dark);
+  border-bottom: 1px solid var(--border);
   text-align: center;
 }
 
@@ -41,5 +39,5 @@
 
 .modal-item.hovered {
   font-weight: 700;
-  color: theme-color('highlight', $dark);
+  color: var(--highlight);
 }

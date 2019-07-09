@@ -35,9 +35,9 @@ const Modal = ({ cursorX, cursorY, handleClickOutside, type }) => {
 
   switch (type) {
     case 'modal__confirm':
-      return renderItems(CONFIRM_OPTIONS, 50)
+      return renderItems(CONFIRM_OPTIONS, 400)
     case 'modal__multi':
-      return renderItems(ADMINS, 120)
+      return renderItems(ADMINS, 450)
     case 'modal__full':
       return <></>
     default:

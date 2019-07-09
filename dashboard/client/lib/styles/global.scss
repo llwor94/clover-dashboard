@@ -1,3 +1,47 @@
+html {
+  --text: #000000;
+  --menu-item: #828C96;
+  --menu-item-secondary: #CCCCCC;
+  --highlight: #44B02A;
+  --selected: #2E3F52;
+  --selected-secondary: #565656;
+  --bg-primary: #F6F6F6;
+  --bg-secondary: #F6F6F6;
+  --bg-tertiary: #EBEBEB;
+  --bg-quaternary: #F3F3F3;
+  --bg-highlight: #F9F9F9;
+  --bg-highlight-secondary: #F6F6F6;
+  --border: #F6F6F6;
+  --topic-bg: #FFDCDC;
+  --box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 4px 24px 2px rgba(0,0,0,.1);
+}
+
+html[data-theme="dark"] {
+  --text: #DDDDDD;
+  --menu-item: #ACACAC;
+  --menu-item-secondary: #8C8C8C;
+  --highlight: #44B02A;
+  --selected: #EEEEEE;
+  --selected-secondary: #B3B3B3;
+  --bg-primary: #242424;
+  --bg-secondary: #242424;
+  --bg-tertiary: #191919;
+  --bg-quaternary: #212121;
+  --bg-highlight: #333333;
+  --bg-highlight-secondary: #242424;
+  --border: #242424;
+  --topic-bg: #443a3a;
+  --box-shadow: 0 0 0 1px rgba(0,0,0,.09), 0 2px 12px 2px rgba(0,0,0,.075), 0 4px 24px 1px rgba(0,0,0,.03);
+}
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition: all 750ms !important;
+  transition-delay: 0 !important;
+}
+
 @font-face {
   font-family: 'Circular Std';
   font-weight: 400;

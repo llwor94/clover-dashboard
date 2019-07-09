@@ -1,61 +1,78 @@
-import React, {
-  Context,
-  Dispatch,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useMemo,
-  useState
-} from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
 
 import Filter from '../components/Filter'
 import Header from '../components/Header'
 import Layout from '../components/Layout'
 import SubMenu from '../components/SubMenu'
+import TableHeader from '../components/TableHeader'
 import Ticket from '../components/Ticket'
 
+// import withAuth from '../lib/withAuth'
 import { getSpaces, getTickets } from '../lib/gql/query'
+import { ITicket, ITicketsContext, TicketsProps } from '../lib/typings/interfaces'
 
-interface TicketsProps {
-  spaces: any[]
-  tickets: any[]
-  query: { space: string }
-}
+export const TicketsContext: ITicketsContext = createContext({})
 
-interface Topic {
-  id: string
-  name: string
-}
-
-interface Ticket {
-  author: { username: string }
-  createdAt: string
-  id: string
-  title: string
-  topics: [Topic]
-}
-
-interface TicketsContext extends Context<any> {
-  ticketsList?: Ticket[]
-  toggleCheckbox?: Dispatch<SetStateAction<string>>
-}
-
-export const TicketsContext: TicketsContext = createContext({})
+const TEMP_ADMINS = [
+  {
+    id: 0,
+    name: 'frank',
+    image_url: 'frank.png',
+    tickets: []
+  },
+  {
+    id: 1,
+    name: 'raymond',
+    image_url: 'raymond.png',
+    tickets: []
+  },
+  {
+    id: 2,
+    name: 'emily',
+    image_url: 'emily.png',
+    tickets: []
+  },
+  {
+    id: 3,
+    name: 'lauren',
+    image_url: 'lauren.png',
+    tickets: []
+  },
+  {
+    id: 4,
+    name: 'other',
+    image_url: 'circle.svg',
+    tickets: []
+  }
+]
 
 const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) => {
   const [ticketsList, setTickets] = useState(initalTickets)
 
   useEffect(() => {
+    let didCancel = false
     ;(async () => {
       if (query && query.space) {
         const { data } = await getTickets(query.space)
 
-        if (data && data.tickets) {
+        if (!didCancel && data && data.tickets) {
           // Add `selected` field to each Ticket
-          setTickets(data.tickets.map((ticket: Ticket) => ({ ...ticket, selected: false })))
+          setTickets(
+            data.tickets.tickets.map((ticket: ITicket) => ({
+              ...ticket,
+              assignedTo: {
+                ...TEMP_ADMINS[Math.round(Math.random() * 4)],
+                tickets: [ticket.id]
+              },
+              selected: false
+            }))
+          )
         }
       }
     })()
+    return () => {
+      didCancel = true
+    }
   }, [query])
 
   const toggleCheckbox = (id: string) => () => {
@@ -66,13 +83,17 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
     )
   }
 
-  const space = spaces.find(({ id }) => id === parseInt(query.space, 10))
+  const toggleAllCheckboxes = (bool: boolean) => () =>
+    setTickets(ticketsList.map(ticket => ({ ...ticket, selected: bool })))
 
-  const tickets = ticketsList.map((t: Ticket) => <Ticket key={t.id} ticket={t} />)
+  const space = Array.isArray(spaces) && spaces.find(({ id }) => id === parseInt(query.space, 10))
 
-  const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox }), [
+  const tickets = ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
+
+  const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox, toggleAllCheckboxes }), [
     ticketsList,
-    toggleCheckbox
+    toggleCheckbox,
+    toggleAllCheckboxes
   ])
 
   return (
@@ -80,9 +101,9 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
       <Layout>
         <SubMenu spaces={spaces} space={query && query.space} />
         <main className="main">
-          <Header />
-          <div className="tickets__heading">{space.name}</div>
+          <Header name={space.name} />
           <Filter />
+          <TableHeader />
           <div className="content">{tickets}</div>
         </main>
       </Layout>

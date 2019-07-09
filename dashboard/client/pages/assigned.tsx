@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import withAuth from '../lib/withAuth'
+
 import Header from '../components/Header'
 import Layout from '../components/Layout'
 
@@ -11,4 +13,4 @@ const Assigned: React.SFC = () => (
   </Layout>
 )
 
-export default Assigned
+export default withAuth(Assigned)

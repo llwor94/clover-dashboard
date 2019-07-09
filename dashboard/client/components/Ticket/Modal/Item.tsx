@@ -1,16 +1,16 @@
 import clsx from 'clsx'
 import React from 'react'
 
-import { useHover } from '../../../lib/hooks'
+import { useToggle } from '../../../lib/hooks'
 
 const Item = ({ children }) => {
-  const { hovered, toggleHoverState } = useHover()
+  const { state, toggleState } = useToggle()
 
   return (
     <div
-      className={clsx('modal-item', { hovered })}
-      onMouseEnter={toggleHoverState(true)}
-      onMouseLeave={toggleHoverState(false)}
+      className={clsx('modal-item', state && 'hovered')}
+      onMouseEnter={toggleState(true)}
+      onMouseLeave={toggleState(false)}
     >
       {children}
     </div>

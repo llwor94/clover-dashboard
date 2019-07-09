@@ -14,15 +14,11 @@ const TicketDetails = ({ author, createdAt, title, topics }) => {
   ))
 
   return (
-    <div className="ticket__title">
-      {title}
-      <div className="ticket__info">
-        <div className="ticket__date">{TicketDate}</div>
-        <div className="ticket__author-wrapper">
-          Question by <span className="ticket__author">{author.username}</span>
-        </div>
-        <div className="ticket__topics">{Topics}</div>
-      </div>
+    <div className="ticket__details">
+      <span className="ticket__title">{title}</span>
+      <span className="ticket__date">{TicketDate}</span>
+      <span className="ticket__author">{author.username}</span>
+      <div className="ticket__topics">{Topics}</div>
     </div>
   )
 }

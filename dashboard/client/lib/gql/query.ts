@@ -13,30 +13,56 @@ export function getSpaces() {
   })
 }
 
-export function getTickets(spaceId?) {
+export function getTickets(spaceId: string) {
   return server({
     data: {
       query: `{
             tickets(spaceId: ${spaceId}) {
-              id
-              title
-              body
-              createdAt
-              assignedTo {
+              tickets {
                 id
-                name
-                image_url
-              }
-              author {
-                id
-                username
-              }
-              topics {
-                id
-                name
+                title
+                body
+                createdAt
+                assignedTo {
+                  id
+                  name
+                  image_url
+                }
+                author {
+                  id
+                  username
+                }
+                topics {
+                  id
+                  name
+                }
               }
             }
           }`
     }
   })
 }
+
+export const getTotalCount = (spaceId: string) =>
+  server({
+    data: {
+      query: `{
+        tickets(spaceId: ${spaceId}) {
+          totalCount
+        }
+      }`
+    }
+  })
+
+export const isLoggedIn = () =>
+  server({
+    data: {
+      query: `{
+        isLoggedIn {
+          id
+          name
+          image_url
+        }
+      }`
+    }
+  })
