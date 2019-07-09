@@ -28,7 +28,7 @@ const Login = ({ query }) => {
   }, [user])
   if (user) {
     return (
-      <Layout>
+      <Layout user={user}>
         <main className="main" id="main__login">
           Hi there little {user.name.firstName} guy! u made it!
         </main>
@@ -36,7 +36,7 @@ const Login = ({ query }) => {
     )
   }
   return (
-    <Layout>
+    <Layout user={user}>
       <main className="main" id="main__login">
         pls wait
       </main>
@@ -47,7 +47,6 @@ const Login = ({ query }) => {
 Login.getInitialProps = async context => {
   const { query } = context
   return { query }
-  
 }
 
 export default Login

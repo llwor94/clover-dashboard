@@ -8,11 +8,11 @@ const withAuth = (C: NextFunctionComponent) => {
   C.getInitialProps = async (context: NextContext) => {
     if (context.req && context.req.headers.cookie) {
       server.defaults.headers.common.cookie = context.req && context.req.headers.cookie
-    
+
       const { data } = await isLoggedIn()
-      return data
+      return {data, query: context.query}
     }
-    return {}
+    return {query: context.query}
   }
 
   return C

@@ -26,7 +26,9 @@ export function getTickets(spaceId: string) {
                 createdAt
                 assignedTo {
                   id
-                  name
+                  name {
+                    firstName
+                  }
                   image_url
                 }
                 author {

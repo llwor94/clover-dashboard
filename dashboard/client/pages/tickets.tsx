@@ -47,7 +47,7 @@ const TEMP_ADMINS = [
 ]
 
 const Tickets = props => {
-  const { query } = props
+  const { query, loggedInUser} = props
   const [ticketsList, setTickets] = useState()
   const [spaces, setSpaces] = useState()
 
@@ -60,9 +60,6 @@ const Tickets = props => {
         } = await getSpaces()
 
         setSpaces(spaces)
-      } catch (e) {
-        console.error(e.message)
-      }
 
       if (query && query.space) {
         const { data } = await getTickets(query.space)
@@ -81,6 +78,10 @@ const Tickets = props => {
           )
         }
       }
+    } catch (e) {
+      console.error(e.message)
+    }
+
     })()
     return () => {
       didCancel = true
@@ -112,7 +113,7 @@ const Tickets = props => {
 
   return (
     <TicketsContext.Provider value={contextValue}>
-      <Layout>
+      <Layout user={loggedInUser}>
         <SubMenu spaces={spaces} space={query && query.space} />
         <main className="main">
           <Header name={space ? space.name : ''} />
@@ -124,6 +125,5 @@ const Tickets = props => {
     </TicketsContext.Provider>
   )
 }
-
 
 export default withAuth(Tickets)
