@@ -26,14 +26,14 @@ const Login = ({ query }) => {
   React.useEffect(() => {
     if (user) Router.push('/tickets?space=12')
   }, [user])
-  
-    return (
-      <Layout user={user}>
-        <main className="main" id="main__login">
-          {user ? `Hi there little ${user.name.firstName} guy! u made it!` : 'pls wait' }
-        </main>
-      </Layout>
-    )
+
+  return (
+    <Layout user={user}>
+      <main className="main" id="main__login">
+        {user ? `Hi there little ${user.name.firstName} guy! u made it!` : 'pls wait'}
+      </main>
+    </Layout>
+  )
 }
 
 Login.getInitialProps = async context => {
