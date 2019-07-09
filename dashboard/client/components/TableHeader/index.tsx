@@ -11,7 +11,7 @@ const TableHeader = () => {
   const [state, setState] = useState(false)
 
   useEffect(() => {
-    if (ticketsList.length) {
+    if (ticketsList && ticketsList.length) {
       setState(ticketsList.every(({ selected }) => selected))
     }
   }, [ticketsList])

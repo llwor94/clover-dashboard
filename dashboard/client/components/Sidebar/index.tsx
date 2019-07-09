@@ -25,6 +25,7 @@ const SideBar = () => {
       <div className="logo__wrapper">
         <img className="logo" onClick={toggleState(!state)} src="/static/clover-logo.png" />
       </div>
+      <a href="http://localhost:4000/oauth">Login</a>
       <div className="sidebar__menu">
         <MenuIcons />
       </div>

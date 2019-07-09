@@ -7,7 +7,7 @@ import SubMenu from '../components/SubMenu'
 import TableHeader from '../components/TableHeader'
 import Ticket from '../components/Ticket'
 
-// import withAuth from '../lib/withAuth'
+import withAuth from '../lib/withAuth'
 import { getSpaces, getTickets } from '../lib/gql/query'
 import { ITicket, ITicketsContext, TicketsProps } from '../lib/typings/interfaces'
 
@@ -46,12 +46,24 @@ const TEMP_ADMINS = [
   }
 ]
 
-const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) => {
-  const [ticketsList, setTickets] = useState(initalTickets)
+const Tickets = props => {
+  const { query } = props
+  const [ticketsList, setTickets] = useState()
+  const [spaces, setSpaces] = useState()
 
   useEffect(() => {
     let didCancel = false
     ;(async () => {
+      try {
+        const {
+          data: { spaces }
+        } = await getSpaces()
+
+        setSpaces(spaces)
+      } catch (e) {
+        console.error(e.message)
+      }
+
       if (query && query.space) {
         const { data } = await getTickets(query.space)
 
@@ -76,19 +88,21 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
   }, [query])
 
   const toggleCheckbox = (id: string) => () => {
-    setTickets(
-      ticketsList.map(ticket =>
-        ticket.id === id ? { ...ticket, selected: !ticket.selected } : ticket
-      )
+    const newTickets = ticketsList.map(ticket =>
+      ticket.id === id ? { ...ticket, selected: !ticket.selected } : ticket
     )
+    setTickets(newTickets)
   }
+
+  const space =
+    Array.isArray(spaces) && query
+      ? spaces.find(({ id }) => id === parseInt(query.space, 10))
+      : undefined
+
+  const tickets = ticketsList && ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
 
   const toggleAllCheckboxes = (bool: boolean) => () =>
     setTickets(ticketsList.map(ticket => ({ ...ticket, selected: bool })))
-
-  const space = Array.isArray(spaces) && spaces.find(({ id }) => id === parseInt(query.space, 10))
-
-  const tickets = ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
 
   const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox, toggleAllCheckboxes }), [
     ticketsList,
@@ -101,26 +115,26 @@ const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) =
       <Layout>
         <SubMenu spaces={spaces} space={query && query.space} />
         <main className="main">
-          <Header name={space.name} />
+          <Header name={space ? space.name : ''} />
           <Filter />
           <TableHeader />
-          <div className="content">{tickets}</div>
+          <div className="content">{ticketsList && tickets}</div>
         </main>
       </Layout>
     </TicketsContext.Provider>
   )
 }
 
-Tickets.getInitialProps = async ({ query }) => {
-  try {
-    const {
-      data: { spaces }
-    } = await getSpaces()
+// Tickets.getInitialProps = async ({ query }) => {
+//   try {
+//     const {
+//       data: { spaces }
+//     } = await getSpaces()
 
-    return { spaces, query }
-  } catch (e) {
-    console.error(e.message)
-  }
-}
+//     return { spaces, query }
+//   } catch (e) {
+//     console.error(e.message)
+//   }
+// }
 
-export default Tickets
+export default withAuth(Tickets)

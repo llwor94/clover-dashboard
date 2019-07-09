@@ -18,6 +18,7 @@ export function getTickets(spaceId: string) {
     data: {
       query: `{
             tickets(spaceId: ${spaceId}) {
+              totalCount
               tickets {
                 id
                 title
@@ -58,11 +59,32 @@ export const isLoggedIn = () =>
   server({
     data: {
       query: `{
-        isLoggedIn {
+        loggedInUser {
           id
-          name
+          name {
+            firstName
+            lastName
+          }
           image_url
         }
       }`
     }
   })
+
+export function auth(token: string) {
+  return server({
+    data: {
+      query: `{
+        auth(idToken: \"${token}\") {
+          id
+          google_id
+          name {
+            firstName
+            lastName
+          }
+          image_url
+        }
+      }`
+    }
+  })
+}

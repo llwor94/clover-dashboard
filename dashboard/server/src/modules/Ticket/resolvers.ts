@@ -15,6 +15,7 @@ type Remapped<T> = {
 const tickets: Remapped<{}> = async (_, { spaceId }) => {
   try {
     const { list, totalCount } = await community.getTickets(spaceId)
+
     const dbTickets = await db.getTickets()
 
     if (list && Array.isArray(list)) {

@@ -10,13 +10,20 @@ const typeDefs = `
 
   type Admin {
     id: Int
-    name: String!
+    name: Name
     image_url: String
+    google_id: String
     tickets: [Ticket]
   }
 
+  type Name {
+    firstName: String
+    lastName: String
+  }
+
   type Query {
-    isLoggedIn: Admin
+    loggedInUser: Admin
+    auth(idToken: String): Admin
   }
 
   type Mutation {

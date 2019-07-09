@@ -1,6 +1,6 @@
 const { resolve } = require('path')
 
-require('dotenv').config({ path: resolve(__dirname, '../../../.env') })
+require('dotenv').config()
 
 module.exports = {
   development: {
@@ -12,7 +12,7 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: resolve(__dirname, './migrations'),
+      directory: './migrations',
       tableName: 'dbmigrations'
     }
   },
@@ -25,7 +25,7 @@ module.exports = {
     },
     useNullAsDefault: true,
     migrations: {
-      directory: resolve(__dirname, './migrations'),
+      directory: './migrations',
       tableName: 'dbmigrations'
     }
   }

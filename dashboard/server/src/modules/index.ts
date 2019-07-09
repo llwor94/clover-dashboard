@@ -1,6 +1,6 @@
 import { makeExecutableSchema } from 'graphql-tools'
 
-import { adminTypeDefs, assignAdmin, createAdmin, isLoggedIn } from './Auth/'
+import { adminTypeDefs, assignAdmin, auth, createAdmin, loggedInUser } from './Auth/'
 import { spaceTypeDefs, spaces } from './Space/'
 import { ticketTypeDefs, tickets } from './Ticket/'
 import { topicTypeDefs } from './Topic/'
@@ -10,7 +10,8 @@ const typeDefs = [adminTypeDefs, spaceTypeDefs, ticketTypeDefs, topicTypeDefs, u
 
 const resolvers = {
   Query: {
-    isLoggedIn,
+    loggedInUser,
+    auth,
     tickets,
     spaces
   },

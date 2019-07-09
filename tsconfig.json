@@ -30,7 +30,7 @@
   
     "include": [
         "**/*.ts",
-        "**/*.tsx"
+        "**/*.tsx", "dashboard/server/src/lib/db/helpers.js"
       ],
   
     "exclude": [
