@@ -4,18 +4,15 @@ import { OAuth2Client } from 'google-auth-library'
 import { Request, Response } from 'express'
 import { sign } from 'jsonwebtoken'
 
-import * as db from './db/helpers'
-
-import env, { Env } from './config'
+import db from './db/helpers'
+import env from './config'
 import { FetchData, PeopleAPIResponse, TokensResponse } from './types'
 
 export const oauth2Client = new google.auth.OAuth2(
-  (env as Env).GOOGLE_CLIENT_ID,
-  (env as Env).GOOGLE_CLIENT_SECRET,
-  (env as Env).GOOGLE_REDIRECT
+  env.GOOGLE_CLIENT_ID,
+  env.GOOGLE_CLIENT_SECRET,
+  env.GOOGLE_REDIRECT
 ) as OAuth2Client
-
-export const key = new Uint8Array([85, 95, 82, 95, 65, 87, 69, 83, 79, 109, 69, 55358])
 
 const scope = [
   'https://www.googleapis.com/auth/plus.me',
@@ -97,7 +94,7 @@ export const fetchGoogleProfile = async (req: Request, res: Response) => {
         accessToken: (tokens as TokensResponse).access_token,
         tokenType: (tokens as TokensResponse).token_type
       },
-      (env as Env).JWT_SECRET
+      env.JWT_SECRET
     )
 
     res.redirect(`http://localhost:3000/login?id_token=${token}`)

@@ -5,22 +5,13 @@ import * as cookieParser from 'cookie-parser'
 
 import schema from './modules'
 import { catchErrors } from './lib/utils'
+import env from './lib/config'
 import { fetchGoogleProfile } from './lib/authentication'
 
 const app = express()
 
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
-// app.use(async (req, res, next) => {
-//   const { token } = req.cookies;
-//   console.log('token', token)
-//   if (token) {
-//     const { userId } = jwt.verify(token, process.env.APP_SECRET);
-//     // put the userId onto the req for future requests to access
-//     req.userId = userId;
-//   }
-//   next();
-// })
+app.use(cors({ credentials: true, origin: env.CLIENT_URL }))
 app.get('/oauth', catchErrors(fetchGoogleProfile))
 app.use(
   '/graphql',

@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import env, { Env } from '../lib/config'
+import env from '../lib/config'
 
 const server = axios.create({
-  baseURL: (env as Env).ANSWERHUB_ENDPOINT,
-  headers: { Authorization: `Basic ${(env as Env).TEST_AUTH}` }
+  baseURL: env.ANSWERHUB_ENDPOINT,
+  headers: { Authorization: `Basic ${env.TEST_AUTH}` }
 })
 
 export default {
