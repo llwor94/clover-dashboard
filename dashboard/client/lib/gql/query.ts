@@ -46,17 +46,6 @@ export function getTickets(spaceId: string) {
   })
 }
 
-export const getTotalCount = (spaceId: string) =>
-  server({
-    data: {
-      query: `{
-        tickets(spaceId: ${spaceId}) {
-          totalCount
-        }
-      }`
-    }
-  })
-
 export const isLoggedIn = () =>
   server({
     data: {
