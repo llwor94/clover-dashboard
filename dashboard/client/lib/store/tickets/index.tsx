@@ -1,0 +1,13 @@
+export { getSpaces, getTickets } from './actions'
+export { initialState, ticketsReducer } from './reducer'
+
+export const GET_ALL_TICKETS = 'GET_ALL_TICKETS'
+export const GET_CURRENT_SPACE = 'GET_CURRENT_SPACE'
+export const GET_SPACES_FAIL = 'GET_SPACES_FAIL'
+export const GET_SPACES_START = 'GET_SPACES_START'
+export const GET_SPACES_SUCCESS = 'GET_SPACES_SUCCESS'
+export const GET_TICKETS_FAIL = 'GET_TICKETS_FAIL'
+export const GET_TICKETS_START = 'GET_TICKETS_START'
+export const GET_TICKETS_SUCCESS = 'GET_TICKETS_SUCCESS'
+export const TOGGLE_ALL_TICKETS = 'TOGGLE_ALL_TICKETS'
+export const TOGGLE_TICKET = 'TOGGLE_TICKET'

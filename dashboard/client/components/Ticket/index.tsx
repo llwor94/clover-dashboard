@@ -1,6 +1,5 @@
 import clsx from 'clsx'
-import React, { useContext, useEffect, useState } from 'react'
-import { Transition } from 'react-transition-group'
+import React from 'react'
 
 import CheckboxIcon from './CheckboxIcon'
 import Details from './Details'
@@ -9,19 +8,21 @@ import Menu from './Menu'
 import UserImage from './UserImage'
 
 import { useToggle } from '../../lib/hooks'
-import { TicketsContext } from '../../pages/tickets'
+import { TOGGLE_TICKET, useAppState } from '../../lib/store'
+
 import './styles.scss'
 
-const Ticket = ({ ticket }) => {
-  const [someSelected, setSomeSelected] = useState(false)
-  const { state, toggleState } = useToggle()
-  const { ticketsList, toggleCheckbox } = useContext(TicketsContext)
+const CheckboxOrImg = ({ entered, ticket }) => {
+  const [
+    {
+      tickets: { allSelected, someSelected }
+    },
+    dispatch
+  ] = useAppState()
 
-  useEffect(() => {
-    if (ticketsList.length) {
-      setSomeSelected(ticketsList.some(({ selected }) => selected))
-    }
-  }, [ticketsList])
+  const toggleCheckbox = id => () => {
+    dispatch({ type: TOGGLE_TICKET, id })
+  }
 
   const Checkbox = ticket.selected ? (
     <CheckboxIcon handleClick={toggleCheckbox(ticket.id)} />
@@ -29,23 +30,25 @@ const Ticket = ({ ticket }) => {
     <EmptyCheckboxIcon handleClick={toggleCheckbox(ticket.id)} />
   )
 
+  return entered || (allSelected || someSelected) ? (
+    Checkbox
+  ) : (
+    <UserImage {...ticket} handleClick={toggleCheckbox(ticket.id)} />
+  )
+}
+
+const Ticket = ({ ticket }) => {
+  const { state, toggleState } = useToggle()
+
   return (
-    <Transition in={state} timeout={150}>
-      {(state: string) => (
-        <div
-          className={clsx('ticket', state || ticket.selected)}
-          onMouseEnter={toggleState(true)}
-          onMouseLeave={toggleState(false)}
-        >
-          {someSelected ? (
-            Checkbox
-          ) : (
-            <UserImage {...ticket} handleClick={toggleCheckbox(ticket.id)} />
-          )}
-          {state !== 'entered' ? <Details {...ticket} /> : <Menu />}
-        </div>
-      )}
-    </Transition>
+    <div
+      className={clsx('ticket', state || ticket.selected)}
+      onMouseEnter={toggleState(true)}
+      onMouseLeave={toggleState(false)}
+    >
+      <CheckboxOrImg entered={state} ticket={ticket} />
+      {!state ? <Details {...ticket} /> : <Menu />}
+    </div>
   )
 }
 

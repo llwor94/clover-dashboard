@@ -1,4 +1,5 @@
 import React from 'react'
+import { createPortal } from 'react-dom'
 import onClickOutside, { WrapperClass } from 'react-onclickoutside'
 
 import Item from './Item'
@@ -23,22 +24,24 @@ const ADMINS = ['Frank Faustino', 'Raymond Lee', 'Emily Lucek', 'Lauren Worthing
 const CONFIRM_OPTIONS = ['👌 OK', '🙅‍♀️ Cancel']
 
 const Modal = ({ cursorX, cursorY, handleClickOutside, type }) => {
-  const renderItems = (list: string[], offSet: number) => (
+  const modalRoot: any = document.getElementById('__next-modal')
+
+  const renderItems = (list: string[]) => createPortal((
     <OutsideClickHandler onClickOutside={handleClickOutside}>
-      <div className={type} style={{ left: cursorX - offSet, top: cursorY - 10 }}>
+      <div className={`modal ${type}`} style={{ left: cursorX, top: cursorY - 10 }}>
         {list.map((item: string) => (
           <Item key={item}>{item}</Item>
         ))}
       </div>
     </OutsideClickHandler>
-  )
+  ), modalRoot)
 
   switch (type) {
-    case 'modal__confirm':
-      return renderItems(CONFIRM_OPTIONS, 400)
-    case 'modal__multi':
-      return renderItems(ADMINS, 450)
-    case 'modal__full':
+    case 'confirm':
+      return renderItems(CONFIRM_OPTIONS)
+    case 'multi':
+      return renderItems(ADMINS)
+    case 'full':
       return <></>
     default:
       return <></>

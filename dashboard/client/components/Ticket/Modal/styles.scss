@@ -10,16 +10,16 @@
   border-radius: 8px;
 }
 
-.modal__confirm {
+.modal.confirm {
   @extend .modal;
   width: 80px;
 }
 
-.modal__multi {
+.modal.multi {
   @extend .modal;
 }
 
-.modal__full {
+.modal.full {
   @extend .modal;
   width: 500px;
 }

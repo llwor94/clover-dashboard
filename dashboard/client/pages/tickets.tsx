@@ -1,128 +1,46 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import Filter from '../components/Filter'
-import Header from '../components/Header'
-import Layout from '../components/Layout'
-import SubMenu from '../components/SubMenu'
-import TableHeader from '../components/TableHeader'
-import Ticket from '../components/Ticket'
+import { Filter, Header, Layout, SubMenu, Ticket, TicketsHeader } from '../components'
+import { getSpaces, getTickets, useAppState, useUIState } from '../lib/store'
+import { ITicket } from '../lib/typings'
+import clsx from 'clsx'
 
-import withAuth from '../lib/withAuth'
-import { getSpaces, getTickets } from '../lib/gql/query'
-import { ITicket, ITicketsContext, TicketsProps } from '../lib/typings/interfaces'
-
-export const TicketsContext: ITicketsContext = createContext({})
-
-const TEMP_ADMINS = [
-  {
-    id: 0,
-    name: 'frank',
-    image_url: 'frank.png',
-    tickets: []
-  },
-  {
-    id: 1,
-    name: 'raymond',
-    image_url: 'raymond.png',
-    tickets: []
-  },
-  {
-    id: 2,
-    name: 'emily',
-    image_url: 'emily.png',
-    tickets: []
-  },
-  {
-    id: 3,
-    name: 'lauren',
-    image_url: 'lauren.png',
-    tickets: []
-  },
-  {
-    id: 4,
-    name: 'other',
-    image_url: 'circle.svg',
-    tickets: []
-  }
-]
-
-const Tickets = props => {
-  const { query, loggedInUser } = props
-  const [ticketsList, setTickets] = useState()
-  const [spaces, setSpaces] = useState()
+const Tickets = ({ query }) => {
+  const [
+    {
+      tickets: { spaces, spacesLoading, tickets, ticketsLoading }
+    },
+    dispatch
+  ] = useAppState()
+  const [{ submenu }, _] = useUIState()
 
   useEffect(() => {
-    let didCancel = false
-    ;(async () => {
-      try {
-        const {
-          data: { spaces }
-        } = await getSpaces()
+    getSpaces(dispatch)
+  }, [])
 
-        setSpaces(spaces)
+  useEffect(() => {
+    if (query.space) getTickets(dispatch, query.space)
+  }, [query.space])
 
-        if (query && query.space) {
-          const { data } = await getTickets(query.space)
+  const ticketsList = tickets && tickets.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
 
-          if (!didCancel && data && data.tickets) {
-            // Add `selected` field to each Ticket
-            setTickets(
-              data.tickets.tickets.map((ticket: ITicket) => ({
-                ...ticket,
-                assignedTo: {
-                  ...TEMP_ADMINS[Math.round(Math.random() * 4)],
-                  tickets: [ticket.id]
-                },
-                selected: false
-              }))
-            )
-          }
-        }
-      } catch (e) {
-        console.error(e.message)
-      }
-    })()
-    return () => {
-      didCancel = true
-    }
-  }, [query])
-
-  const toggleCheckbox = (id: string) => () => {
-    const newTickets = ticketsList.map(ticket =>
-      ticket.id === id ? { ...ticket, selected: !ticket.selected } : ticket
-    )
-    setTickets(newTickets)
-  }
-
-  const space =
-    Array.isArray(spaces) && query
-      ? spaces.find(({ id }) => id === parseInt(query.space, 10))
-      : undefined
-
-  const tickets = ticketsList && ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
-
-  const toggleAllCheckboxes = (bool: boolean) => () =>
-    setTickets(ticketsList.map(ticket => ({ ...ticket, selected: bool })))
-
-  const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox, toggleAllCheckboxes }), [
-    ticketsList,
-    toggleCheckbox,
-    toggleAllCheckboxes
-  ])
-
-  return (
-    <TicketsContext.Provider value={contextValue}>
-      <Layout user={loggedInUser}>
-        <SubMenu spaces={spaces} space={query && query.space} />
-        <main className="main">
-          <Header name={space ? space.name : ''} />
+  if (tickets) {
+    return (
+      <Layout>
+        {spacesLoading || <SubMenu spaces={spaces} space={query.space} />}
+        <main className={clsx('main', submenu && 'collapsed')}>
+          <Header name={'none'} />
           <Filter />
-          <TableHeader />
-          <div className="content">{ticketsList && tickets}</div>
+          <TicketsHeader />
+          {ticketsLoading || <div className="content">{ticketsList}</div>}
         </main>
       </Layout>
-    </TicketsContext.Provider>
-  )
+    )
+  } else {
+    return null
+  }
 }
 
-export default withAuth(Tickets)
+Tickets.getInitialProps = ({ query }) => ({ query })
+
+export default Tickets
