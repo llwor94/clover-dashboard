@@ -25,7 +25,7 @@
       // enable all strict type checking options
       "strict": true,
       // compile to es5 syntax / feature-set
-      "target": "es2017",
+      "target": "es2017"
     },
   
     "include": [

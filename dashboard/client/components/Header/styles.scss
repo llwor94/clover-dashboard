@@ -1,4 +1,5 @@
 header {
+  display: flex;
   z-index: 99;
   position: absolute;
   height: 60px;
@@ -8,10 +9,39 @@ header {
   border-bottom: 1px solid var(--border);
 }
 
+.arrows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+  cursor: pointer;
+  fill: var(--menu-item-secondary);
+}
+
+.arrows.collapsed {
+  display: block;
+  transform: scale(-1, 1);
+}
+
+.arrows:hover {
+  fill: var(--highlight);
+}
+
+.arrows svg {
+  display: block;
+  position: relative;
+  width: 12px;
+  margin: 0 0 0 2px;
+}
+.arrows svg:nth-child(2) {
+  margin-top: -19px;
+}
+.arrows svg:nth-child(3) {
+  margin-top: -19px;
+}
+
 .tickets__heading {
   height: 60px;
   padding: 20px 0 0 40px;
-  // font-weight: 600;
   font-size: 20px;
   color: var(--selected);
   background-color: var(--bg-secondary);

@@ -1,126 +1,46 @@
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import Filter from '../components/Filter'
-import Header from '../components/Header'
-import Layout from '../components/Layout'
-import SubMenu from '../components/SubMenu'
-import TableHeader from '../components/TableHeader'
-import Ticket from '../components/Ticket'
+import { Filter, Header, Layout, SubMenu, Ticket, TicketsHeader } from '../components'
+import { getSpaces, getTickets, useAppState, useUIState } from '../lib/store'
+import { ITicket } from '../lib/typings'
+import clsx from 'clsx'
 
-// import withAuth from '../lib/withAuth'
-import { getSpaces, getTickets } from '../lib/gql/query'
-import { ITicket, ITicketsContext, TicketsProps } from '../lib/typings/interfaces'
-
-export const TicketsContext: ITicketsContext = createContext({})
-
-const TEMP_ADMINS = [
-  {
-    id: 0,
-    name: 'frank',
-    image_url: 'frank.png',
-    tickets: []
-  },
-  {
-    id: 1,
-    name: 'raymond',
-    image_url: 'raymond.png',
-    tickets: []
-  },
-  {
-    id: 2,
-    name: 'emily',
-    image_url: 'emily.png',
-    tickets: []
-  },
-  {
-    id: 3,
-    name: 'lauren',
-    image_url: 'lauren.png',
-    tickets: []
-  },
-  {
-    id: 4,
-    name: 'other',
-    image_url: 'circle.svg',
-    tickets: []
-  }
-]
-
-const Tickets = ({ spaces, tickets: initalTickets = [], query }: TicketsProps) => {
-  const [ticketsList, setTickets] = useState(initalTickets)
+const Tickets = ({ query }) => {
+  const [
+    {
+      tickets: { spaces, spacesLoading, tickets, ticketsLoading }
+    },
+    dispatch
+  ] = useAppState()
+  const [{ submenu }, _] = useUIState()
 
   useEffect(() => {
-    let didCancel = false
-    ;(async () => {
-      if (query && query.space) {
-        const { data } = await getTickets(query.space)
+    getSpaces(dispatch)
+  }, [])
 
-        if (!didCancel && data && data.tickets) {
-          // Add `selected` field to each Ticket
-          setTickets(
-            data.tickets.tickets.map((ticket: ITicket) => ({
-              ...ticket,
-              assignedTo: {
-                ...TEMP_ADMINS[Math.round(Math.random() * 4)],
-                tickets: [ticket.id]
-              },
-              selected: false
-            }))
-          )
-        }
-      }
-    })()
-    return () => {
-      didCancel = true
-    }
-  }, [query])
+  useEffect(() => {
+    if (query.space) getTickets(dispatch, query.space)
+  }, [query.space])
 
-  const toggleCheckbox = (id: string) => () => {
-    setTickets(
-      ticketsList.map(ticket =>
-        ticket.id === id ? { ...ticket, selected: !ticket.selected } : ticket
-      )
-    )
-  }
+  const ticketsList = tickets && tickets.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
 
-  const toggleAllCheckboxes = (bool: boolean) => () =>
-    setTickets(ticketsList.map(ticket => ({ ...ticket, selected: bool })))
-
-  const space = Array.isArray(spaces) && spaces.find(({ id }) => id === parseInt(query.space, 10))
-
-  const tickets = ticketsList.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
-
-  const contextValue = useMemo(() => ({ ticketsList, toggleCheckbox, toggleAllCheckboxes }), [
-    ticketsList,
-    toggleCheckbox,
-    toggleAllCheckboxes
-  ])
-
-  return (
-    <TicketsContext.Provider value={contextValue}>
+  if (tickets) {
+    return (
       <Layout>
-        <SubMenu spaces={spaces} space={query && query.space} />
-        <main className="main">
-          <Header name={space.name} />
+        {spacesLoading || <SubMenu spaces={spaces} space={query.space} />}
+        <main className={clsx('main', submenu && 'collapsed')}>
+          <Header name={'none'} />
           <Filter />
-          <TableHeader />
-          <div className="content">{tickets}</div>
+          <TicketsHeader />
+          {ticketsLoading || <div className="content">{ticketsList}</div>}
         </main>
       </Layout>
-    </TicketsContext.Provider>
-  )
-}
-
-Tickets.getInitialProps = async ({ query }) => {
-  try {
-    const {
-      data: { spaces }
-    } = await getSpaces()
-
-    return { spaces, query }
-  } catch (e) {
-    console.error(e.message)
+    )
+  } else {
+    return null
   }
 }
+
+Tickets.getInitialProps = ({ query }) => ({ query })
 
 export default Tickets
