@@ -26,15 +26,18 @@ const CONFIRM_OPTIONS = ['👌 OK', '🙅‍♀️ Cancel']
 const Modal = ({ cursorX, cursorY, handleClickOutside, type }) => {
   const modalRoot: any = document.getElementById('__next-modal')
 
-  const renderItems = (list: string[]) => createPortal((
-    <OutsideClickHandler onClickOutside={handleClickOutside}>
-      <div className={`modal ${type}`} style={{ left: cursorX, top: cursorY - 10 }}>
-        {list.map((item: string) => (
-          <Item key={item}>{item}</Item>
-        ))}
-      </div>
-    </OutsideClickHandler>
-  ), modalRoot)
+  const renderItems = (list: string[]) => {
+    const modal = (
+      <OutsideClickHandler onClickOutside={handleClickOutside}>
+        <div className={`modal ${type}`} style={{ left: cursorX, top: cursorY - 10 }}>
+          {list.map((item: string) => (
+            <Item key={item}>{item}</Item>
+          ))}
+        </div>
+      </OutsideClickHandler>
+    )
+    createPortal(modal, modalRoot)
+  }
 
   switch (type) {
     case 'confirm':
