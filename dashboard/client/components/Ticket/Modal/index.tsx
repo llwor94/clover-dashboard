@@ -36,7 +36,7 @@ const Modal = ({ cursorX, cursorY, handleClickOutside, type }) => {
         </div>
       </OutsideClickHandler>
     )
-    createPortal(modal, modalRoot)
+    return createPortal(modal, modalRoot)
   }
 
   switch (type) {
