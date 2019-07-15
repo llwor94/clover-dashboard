@@ -6,7 +6,7 @@
   background: var(--bg-secondary);
 }
 
-main {
+.main {
   flex-grow: 1;
   overflow: hidden;
   position: absolute;
@@ -21,16 +21,19 @@ main {
   border-radius: 8px 0 0 8px;
 }
 
-#main__login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 0px;
+.main.collapsed {
+  left: 60px;
 }
+
+// #main__login {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   left: 0px;
+// }
 
 .content {
   padding-bottom: 125px;
   height: 100%;
   overflow-y: auto;
-  border-left: 20px solid var(--bg-secondary);
 }

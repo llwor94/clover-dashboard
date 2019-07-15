@@ -8,7 +8,7 @@ const StarIcon = {
     </svg>
   ),
   name: 'assign',
-  type: 'modal__multi'
+  type: 'multi'
 }
 
 export default StarIcon

@@ -1,23 +1,29 @@
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
-import { getTotalCount } from '../../lib/gql/query'
+// import { GET_CURRENT_SPACE, useUIState } from '../../lib/store'
 
 const Item = ({ goToSpace, id, name, space }) => {
-  const [state, setState] = useState(null)
-  useEffect(() => {
-    let didCancel = false
-    ;(async () => {
-      const { data } = await getTotalCount(id)
+  // const [{ tickets }, dispatch] = useUIState()
 
-      if (!didCancel && data && data.tickets) {
-        setState(data.tickets.totalCount)
-      }
-    })()
-    return () => {
-      didCancel = true
-    }
-  })
+  // useEffect(() => {
+  //   dispatch({ type: GET_CURRENT_SPACE, id })
+  // }, [])
+  // console.log(tickets)
+
+  // const [totalCount, setState] = useState(null)
+  // useEffect(() => {
+  //   let didCancel = false
+  //   ;(async () => {
+  //     const { data } = await getTotalCount(id)
+  //     if (!didCancel && data && data.tickets) {
+  //       setState(data.tickets.totalCount)
+  //     }
+  //   })()
+  //   return () => {
+  //     didCancel = true
+  //   }
+  // })
 
   return (
     <>
@@ -27,7 +33,8 @@ const Item = ({ goToSpace, id, name, space }) => {
         key={id}
       >
         <span>{name}</span>
-        <span>{state}</span>
+        {/* <span>{tickets.curretSpace}</span> */}
+        {/* <span>{totalCount}</span> */}
       </div>
       <div className="sub-menu__item-border" />
     </>

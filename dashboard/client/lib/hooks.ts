@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { ToggleModalState, ToggleState, UseModal, UseToggle } from './typings/interfaces'
+import { ToggleModalState, ToggleState, UseModal, UseToggle } from './typings'
 
 export const useToggle: UseToggle = s => {
   const [state, setState] = useState(typeof s === 'boolean' ? s : false)

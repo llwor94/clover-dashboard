@@ -1,4 +1,4 @@
-import * as db from '../../lib/db/helpers'
+import { getTickets } from '../../lib/db/helpers'
 import community from '../../lib/community'
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -16,7 +16,7 @@ const tickets: Remapped<{}> = async (_, { spaceId }) => {
   try {
     const { list, totalCount } = await community.getTickets(spaceId)
 
-    const dbTickets = await db.getTickets()
+    const dbTickets = await getTickets()
 
     if (list && Array.isArray(list)) {
       const tickets = list

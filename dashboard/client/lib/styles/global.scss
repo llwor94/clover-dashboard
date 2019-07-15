@@ -98,4 +98,12 @@ html.theme-transition *:after {
 
 #__next {
   display: flex;
+  position: absolute;
+  width: 100vw;
+  z-index: 1;
+}
+
+#__next-modal {
+  @extend #__next;
+  z-index: 99;
 }

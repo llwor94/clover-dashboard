@@ -35,7 +35,7 @@ const OpenIcon = {
     </svg>
   ),
   name: 'open',
-  type: 'modal__full'
+  type: 'full'
 }
 
 export default OpenIcon
