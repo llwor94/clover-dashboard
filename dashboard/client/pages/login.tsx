@@ -9,18 +9,20 @@ const Login = ({ query }) => {
   const [user, setUser] = React.useState()
 
   React.useEffect(() => {
-    const isBrowser = typeof window !== undefined
+    let ignore = false;
+    const isBrowser = typeof window !== 'undefined'
 
     if (isBrowser) {
       ;(async () => {
         try {
           const { data } = await auth(query.id_token)
-          setUser(data.auth)
+          if (!ignore) setUser(data.auth)
         } catch (e) {
           console.error(e)
         }
       })()
     }
+    return () => { ignore = true; }
   }, [])
 
   React.useEffect(() => {
