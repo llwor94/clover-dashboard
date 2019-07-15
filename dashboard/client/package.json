@@ -27,7 +27,6 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-onclickoutside": "^6.8.0",
-    "react-transition-group": "^4.2.0",
     "url-loader": "^2.0.1",
     "webpack": "^4.35.2"
   },
