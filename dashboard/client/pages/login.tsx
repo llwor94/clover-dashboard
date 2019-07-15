@@ -9,7 +9,7 @@ const Login = ({ query }) => {
   const [user, setUser] = React.useState()
 
   React.useEffect(() => {
-    let ignore = false;
+    let ignore = false
     const isBrowser = typeof window !== 'undefined'
 
     if (isBrowser) {
@@ -22,7 +22,9 @@ const Login = ({ query }) => {
         }
       })()
     }
-    return () => { ignore = true; }
+    return () => {
+      ignore = true
+    }
   }, [])
 
   React.useEffect(() => {
