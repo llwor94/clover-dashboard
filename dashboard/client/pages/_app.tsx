@@ -6,7 +6,6 @@ import { Provider } from '../lib/store'
 import '../lib/styles/global.scss'
 import '../lib/styles/reset.scss'
 
-
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {} as any

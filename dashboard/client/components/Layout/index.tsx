@@ -4,9 +4,9 @@ import Sidebar from '../Sidebar'
 
 import './styles.scss'
 
-const Layout = ({ children, user }) => (
+const Layout = ({ children }) => (
   <div className="layout">
-    <Sidebar user={user} />
+    <Sidebar />
     {children}
   </div>
 )
