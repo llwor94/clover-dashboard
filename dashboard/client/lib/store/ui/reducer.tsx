@@ -3,7 +3,7 @@ import { UIAction, UIState } from '../../typings'
 export const COLLAPSE_SUBMENU = 'COLLAPSE_SUBMENU'
 
 export const initialUIState: UIState = {
-  submenu: true
+  submenu: false
 }
 
 export const uiReducer = (state = initialUIState, action: UIAction) => {

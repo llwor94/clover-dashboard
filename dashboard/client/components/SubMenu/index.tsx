@@ -9,7 +9,7 @@ const SubMenu = ({ spaces, space }) => {
   const goToSpace = (id: string) => (_: MouseEvent) =>
     Router.push({ pathname: '/tickets', query: { space: id } })
 
-  if (typeof window !== 'undefined') Router.prefetch('/tickets?space=' + space)
+  Router.prefetch('/tickets?space=' + space)
 
   const ignoredSpaces = new Set([8, 9, 24]) // { 8: Default, 9: Help, 24: Ideas & Feedback }
   const spacesList =
