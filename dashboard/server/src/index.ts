@@ -13,6 +13,15 @@ const app = express()
 app.use(cookieParser())
 app.use(cors({ credentials: true, origin: env.CLIENT_URL }))
 app.get('/oauth', catchErrors(fetchGoogleProfile))
+app.use('/graphql', (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    res.header('Access-Control-Allow-Credentials', 'true')
+    res.header('Access-Control-Allow-Origin', env.CLIENT_URL)
+    res.sendStatus(200)
+  } else {
+    next()
+  }
+})
 app.use(
   '/graphql',
   graphqlHTTP((req, res) => ({

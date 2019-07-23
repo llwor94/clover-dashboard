@@ -34,7 +34,7 @@ const Login = ({ query }) => {
   return (
     <Layout user={user}>
       <main className="main" id="main__login">
-        {user ? `Hi there little ${user.name.firstName} guy! u made it!` : 'pls wait'}
+        {user ? `Hi there little guy! u made it!` : 'pls wait'}
       </main>
     </Layout>
   )

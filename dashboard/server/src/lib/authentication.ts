@@ -4,7 +4,7 @@ import { OAuth2Client } from 'google-auth-library'
 import { Request, Response } from 'express'
 import { sign } from 'jsonwebtoken'
 
-import db from './db/helpers'
+const db = require('./db/helpers')
 import env from './config'
 import { FetchData, PeopleAPIResponse, TokensResponse } from './types'
 

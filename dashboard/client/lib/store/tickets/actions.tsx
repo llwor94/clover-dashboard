@@ -7,22 +7,23 @@ import {
   GET_TICKETS_START,
   GET_TICKETS_SUCCESS
 } from './'
-import { getSpaces as getSpacesQry, getTickets as getTicketsQry } from '../../gql/query'
+import { getTickets as getTicketsQry } from '../../gql/query'
 import { TEMP_ADMINS } from '../../temp'
 import { ITicket } from '../../typings'
 
 export const getSpaces = async dispatch => {
   dispatch({ type: GET_SPACES_START })
   try {
-    const {
-      data: { spaces }
-    } = await getSpacesQry()
-    // console.log(spaces)
+    // const {
+    //   data: { spaces }
+    // } = await getSpacesQry()
+    // // console.log(spaces)
+
     dispatch({
-      type: GET_SPACES_SUCCESS,
-      spaces
+      type: GET_SPACES_SUCCESS
+      // spaces
     })
-    return spaces
+    // return spaces
   } catch (e) {
     dispatch({ type: GET_SPACES_FAIL, e })
   }

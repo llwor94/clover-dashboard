@@ -1,46 +1,56 @@
-import React, { useEffect } from 'react'
-
+import React, { createContext, useEffect, useState } from 'react'
+import { useQuery } from 'react-apollo-hooks'
+import { GET_TICKET_QUERY } from '../lib/gql/query'
 import { Filter, Header, Layout, SubMenu, Ticket, TicketsHeader } from '../components'
-import { getSpaces, getTickets, useAppState, useUIState } from '../lib/store'
 import { ITicket } from '../lib/typings'
+import Spaces from '../lib/spaceCtx'
 import clsx from 'clsx'
 
-const Tickets = ({ query }) => {
-  const [
-    {
-      tickets: { spaces, spacesLoading, tickets, ticketsLoading }
-    },
-    dispatch
-  ] = useAppState()
-  const [{ submenu }, _] = useUIState()
+import withAuth from '../lib/withAuth'
 
-  useEffect(() => {
-    getSpaces(dispatch)
-  }, [])
+export const HoveredCtx = createContext([undefined, (hover: number | undefined) => {}])
+export const SidebarCtx = createContext([true, (showing: boolean) => {}])
 
-  useEffect(() => {
-    if (query.space) getTickets(dispatch, query.space)
-  }, [query.space])
-
-  const ticketsList = tickets && tickets.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
-
-  if (tickets) {
-    return (
-      <Layout>
-        {spacesLoading || <SubMenu spaces={spaces} space={query.space} />}
-        <main className={clsx('main', submenu && 'collapsed')}>
-          <Header name={'none'} />
-          <Filter />
-          <TicketsHeader />
-          {ticketsLoading || <div className="content">{ticketsList}</div>}
-        </main>
-      </Layout>
-    )
-  } else {
-    return null
-  }
+type TicketsProps = {
+  query?: { space?: string }
+  user?: any
 }
 
-Tickets.getInitialProps = ({ query }) => ({ query })
+const Tickets = ({ query, user }: TicketsProps) => {
+  const [tickets, setTickets] = useState([])
+  const [hoveredTicket, setHoveredTicket] = useState()
+  const [sidebarShowing, setSidebarShowing] = useState(true)
 
-export default Tickets
+  const { data } = useQuery(GET_TICKET_QUERY, {
+    variables: { spaceId: query && query.space && parseInt(query.space) }
+  })
+
+  useEffect(() => {
+    if (data && data.tickets) {
+      setTickets(data.tickets.tickets)
+    }
+  }, [data])
+
+  const ticketsList =
+    tickets.length && tickets.map((t: ITicket) => <Ticket key={t.id} ticket={t} />)
+
+  return (
+    <Layout user={user}>
+      <Spaces>
+        <SidebarCtx.Provider value={[sidebarShowing, setSidebarShowing]}>
+          <SubMenu space={query && query.space} />
+          <main className={clsx('main', !sidebarShowing && 'collapsed')}>
+            <Header />
+            <Filter />
+            <TicketsHeader />
+            <HoveredCtx.Provider value={[hoveredTicket, setHoveredTicket]}>
+              {ticketsList || <div className="content">{ticketsList}</div>}
+            </HoveredCtx.Provider>
+          </main>
+        </SidebarCtx.Provider>
+      </Spaces>
+    </Layout>
+  )
+}
+
+export default withAuth(Tickets)

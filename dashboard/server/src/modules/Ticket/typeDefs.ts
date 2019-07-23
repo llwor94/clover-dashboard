@@ -7,6 +7,7 @@ const typeDefs = `
     assignedTo: Admin
     author: User
     topics: [Topic]
+    space: Space
   }
 
   type TicketsResponse {
