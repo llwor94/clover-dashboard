@@ -1,6 +1,5 @@
 import { sign, verify } from 'jsonwebtoken'
-
-import { assignAdmin } from '../../lib/db/helpers'
+const { assignAdminToTicket } = require('../../lib/db/helpers')
 import env from '../../lib/config'
 import { fetchUserInformation } from '../../lib/authentication'
 
@@ -38,7 +37,7 @@ const auth = async (_, { idToken }, { res }) => {
 }
 
 const assignAdmin = async (_, { adminId, ticketId }) => {
-  const [ticket] = await assignAdmin(adminId, ticketId)
+  const [ticket] = await assignAdminToTicket(adminId, ticketId)
   console.info(ticket)
   // do we want to return a ticket or wat, d00d?
   return 'yay'

@@ -1,4 +1,4 @@
-import { getTickets } from '../../lib/db/helpers'
+const { getTickets } = require('../../lib/db/helpers')
 import community from '../../lib/community'
 import { GraphQLResolveInfo } from 'graphql'
 
@@ -30,6 +30,9 @@ const tickets: Remapped<{}> = async (_, { spaceId }) => {
             body: curr.body,
             createdAt: curr.creationDate,
             author: curr.author,
+            space: {
+              id: curr.primaryContainerId
+            },
             topics: curr.topics.map(({ id, name }) => ({ id, name }))
           }
           if (dbTicket) {

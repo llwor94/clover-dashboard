@@ -1,6 +1,6 @@
 const db = require('./config')
 
-const helperFns = {
+module.exports = {
   isLoggedIn: id =>
     db('Admin')
       .where('id', id)
@@ -13,7 +13,7 @@ const helperFns = {
       .insert({ google_id })
       .returning('*'),
 
-  assignAdmin: (adminId, ticketId) =>
+  assignAdminToTicket: (adminId, ticketId) =>
     db('Ticket')
       .insert({ external_id: ticketId, assigned_to_id: adminId })
       .returning('*'),
@@ -24,5 +24,3 @@ const helperFns = {
       .returning('*')
       .first()
 }
-
-module.exports = helperFns

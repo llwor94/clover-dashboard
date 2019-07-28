@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, { useContext } from 'react'
 
 import CheckboxIcon from './CheckboxIcon'
 import Details from './Details'
@@ -7,7 +7,7 @@ import EmptyCheckboxIcon from './EmptyCheckboxIcon'
 import Menu from './Menu'
 import UserImage from './UserImage'
 
-import { useToggle } from '../../lib/hooks'
+import { HoveredCtx } from '../../pages/tickets'
 import { TOGGLE_TICKET, useAppState } from '../../lib/store'
 
 import './styles.scss'
@@ -38,16 +38,16 @@ const CheckboxOrImg = ({ entered, ticket }) => {
 }
 
 const Ticket = ({ ticket }) => {
-  const { state, toggleState } = useToggle()
+  const [hovering, setHovering] = useContext(HoveredCtx)
 
   return (
     <div
-      className={clsx('ticket', state || ticket.selected)}
-      onMouseEnter={toggleState(true)}
-      onMouseLeave={toggleState(false)}
+      className={clsx('ticket', hovering === ticket.id || ticket.selected)}
+      onMouseEnter={() => setHovering && setHovering(ticket.id)}
+      onMouseLeave={() => setHovering && setHovering(undefined)}
     >
-      <CheckboxOrImg entered={state} ticket={ticket} />
-      {!state ? <Details {...ticket} /> : <Menu />}
+      <CheckboxOrImg entered={hovering === ticket.id} ticket={ticket} />
+      {hovering === ticket.id ? <Menu /> : <Details {...ticket} />}
     </div>
   )
 }
