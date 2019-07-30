@@ -3,7 +3,7 @@ import React from 'react'
 
 // import { GET_CURRENT_SPACE, useUIState } from '../../lib/store'
 
-const Item = ({ goToSpace, id, name, space }) => {
+const Item = ({ goToSpace, currentSpace, space }) => {
   // const [{ tickets }, dispatch] = useUIState()
 
   // useEffect(() => {
@@ -28,13 +28,13 @@ const Item = ({ goToSpace, id, name, space }) => {
   return (
     <>
       <div
-        onClick={goToSpace(id)}
-        className={clsx('sub-menu__items', parseInt(space, 10) === id && 'selected')}
-        key={id}
+        onClick={goToSpace(space.id)}
+        className={clsx('sub-menu__items', parseInt(currentSpace, 10) === space.id && 'selected')}
+        key={space.id}
       >
-        <span>{name}</span>
+        <span>{space.name}</span>
         {/* <span>{tickets.curretSpace}</span> */}
-        {/* <span>{totalCount}</span> */}
+        <span>{space.totalCount}</span>
       </div>
       <div className="sub-menu__item-border" />
     </>
