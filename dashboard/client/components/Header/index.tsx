@@ -7,14 +7,14 @@ import { SpacesCtx } from '../../lib/spaceCtx'
 import './styles.scss'
 
 const Header = () => {
-  const [showing, setShowing] = useContext(SidebarCtx)
+  const {sidebarShowing, setSidebarShowing} = useContext(SidebarCtx)
   const { currentSpace } = useContext(SpacesCtx)
 
   return (
     <header>
       <div
-        className={clsx('arrows', !showing && 'collapsed')}
-        onClick={() => typeof setShowing === 'function' && setShowing(!showing)}
+        className={clsx('arrows', !sidebarShowing && 'collapsed')}
+        onClick={() => typeof setSidebarShowing === 'function' && setSidebarShowing(!sidebarShowing)}
       >
         <ArrowLeft />
         <ArrowLeft />

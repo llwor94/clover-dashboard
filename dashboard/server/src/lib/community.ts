@@ -29,8 +29,20 @@ export default {
   getSpaces: async () => {
     try {
       const { data } = await server({ method: 'get', url: '/space.json' })
-
-      return data && Array.isArray(data.list) ? data.list : []
+      return Promise.all(
+        data.list.map(async space => {
+          const { data } = await server({
+            method: 'get',
+            url: '/question.json',
+            params: {
+              sort: 'newest',
+              spaceId: space.id,
+              unanswered: true
+            }
+          })
+          return { id: space.id, name: space.name, totalCount: data.totalCount }
+        })
+      )
     } catch (e) {
       console.error(e.message, '\n🤬 something went wrong getting spaces')
     }

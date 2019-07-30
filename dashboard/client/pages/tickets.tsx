@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useState, Dispatch } from 'react'
 import { useQuery } from 'react-apollo-hooks'
 import { GET_TICKET_QUERY } from '../lib/gql/query'
 import { Filter, Header, Layout, SubMenu, Ticket, TicketsHeader } from '../components'
@@ -8,8 +8,18 @@ import clsx from 'clsx'
 
 import withAuth from '../lib/withAuth'
 
-export const HoveredCtx = createContext([undefined, (hover: number | undefined) => {}])
-export const SidebarCtx = createContext([true, (showing: boolean) => {}])
+type HoveredContextProps = {
+  hoveredTicket?: any;
+  setHoveredTicket?: Dispatch<any>
+}
+
+type SidebarContextProps = {
+  sidebarShowing?: boolean;
+  setSidebarShowing?: Dispatch<boolean>
+}
+
+export const HoveredCtx = createContext<HoveredContextProps>({})
+export const SidebarCtx = createContext<SidebarContextProps>({})
 
 type TicketsProps = {
   query?: { space?: string }
@@ -22,7 +32,9 @@ const Tickets = ({ query, user }: TicketsProps) => {
   const [sidebarShowing, setSidebarShowing] = useState(true)
 
   const { data } = useQuery(GET_TICKET_QUERY, {
-    variables: { spaceId: query && query.space && parseInt(query.space) }
+    variables: {
+      spaceId: query && query.space && parseInt(query.space, 10)
+    }
   })
 
   useEffect(() => {
@@ -37,13 +49,13 @@ const Tickets = ({ query, user }: TicketsProps) => {
   return (
     <Layout user={user}>
       <Spaces>
-        <SidebarCtx.Provider value={[sidebarShowing, setSidebarShowing]}>
+        <SidebarCtx.Provider value={{sidebarShowing, setSidebarShowing}}>
           <SubMenu space={query && query.space} />
           <main className={clsx('main', !sidebarShowing && 'collapsed')}>
             <Header />
             <Filter />
             <TicketsHeader />
-            <HoveredCtx.Provider value={[hoveredTicket, setHoveredTicket]}>
+            <HoveredCtx.Provider value={{hoveredTicket, setHoveredTicket}}>
               {ticketsList || <div className="content">{ticketsList}</div>}
             </HoveredCtx.Provider>
           </main>

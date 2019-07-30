@@ -38,16 +38,16 @@ const CheckboxOrImg = ({ entered, ticket }) => {
 }
 
 const Ticket = ({ ticket }) => {
-  const [hovering, setHovering] = useContext(HoveredCtx)
+  const {hoveredTicket, setHoveredTicket} = useContext(HoveredCtx)
 
   return (
     <div
-      className={clsx('ticket', hovering === ticket.id || ticket.selected)}
-      onMouseEnter={() => setHovering && setHovering(ticket.id)}
-      onMouseLeave={() => setHovering && setHovering(undefined)}
+      className={clsx('ticket', hoveredTicket === ticket.id || ticket.selected)}
+      onMouseEnter={() => setHoveredTicket && setHoveredTicket(ticket.id)}
+      onMouseLeave={() => setHoveredTicket && setHoveredTicket(undefined)}
     >
-      <CheckboxOrImg entered={hovering === ticket.id} ticket={ticket} />
-      {hovering === ticket.id ? <Menu /> : <Details {...ticket} />}
+      <CheckboxOrImg entered={hoveredTicket === ticket.id} ticket={ticket} />
+      {hoveredTicket === ticket.id ? <Menu /> : <Details {...ticket} />}
     </div>
   )
 }

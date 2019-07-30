@@ -19,6 +19,7 @@ export const GET_SPACES_QUERY = gql`
     spaces {
       id
       name
+      totalCount
     }
   }
 `
